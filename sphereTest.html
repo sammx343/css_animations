@@ -1,0 +1,174 @@
+<html>
+<style>
+    .sphere {
+        position: relative;
+        transform-style: preserve-3d;
+    }
+
+    .sphere_ring {
+        width: 200px;
+        height: 200px;
+        border: 1px solid blueviolet;
+        position: absolute;
+        border-radius: 50%;
+        transform-style: preserve-3d;
+        transform: rotateY(10deg);
+    }
+
+    .sphere__center {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 10%;
+        height: 10%;
+        background-color: #e66465;
+        border-radius: 50%;
+    }
+
+    .sphere_face {
+        background: blue;
+        position: absolute;
+        transform-origin: top;
+        border: 2px solid black;
+        box-sizing: border-box;
+    }
+
+    .sphere_face_1 {
+        right: 192.39px;
+        bottom: 138.27px;
+        transform: translate(0, 100%) rotateZ(11.25deg);
+    }
+
+    .sphere_face_2 {
+        right: 170.71px;
+        bottom: 170.71px;
+        transform: translate(0, 100%) rotateZ(33.75deg);
+    }
+
+    .sphere_face_3 {
+        right: 138.27px;
+        bottom: 192.39px;
+        transform: translate(0, 100%) rotateZ(56.25deg);
+    }
+
+    .sphere_face_4 {
+        right: 100px;
+        bottom: 200px;
+        transform: translate(0, 100%) rotateZ(78.75deg);
+    }
+</style>
+
+<body>
+    <div class="sphere">
+    </div>
+</body>
+<script>
+    const sphere = document.querySelector(".sphere");
+    const sphereWidth = 200;
+    const sphereHeight = 200;
+    const facesNumber = 18;
+    const ringsNumber = 1;
+
+    setSphere();
+
+    function setSphere(){
+        sphere.style.width = sphereWidth;
+        sphere.style.height = sphereHeight;
+        createRings();
+    }
+
+    function createRings(){
+        for(let index = 0; index < ringsNumber; index++){
+            const ring = document.createElement("div");
+            ring.classList.add("sphere_ring");
+            ring.classList.add(`sphere_ring--${index}`);
+            ring.style.transform = `rotateY(${(180/ringsNumber)*index}deg)`;
+            sphere.appendChild(ring);
+            calculateFaces(90, ring);
+        }
+    }
+
+    function calculateFaces(yDegrees, sphereRing) {
+        const angle = 360 / facesNumber; // 22.5° por div
+        for (let index = 0; index < facesNumber; index++) {
+            // Convertir el ángulo a radianes: angle * index * π / 180
+            const theta = angle * index * Math.PI / 180;
+
+            // Calcular coordenadas: x = centro + r * cos(θ), y = centro - r * sin(θ)
+            const rightPosition = sphereWidth / 2 + (Math.cos(theta) * sphereWidth / 2);
+            const bottomPosition = sphereHeight / 2 - (Math.sin(theta) * sphereHeight / 2);
+
+            // Calcular ángulo intermedio para la rotación (en grados)
+            const rotationAngle = 360 + (angle / 2) - (angle * index);
+
+            generateFace(rightPosition, bottomPosition, rotationAngle, yDegrees, sphereRing);
+        }
+    }
+
+    function generateFace(rightPosition, bottomPosition, rotationAngle, yDegrees, sphereRing) {
+        const face = document.createElement("div");
+        face.classList.add("sphere_face");
+
+        // Ajustar left y top, restando 0.5px para centrar el div de 1px de ancho
+        face.style.height = Math.PI * sphereHeight / facesNumber;
+        face.style.width = Math.PI * sphereWidth / facesNumber;
+        face.style.left = (rightPosition - 0.5) + "px";
+        face.style.top = bottomPosition + "px"; // No ajustamos top porque transform-origin: top
+
+        face.style.transform = `translate(-50%) rotateZ(${rotationAngle}deg) rotateY(90deg)`;
+
+        sphereRing.appendChild(face);
+    }
+
+    let isMouseDown = false;
+    let mousePos = {
+        x: 0,
+        y: 0,
+    }
+    let lastMouseX = 0;
+    let lastMouseY = 0;
+    let sumX = 0;
+    let sumY = 0;
+    function handleHold() {
+        if (isMouseDown) {
+            console.log(mousePos.x, mousePos.y);
+            requestAnimationFrame(handleHold); // Continue looping
+        }
+    }
+
+    document.addEventListener('mousemove', (event) => {
+        if (event.buttons === 1) {
+            const currentMouseX = event.clientX
+            const currentMouseY = event.clientY
+
+            if (currentMouseX > lastMouseX) {
+                sumX+=2;
+            } else if (currentMouseX < lastMouseX) {
+                sumX-=2;
+            }
+
+            if (currentMouseY > lastMouseY) {
+                sumY-=2;
+            } else if (currentMouseY < lastMouseY) {
+                sumY+=2;
+            }
+
+            lastMouseX = currentMouseX;
+            lastMouseY = currentMouseY;
+            sphere.style.transform = `rotateX(${sumY}deg) rotateY(${sumX}deg)`;
+        }
+    });
+
+    document.addEventListener('mousedown', (event) => {
+        mousePos.x = event.screenX;
+        mousePos.y = event.screenY;
+        isMouseDown = true;
+    });
+
+    document.addEventListener('mouseup', () => {
+        isMouseDown = false;
+    });
+</script>
+
+</html>
