@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .main {
+            height: 10000px;
+            background: linear-gradient(#23ace3, #87cfd3, #d3e7c7, #eeb5b2, #a493b7, #63539d, #201732);
+        }
+
+        .world {
+            position: fixed;
+            width: 100%;
+            height: 100vh;
+            perspective: 500px;
+            transform-style: preserve-3d;
+        }
+
+        .floor {
+            border: 2px solid red;
+            width: 100%;
+            height: 5000px;
+            transform-origin: bottom;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            transform: rotateX(90deg) translateY(0px);
+            transform-style: preserve-3d;
+        }
+
+        .cube {
+            position: absolute;
+            top: 50%;
+            right: 50%;
+            width: 100px;
+            height: 100px;
+            transform-style: preserve-3d;
+        }
+
+        .cube__face {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            backface-visibility: inherit;
+            font-size: 60px;
+            color: white;
+        }
+
+        .cube__face--1 {
+            background: rgba(90, 90, 90, 0.7);
+        }
+
+        .cube__face--2 {
+            background: rgba(0, 210, 0, 0.7);
+        }
+
+        .cube__face--3 {
+            background: rgba(210, 0, 0, 0.7);
+        }
+
+        .cube__face--4 {
+            background: rgba(0, 0, 210, 0.7);
+        }
+
+        .cube__face--5 {
+            background: rgba(210, 210, 0, 0.7);
+        }
+
+        .cube__face--6 {
+            background: rgba(210, 0, 210, 0.7);
+        }
+    </style>
+</head>
+
+<body>
+    <main class="main">
+        <div class="world">
+            <div class="floor">
+            </div>
+        </div>
+    </main>
+</body>
+<script>
+    const cuboid = document.querySelector(".cube");
+    const floor = document.querySelector(".floor");
+    const cubeWidth = 400;
+    const cubeHeight = 400;
+    const cubeLong = 600;
+    init();
+
+    function init() {
+        createBuildings();
+        scrollListener();
+    }
+
+    function scrollListener() {
+        window.onscroll = function () {
+            console.log(window.scrollY)
+            floor.style.transform = `rotateX(90deg) translateY(${window.scrollY}px)`;
+        };
+    }
+
+    function createBuildings() {
+        for (let index = 0; index < 30; index++) {
+            const building = document.createElement("div");
+            building.classList.add("building");
+            building.classList.add("cube");
+            building.style.top = `${100 - (index * 10)}%`;
+            building.style.right = `${Math.floor(Math.random() * 100)}%`;
+            setCuboid(building);
+            floor.appendChild(building);
+        }
+    }
+
+    function setCuboid(cuboid) {
+        for (let index = 0; index < 6; index++) {
+            const face = document.createElement("div");
+            face.classList.add("cube__face");
+            face.classList.add(`cube__face--${index + 1}`);
+
+            if (index === 0) {
+                face.style.transform = `translateZ(${cubeWidth / 2}px)`;
+                face.style.width = `${cubeLong}px`;
+                face.style.height = `${cubeHeight}px`;
+            }
+            if (index === 1) {
+                face.style.transform = `rotateY(180deg) translateZ(${cubeWidth / 2}px)`;
+                face.style.width = `${cubeLong}px`;
+                face.style.height = `${cubeHeight}px`;
+            }
+            if (index === 2) {
+                face.style.transform = `rotateY(90deg) translateZ(-${cubeWidth / 2}px)`;
+                face.style.width = `${cubeWidth}px`;
+                face.style.height = `${cubeHeight}px`;
+            }
+            if (index === 3) {
+                let sum = cubeLong - cubeWidth;
+                face.style.transform = `rotateY(90deg) translateZ(${cubeWidth / 2 + sum}PX)`;
+                face.style.width = `${cubeWidth}px`;
+                face.style.height = `${cubeHeight}px`;
+            }
+            if (index === 4) {
+                let sum = cubeHeight - cubeWidth;
+                face.style.width = `${cubeLong}px`;
+                face.style.height = `${cubeWidth}px`;
+                face.style.transform = `rotateX(90deg) translateZ(${cubeWidth / 2}px)`;
+            }
+            if (index === 5) {
+                let sum = cubeHeight - cubeWidth;
+                face.style.width = `${cubeLong}px`;
+                face.style.height = `${cubeWidth}px`;
+                face.style.transform = `rotateX(-90deg) translateZ(${cubeWidth / 2 + sum}px)`;
+            }
+            cuboid.appendChild(face);
+        }
+    }
+</script>
+
+</html>
