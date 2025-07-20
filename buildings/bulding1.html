@@ -100,6 +100,37 @@
                 <input name="cube-color-picker" id="cube-color-picker" type="color" value="#ff7360" />
                 <p id="cube-color-picker-value">#ff7360</p>
             </div>
+            <div class="controls--group">
+                <h3 for="cube-color-picker">Add row:</label>
+                <div class="cube-rows-bars-group">
+                    <label for="row-windows-number">Row windows number:</label>
+                    <input name="row-windows-number" id="row-windows-number" type="range" min="1" max="20"/>
+                    <p id="row-windows-number-value">0</p>
+                </div>
+                <div class="cube-rows-bars-group">
+                    <label for="row-windows-position">Row windows top:</label>
+                    <input name="row-windows-position" id="row-windows-position" type="range" min="0" max="100"/>
+                    <p id="row-windows-position-value">0</p>
+                </div>
+                
+                <div class="cube-rows-bars-group">
+                    <label for="row-windows-width">Row windows width:</label>
+                    <input name="row-windows-width" id="row-windows-width" type="range" min="0" max="100"/>
+                    <p id="row-windows-width-value">0</p>
+                </div>
+                
+                <div class="cube-rows-bars-group">
+                    <label for="row-windows-height">Row windows height:</label>
+                    <input name="row-windows-height" id="row-windows-height" type="range" min="0" max="100"/>
+                    <p id="row-windows-height-value">0</p>
+                </div>
+                
+                <div class="cube-rows-bars-group">
+                    <label for="row-windows-gap">Row windows gap:</label>
+                    <input name="row-windows-gap" id="row-windows-gap" type="range" min="0" max="100"/>
+                    <p id="row-windows-gap-value">0</p>
+                </div>
+            </div>
         </div>
         <div class="scene">
             <div class="cube">
@@ -130,9 +161,32 @@
             colorPickerElement: document.querySelector("#cube-color-picker"),
             colorPickerValueElement: document.querySelector("#cube-color-picker-value"),
             hex: "#ff7360"
+        },
+        windows: {
+            rowsBarSelector: document.querySelector("#cube-rows-bars-group"),
+            rows: [
+                {
+                    id: 1,
+                    number: 5,
+                    color: "black",
+                    top: "50%",
+                    windowWidth: "100%",
+                    windowHeight: "100%",
+                    gap: "5%"
+                },
+                {
+                    id: 2,
+                    number: 6,
+                    color: "black",
+                    top: "80%",
+                    windowWidth: "10%",
+                    windowHeight: "10%",
+                    gap: "10%",
+                }
+            ],
         }
     }
-    
+    let selectedRow = null;
     let cubeFaces = [];
     let allowedTargets = [cube, scene];
 
@@ -150,6 +204,16 @@
         setRangeListener(cubeProperties.height);
         setRangeListener(cubeProperties.long);
         setColorPickerListener();
+        createWindows();
+    }
+
+    function createWindows(){
+        for(let faceIndex = 0; faceIndex < cubeFaces.length; faceIndex++){
+            for(let windowsIndex = 0; windowsIndex < cubeProperties.windows.rows.length; windowsIndex++){
+                const row = cubeProperties.windows.rows[windowsIndex];
+                setWindowsRow(cubeFaces[faceIndex], row);
+            }
+        }
     }
 
     function setColorPickerListener(){
@@ -159,7 +223,7 @@
                 const face = cubeFaces[index];
                 face.style.background = hex;
             }
-            colorPickerValueElement.textContent = hex;
+            cubeProperties.color.colorPickerValueElement.textContent = hex;
         }); 
     }
 
@@ -178,8 +242,46 @@
         });
     }
 
-    function setWindows(faces) {
+    function setWindowsRow(face, row){
+        const windowsRow = document.createElement("div");
+        face.appendChild(windowsRow);
+        windowsRow.classList.add("window-row");
+        windowsRow.addEventListener("click", event => {
+            selectedRow = event.target;
+        });
+        windowsRow.style.width = "100%";
+        windowsRow.style.height = "10%";
+        windowsRow.style.position = "absolute";
+        windowsRow.style.top = `${row.top}`;
+        windowsRow.style.left = `50%`;
+        windowsRow.style.gap = `${row.gap}`
+        windowsRow.style.transform = `translate(-50%,-50%)`;
+        windowsRow.style.display = "flex";
+        windowsRow.style.justifyContent = "space-around";
 
+        for(let index = 0; index < row.number; index++){
+            const window = document.createElement("div");
+            windowsRow.appendChild(window);
+            window.classList.add("window");
+            window.classList.add("individual-window");
+            window.style.backgroundColor = 'black';
+            window.style.width = `${row.windowWidth}`;
+            window.style.height = `${row.windowHeight}`;
+        }
+    }
+
+    function createWindow(parent, top = `50%`, left = `50%`) {
+        const window = document.createElement("div");
+        parent.appendChild(window);
+        window.classList.add("window");
+        window.classList.add("individual-window");
+        window.style.backgroundColor = 'black';
+        window.style.width = `50px`;
+        window.style.height = `50px`;
+        window.style.position = "absolute";
+        window.style.top = top;
+        window.style.left = left;
+        window.style.transform = `translate(-50%,-50%)`;
     }
 
     function setCuboid() {
