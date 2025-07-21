@@ -71,6 +71,6 @@ const faceStyle = computed(() => {
     justify-content: center;
     position: absolute;
     backface-visibility: inherit;
-    border: 1px solid #3e388f;
+    border: 2px solid black;
 }
 </style>

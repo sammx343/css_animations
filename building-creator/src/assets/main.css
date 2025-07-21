@@ -4,13 +4,15 @@
   z-index: 1;
   position: fixed;
   top: 0;
-  right: 0;
-  width: 20%;
-  max-width: 200px;
+  left: 0;
+  width: 30%;
+  max-width: 400px;
   padding: 10px;
   background: #ff7360;
   border: 1px solid black;
   user-select: none;
+  resize: horizontal;
+  overflow: hidden;
 }
 
 .controls p {
@@ -27,4 +29,24 @@
 .controls--group {
   display: flex;
   flex-direction: column;
+}
+
+.d-flex {
+  display: flex;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
+.justify-around {
+  justify-content: space-around;
+}
+
+.justify-evenly {
+  justify-content: space-evenly;
+}
+
+.justify-center {
+  justify-content: center;
 }

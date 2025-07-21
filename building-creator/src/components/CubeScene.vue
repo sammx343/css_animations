@@ -77,6 +77,8 @@ onMounted(() => {
 }
 
 .scene-container {
+    position: relative;
+    left: 100px;
     transform: scale(1);
     width: 100%;
     height: 100%;

@@ -18,9 +18,9 @@ import type { Cube } from '@/types/cube';
 import type { Row } from '@/types/row';
 
 const cubeProperties = reactive<Cube>({
-  width: 400,
-  height: 500,
-  long: 600,
+  width: 300,
+  height: 300,
+  long: 300,
   color: { hex: '#ff7360' },
   rows: [
     {

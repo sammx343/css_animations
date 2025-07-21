@@ -71,7 +71,6 @@ const openRowControl = () => {
 };
 
 const updateZoom = (value: string) => {
-    console.log(value);
     emit('update:zoom', value);
 }
 </script>

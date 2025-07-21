@@ -5,3 +5,7 @@
   margin: 0;
   font-weight: normal;
 }
+
+body {
+  overflow-x: hidden;
+}

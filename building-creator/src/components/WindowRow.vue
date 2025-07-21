@@ -28,7 +28,7 @@ const rowStyle = computed(() => ({
     gap: props.row.gap,
     transform: 'translate(-50%, -50%)',
     display: 'flex',
-    justifyContent: 'space-around',
+    justifyContent: 'center',
 }));
 
 const windowStyle = computed(() => ({
