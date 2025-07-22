@@ -21,20 +21,21 @@ const props = defineProps({
 
 const rowStyle = computed(() => ({
     width: '100%',
-    height: props.row.windowHeight,
+    height: '100%',
     position: 'absolute',
     top: props.row.top,
-    left: '50%',
+    left: props.row.left,
     gap: props.row.gap,
-    transform: 'translate(-50%, -50%)',
+    transform: 'translate(0%, 0%)',
     display: 'flex',
-    justifyContent: 'center',
+    flexDirection: props.row.isColumn ? 'column' : 'row',
+    justifyContent: props.row.justifyContent,
 }));
 
 const windowStyle = computed(() => ({
     backgroundColor: props.row.color,
     width: props.row.windowWidth,
-    height: '100%',
+    height: props.row.windowHeight,
 }));
 
 const selectRow = () => {

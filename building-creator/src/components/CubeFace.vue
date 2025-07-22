@@ -41,7 +41,7 @@ const faceStyle = computed(() => {
         style.width = `${long}px`;
         style.height = `${height}px`;
     } else if (index === 2) {
-        style.transform = `rotateY(90deg) translateZ(-${width / 2}px)`;
+        style.transform = `rotateY(-90deg) translateZ(${width / 2}px)`;
         style.width = `${width}px`;
         style.height = `${height}px`;
     } else if (index === 3) {
