@@ -4,11 +4,12 @@
         <h2>Row Controls:</h2>
         <hr>
         <button @click="createRow">Create row</button>
-        <div class="rows-container">
-            <div v-for="(row, index) in props.rows" :key="row.id">
+        <div class="rows-container" ref="rowsContainer">
+            <div class="rows" v-for="(row, index) in props.rows" :key="row.id" ref="items">
                 <hr />
-                <div class="d-flex justify-between">
-                    <p>Row id: {{ row.id }}</p>
+                <div class="d-flex flex-start">
+                    <label>Name: </label>
+                    <input :id="`name-${row.id}`" type="text" v-model="row.name" />
                 </div>
                 <div class="d-flex">
                     <button class="row-button duplicate-row" @click="duplicateRow(row)">
@@ -32,27 +33,33 @@
                     </div>
                     <div class="controls--group">
                         <label :for="`position-top-${row.id}`">Position top: {{ row.top }}</label>
-                        <input :id="`position-top-${row.id}`" type="range" min="0" :max="cubeDimensions.height"
+                        <input :id="`position-top-${row.id}`" type="range" min="0" max="100" step="0.1"
                             :value="parseFloat(row.top)"
-                            @input="updateRow(row.id, 'top', `${($event.target as HTMLInputElement).value}px`)" />
+                            @input="updateRow(row.id, 'top', `${($event.target as HTMLInputElement).value}%`)" />
                     </div>
                     <div class="controls--group">
                         <label :for="`position-left-${row.id}`">Position left: {{ row.left }}</label>
-                        <input :id="`position-left-${row.id}`" type="range" min="0" :max="cubeDimensions.width"
+                        <input :id="`position-left-${row.id}`" type="range" min="0" max="100" step="0.1"
                             :value="parseFloat(row.left)"
-                            @input="updateRow(row.id, 'left', `${($event.target as HTMLInputElement).value}px`)" />
+                            @input="updateRow(row.id, 'left', `${($event.target as HTMLInputElement).value}%`)" />
                     </div>
                     <div class="controls--group">
                         <label :for="`window-width-${row.id}`">Window Width: {{ row.windowWidth }}</label>
-                        <input :id="`window-width-${row.id}`" type="range" min="0" :max="cubeDimensions.width"
+                        <input :id="`window-width-${row.id}`" type="range" min="0" max="100" step="0.1"
                             :value="parseFloat(row.windowWidth)"
-                            @input="updateRow(row.id, 'windowWidth', `${($event.target as HTMLInputElement).value}px`)" />
+                            @input="updateRow(row.id, 'windowWidth', `${($event.target as HTMLInputElement).value}%`)" />
                     </div>
                     <div class="controls--group">
                         <label :for="`window-height-${row.id}`">Window Height: {{ row.windowHeight }}</label>
-                        <input :id="`window-height-${row.id}`" type="range" min="0" :max="cubeDimensions.height"
+                        <input :id="`window-height-${row.id}`" type="range" min="0" max="100" step="0.1"
                             :value="parseFloat(row.windowHeight)"
-                            @input="updateRow(row.id, 'windowHeight', `${($event.target as HTMLInputElement).value}px`)" />
+                            @input="updateRow(row.id, 'windowHeight', `${($event.target as HTMLInputElement).value}%`)" />
+                    </div>
+                    <div class="controls--group">
+                        <label :for="`border-radius-${row.id}`">Border Radius {{ row.borderRadius }}</label>
+                        <input :id="`border-radius-${row.id}`" type="range" min="0" max="50" step="1"
+                            :value="parseFloat(row.borderRadius)"
+                            @input="updateRow(row.id, 'borderRadius', `${($event.target as HTMLInputElement).value}%`)" />
                     </div>
                     <div class="controls--group">
                         <label :for="`gap-${row.id}`">Gap: {{ row.gap }}</label>
@@ -66,7 +73,7 @@
                     </div>
                     <div class="controls--group">
                         <label :for="`justify-content-${row.id}`">Justify Content: {{ row.justifyContent || 'Not set'
-                            }}</label>
+                        }}</label>
                         <select :id="`justify-content-${row.id}`" :value="row.justifyContent"
                             @change="updateRow(row.id, 'justifyContent', ($event.target as HTMLSelectElement).value)">
                             <option value="flex-start">Start</option>
@@ -78,6 +85,12 @@
                         </select>
                     </div>
                     <div class="controls--group">
+                        <label :for="`color-${row.id}`">Window Color: {{ row.color }}</label>
+                        <input :id="`color-${row.id}`" type="color" :value="row.color"
+                            @input="updateRow(row.id, 'color', ($event.target as HTMLInputElement).value)" />
+                    </div>
+                    
+                    <div class="controls--group">
                         <div class="d-flex">
                             <label :for="`is-column-${row.id}`">Is Column: </label>
                             {{ row.isColumn }}
@@ -85,6 +98,7 @@
                                 :value="row.isColumn" />
                         </div>
                     </div>
+                    
                     <div class="controls--group">
                         <label :for="`excluded-faces-${row.id}`">Excluded Faces:</label>
                         <div class="d-flex">
@@ -103,18 +117,19 @@
 
 <script setup lang="ts">
 import type { Row } from '@/types/row';
-import { ref } from 'vue';
+import { nextTick, ref, useTemplateRef, watch } from 'vue';
 import { generateId } from '@/utils/generateId';
+import { useRowStore } from '@/store/rowStore';
+import { storeToRefs } from 'pinia';
 
 const props = defineProps<{
     rows: Row[];
-    cubeDimensions: {
-        width: number,
-        height: number,
-    }
+    selectedRow: Row | undefined;
 }>();
 
 const isRowExpanded = ref(new Array(props.rows.length).fill(false));
+const itemRefs = useTemplateRef('items');
+const rowsContainer = ref(null);
 
 const emit = defineEmits<{
     (e: 'update:isRowControlOpen', value: boolean): void;
@@ -131,6 +146,7 @@ const closeRowControls = () => {
 
 const createRow = () => {
     emit('update:rows', [...props.rows, {
+        name: `Row ${props.rows.length}`,
         id: generateId(),
         number: 4,
         color: 'black',
@@ -140,7 +156,36 @@ const createRow = () => {
         gap: '2%',
         isColumn: false,
         excludedFaces: [5, 6],
+        borderRadius: "0%"
     }]);
+}
+
+watch(() => props.selectedRow, async (value: Row, lastValue: Row) => {
+    isRowExpanded.value = new Array(props.rows.length).fill(false);
+    
+    const selectedRowIndex = props.rows.findIndex( row => value.id === row.id);
+    const selectedRowRef = itemRefs.value[selectedRowIndex];
+
+    const previousSelectedRowIndex = props.rows.findIndex( row => lastValue?.id === row.id);
+    const previosSelectedRowRef = previousSelectedRowIndex? itemRefs.value[previousSelectedRowIndex] : null;
+
+
+    await nextTick();
+    isRowExpanded.value[selectedRowIndex] = true;
+    await nextTick();
+    scrollToTarget(selectedRowRef);
+    handleSelectedRow(selectedRowRef, previosSelectedRowRef);
+});
+
+function scrollToTarget(selectedRowRef: any) {
+    rowsContainer.value.scrollTop = selectedRowRef.offsetTop - selectedRowRef.offsetHeight;
+}
+
+function handleSelectedRow(selectedRowRef: any, lastRowRef: any){
+    if(lastRowRef){
+        lastRowRef.classList.remove("selected");
+    }
+    selectedRowRef.classList.add("selected");
 }
 
 const switchPosition = (index: number, flag: number) => {
@@ -162,7 +207,8 @@ const switchPosition = (index: number, flag: number) => {
 const duplicateRow = (row: Row) => {
     const newRow = {
         ...row,
-        id: generateId()
+        id: generateId(),
+        name: row.name + " duplicated"
     };
 
     emit('update:rows', [...props.rows, newRow]);
@@ -219,6 +265,10 @@ const updateRow = (id: string, key: keyof Row, value: string | number) => {
     padding: 5px 10px;
     font-weight: 600;
     cursor: pointer;
+}
+
+.rows.selected{
+    background: red;
 }
 
 .duplicate-row {
