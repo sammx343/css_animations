@@ -1,4 +1,4 @@
-import type { Row } from './row'
+import type { Grid } from './grid'
 
 export type Cube = {
   width: number
@@ -7,5 +7,5 @@ export type Cube = {
   color: {
     hex: string
   }
-  rows: Row[]
+  grids: Grid[]
 }

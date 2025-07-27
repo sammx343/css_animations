@@ -3,7 +3,7 @@
         <div class="scene-container" :style="cubeContainerStyle" ref="sceneContainerRef">
             <div class="cube" ref="cubeRef" :style="cubeStyle">
                 <CubeFace v-for="(face, index) in cubeFaces" :key="index" :face-index="index"
-                    :cube-properties="cubeProperties" :rows="cubeProperties.rows" />
+                    :cube-properties="cubeProperties" :grids="cubeProperties.grids" />
             </div>
         </div>
     </div>
@@ -12,17 +12,9 @@
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue';
 import CubeFace from './CubeFace.vue';
+import type { Cube } from '@/types/cube';
 
-const props = defineProps({
-    cubeProperties: {
-        type: Object,
-        required: true,
-    },
-    zoom: {
-        type: String,
-        default: "1"
-    }
-});
+const props = defineProps<{ cubeProperties: Cube, zoom: string }>();
 
 const cubeRef = ref(null);
 const sceneRef = ref(null);

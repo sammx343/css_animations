@@ -1,31 +1,22 @@
 <template>
     <div class="cube__face" :class="`cube__face--${faceIndex + 1}`" :style="faceStyle">
-        <template v-for="row in rows">
-            <WindowRow v-if="!row.excludedFaces.includes(faceIndex + 1)" :key="row.id" :row="row"
-                :cube-properties="cubeProperties" />
+        <template v-for="grid in grids">
+            <GridWindows v-if="!grid.excludedFaces.includes(faceIndex + 1)" :key="grid.id" :grid="grid"/>
         </template>
     </div>
 </template>
 
 <script setup lang="ts">
 import { computed } from 'vue';
-import WindowRow from './WindowRow.vue';
+import GridWindows from './GridWindows.vue';
 import { transform } from 'typescript';
-
-const props = defineProps({
-    faceIndex: {
-        type: Number,
-        required: true,
-    },
-    cubeProperties: {
-        type: Object,
-        required: true,
-    },
-    rows: {
-        type: Array,
-        required: true,
-    },
-});
+import type { Grid } from '@/types/grid';
+import type { Cube } from '@/types/cube';
+const props = defineProps<{
+    faceIndex: number,
+    cubeProperties: Cube,
+    grids: Grid[]
+}>();
 
 const faceStyle = computed(() => {
     const { width, long, height } = props.cubeProperties;
