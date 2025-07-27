@@ -12,16 +12,16 @@
                     <input :id="`name-${grid.id}`" type="text" v-model="grid.name" />
                 </div>
                 <div class="d-flex">
-                    <button class="grid-button duplicate-grid" @click="duplicategrid(grid)">
+                    <button class="grid-button duplicate-grid" @click="duplicateGrid(grid)">
                         <v-icon name="hi-duplicate" />Duplicate</button>
-                    <button class="grid-button delete-grid" @click="deletegrid(grid.id)">
+                    <button class="grid-button delete-grid" @click="deleteGrid(grid.id)">
                         <v-icon name="md-deleteforever-outlined"></v-icon> Delete
                     </button>
-                    <button class="grid-button">
-                        <v-icon name="bi-arrow-up" style="fill: black;" @click="switchPosition(index, -1)" />
+                    <button class="grid-button" @click="switchPosition(index, -1)">
+                        <v-icon name="bi-arrow-up" style="fill: black;"  />
                     </button>
-                    <button class="grid-button">
-                        <v-icon name="bi-arrow-down" style="fill: black;" @click="switchPosition(index, 1)" />
+                    <button class="grid-button" @click="switchPosition(index, 1)">
+                        <v-icon name="bi-arrow-down" style="fill: black;"/>
                     </button>
                 </div>
                 <p class="controls-expandable-icon" @click="changeExpand(index)">V</p>
@@ -37,7 +37,9 @@
                             @input="updateGrid(grid.id, 'columns', ($event.target as HTMLInputElement).value)" />
                     </div>
                     <div class="controls--group">
-                        <label>Active windows: {{ grid.columns }}</label>
+                        <div class="d-flex">
+                            <label>Active windows: {{ grid.columns }}</label>
+                        </div>
                         <div :style="{
                             display: 'grid',
                             gridTemplateColumns: `repeat(${grid.columns}, 1fr)`,
@@ -49,6 +51,8 @@
                                     v-model="grid.excludedWindows">
                             </div>
                         </div>
+                        <button class="grid-button reverse-grid" @click="reverseSelectedWindows(grid)">
+                            <v-icon name="md-flipcameraandroid" ></v-icon> Reverse</button>
                     </div>
                     <div class="controls--group">
                         <label :for="`position-top-${grid.id}`">Position top: {{ grid.top }}</label>
@@ -74,7 +78,6 @@
                             :value="parseFloat(grid.windowHeight)"
                             @input="updateGrid(grid.id, 'windowHeight', `${($event.target as HTMLInputElement).value}%`)" />
                     </div>
-
                     <div class="controls--group">
                         <label :for="`window-width-${grid.id}`">Grid Width: {{ grid.gridWidth }}</label>
                         <input :id="`window-width-${grid.id}`" type="range" min="0" max="100" step="0.1"
@@ -111,30 +114,19 @@
                             @input="updateGrid(grid.id, 'color', ($event.target as HTMLInputElement).value)" />
                     </div>
                     <div class="controls--group">
-                        <label :for="`justify-content-${grid.id}`">Justify Content: {{ grid.justifyContent || 'Not set'
-                        }}</label>
-                        <select :id="`justify-content-${grid.id}`" :value="grid.justifyContent"
-                            @change="updateGrid(grid.id, 'justifyContent', ($event.target as HTMLSelectElement).value)">
-                            <option value="flex-start">Start</option>
-                            <option value="flex-end">End</option>
-                            <option value="center">Center</option>
-                            <option value="space-evenly">Evenly</option>
-                            <option value="space-between">Between</option>
-                            <option value="space-around">Around</option>
-                        </select>
-                    </div>
-                    <div class="controls--group">
-                        <label :for="`color-${grid.id}`">Window Color: {{ grid.color }}</label>
-                        <input :id="`color-${grid.id}`" type="color" :value="grid.color"
-                            @input="updateGrid(grid.id, 'color', ($event.target as HTMLInputElement).value)" />
-                    </div>
-
-                    <div class="controls--group">
+                        <label :for="`justify-content-${grid.id}`">Border-top: {{ grid.borderTop.size }}</label>
                         <div class="d-flex">
-                            <label :for="`is-column-${grid.id}`">Is Column: </label>
-                            {{ grid.isColumn }}
-                            <input :id="`is-column-${grid.id}`" type="checkbox" v-model="grid.isColumn"
-                                :value="grid.isColumn" />
+                            <input type="range" min="0" :max="`50`" 
+                                @input="changeBorder(grid.id, 'borderTop', ($event.target as HTMLInputElement).value, 'size')"/>
+                            <select :id="`justify-content-${grid.id}`" :value="grid.borderTop.style"
+                                @change="changeBorder(grid.id, 'borderTop', ($event.target as HTMLInputElement).value, 'style')">
+                                <option value="none">none</option>
+                                <option value="solid">solid</option>
+                                <option value="inset">inset</option>
+                                <option value="dashed">dashed</option>
+                            </select>
+                            <input :id="`color-${grid.id}`" type="color" :value="grid.color"
+                                @input="changeBorder(grid.id, 'borderTop', ($event.target as HTMLInputElement).value, 'color')" />
                         </div>
                     </div>
                     <div class="controls--group">
@@ -219,16 +211,24 @@ watch(() => props.selectedGrid, async (value: Grid, lastValue: Grid) => {
     scrollToTarget(selectedgridRef);
     await nextTick();
     addSelectedStyle(selectedgridRef);
-    // setTimeout(() => scrollToTarget(selectedgridRef), 1000)
-    
 });
 
+function reverseSelectedWindows(grid: Grid){
+    const size = grid.columns * grid.rows;
+    if(!size) return;
+
+    let newArr = [];
+
+    for(let index = 0; index <= size; index++){
+        if(!grid.excludedWindows?.includes(index)){
+            newArr.push(index);
+        }
+    }
+
+    grid.excludedWindows = newArr;
+}
+
 function scrollToTarget(selectedgridRef: any) {
-    console.dir(selectedgridRef)
-    console.log("selectedgridRef.offsetTop")
-    console.log(selectedgridRef.offsetTop)
-    console.log("selectedgridRef.offsetHeight")
-    console.log(selectedgridRef.offsetHeight)
     gridsContainer.value.scrollTop = selectedgridRef.offsetTop - 100;
 }
 
@@ -240,6 +240,13 @@ function removeSelectedStyle(lastgridRef: any) {
     if (lastgridRef) {
         lastgridRef.classList.remove("selected");
     }
+}
+
+const changeBorder = (id: string, key: keyof Grid, value: string | number, borderProperty: string) => {
+    const updatedGrids = props.grid.map((grid) =>
+        grid.id === id ? { ...grid, [key]: { ...grid[key], [borderProperty]: value} } : grid
+    );
+    emit('update:grids', updatedGrids);
 }
 
 const switchPosition = (index: number, flag: number) => {
@@ -258,7 +265,7 @@ const switchPosition = (index: number, flag: number) => {
     emit('update:grids', updatedgrids);
 }
 
-const duplicategrid = (grid: Grid) => {
+const duplicateGrid = (grid: Grid) => {
     const newgrid = {
         ...grid,
         id: generateId(),
@@ -268,7 +275,7 @@ const duplicategrid = (grid: Grid) => {
     emit('update:grids', [...props.grid, newgrid]);
 }
 
-const deletegrid = (id: string) => {
+const deleteGrid = (id: string) => {
     const grids = props.grid.filter((grid) =>
         grid.id !== id
     );
@@ -331,6 +338,10 @@ const updateGrid = (id: string, key: keyof Grid, value: string | number) => {
 
 .delete-grid {
     background: #df635a;
+}
+
+.reverse-grid{
+    background: #000000;
 }
 
 .grids-container {

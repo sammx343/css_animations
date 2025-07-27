@@ -1,3 +1,9 @@
+export type Border = {
+  size: number
+  style: string
+  color: string
+}
+
 export type Grid = {
   id: string
   name: string
@@ -15,9 +21,7 @@ export type Grid = {
   columnGap: string
   borderRadius? : string
   excludedFaces: (1 | 2 | 3 | 4 | 5 | 6)[]
-  borderSize?: string
-  borderType?: string
-  borderColor?: string
+  borderTop: Border
   showBorderTop?: boolean
   showBorderLeft?: boolean
   showBorderRight?: boolean

@@ -34,6 +34,7 @@ const rowStyle = computed(() => ({
 
 const windowStyle = computed(() => ({
     backgroundColor: props.grid.color,
+    borderTop: `${props.grid.borderTop.size}px ${props.grid.borderTop.style} ${props.grid.borderTop.color}`,
     borderRadius: props.grid.borderRadius,
     width: props.grid.windowWidth,
     height: props.grid.windowHeight,
