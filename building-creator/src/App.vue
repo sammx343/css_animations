@@ -43,18 +43,23 @@ const cubeProperties = reactive<Cube>({
       columnGap: '5px',
       borderRadius: '0%',
       excludedFaces: [5, 6],
+      borderTop: {
+        size: 0,
+        style: 'none',
+        color: '#000000'
+      }
     },
   ],
 });
 
 const selectedGrid = ref<Grid>();
-const rowStore = useGridStore();
+const gridStore = useGridStore();
 
 const zoom = ref("1");
 
 const isGridControlsOpen = ref(false);
 
-watch(rowStore.getSelectedGrid, async (value) => {
+watch(gridStore.getSelectedGrid, async (value) => {
   isGridControlsOpen.value = true;
   await nextTick();
   selectedGrid.value = value;

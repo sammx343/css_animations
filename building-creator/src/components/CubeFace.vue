@@ -9,7 +9,6 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import GridWindows from './GridWindows.vue';
-import { transform } from 'typescript';
 import type { Grid } from '@/types/grid';
 import type { Cube } from '@/types/cube';
 const props = defineProps<{
