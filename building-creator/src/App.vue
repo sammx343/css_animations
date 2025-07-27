@@ -1,11 +1,11 @@
 <template>
   <main class="main">
-    <CubeControls v-if="!isRowControlsOpen" :cube-properties="cubeProperties"
-      @update:cube-properties="updateCubeProperties" @update:is-row-control-open="updateIsRowControlOpen" :zoom="zoom"
+    <CubeControls v-if="!isGridControlsOpen" :cube-properties="cubeProperties"
+      @update:cube-properties="updateCubeProperties" @update:is-grid-control-open="updateIsGridControlOpen" :zoom="zoom"
       @update:zoom="updateZoom" />
-    <RowControls v-if="isRowControlsOpen" :selected-row="selectedRow"
-      :cube-dimensions="{ width: cubeProperties.width, height: cubeProperties.height }" :rows="cubeProperties.rows"
-      @update:rows="updateRows" @update:is-row-control-open="updateIsRowControlOpen" />
+    <GridControls v-if="isGridControlsOpen" :selected-grid="selectedGrid"
+      :cube-dimensions="{ width: cubeProperties.width, height: cubeProperties.height }" :grid="cubeProperties.grids"
+      @update:grids="updateGrid" @update:is-grid-control-open="updateIsGridControlOpen" />
     <CubeScene :cube-properties="cubeProperties" :zoom="zoom" />
   </main>
 </template>
@@ -14,72 +14,62 @@
 import { nextTick, reactive, ref, watch } from 'vue';
 import CubeScene from './components/CubeScene.vue';
 import CubeControls from './components/CubeControls.vue';
-import RowControls from './components/RowControls.vue';
+import GridControls from './components/GridControls.vue';
 import type { Cube } from '@/types/cube';
-import type { Row } from '@/types/row';
+import type { Grid } from '@/types/grid';
 import { generateId } from './utils/generateId';
-import { useRowStore } from '@/store/rowStore';
+import { useGridStore } from '@/store/gridStore';
 
 const cubeProperties = reactive<Cube>({
   width: 300,
   height: 300,
   long: 300,
   color: { hex: '#ff7360' },
-  rows: [
+  grids: [
     {
       id: generateId(),
-      name: 'Row 1',
-      number: 5,
+      name: 'Grid 0',
+      rows: 5,
+      columns: 5,
+      excludedWindows: [],
       color: '#000000',
-      top: '0%',
-      left: '0%',
-      windowWidth: '20%',
-      windowHeight: '20%',
-      gap: '5px',
+      top: '2%',
+      left: '2%',
+      windowWidth: '50%',
+      windowHeight: '50%',
+      gridWidth: '100%',
+      gridHeight: '100%',
+      rowGap: '5px',
+      columnGap: '5px',
       borderRadius: '0%',
-      isColumn: true,
-      excludedFaces: [5, 6],
-    },
-    {
-      id: generateId(),
-      name: 'Row 2',
-      number: 6,
-      color: '#000000',
-      top: '0%',
-      left: '50%',
-      windowWidth: '10%',
-      windowHeight: '10%',
-      borderRadius: '0%',
-      gap: '10px',
-      isColumn: true,
       excludedFaces: [5, 6],
     },
   ],
 });
 
-const selectedRow = ref<Row>();
-const rowStore = useRowStore();
+const selectedGrid = ref<Grid>();
+const rowStore = useGridStore();
 
 const zoom = ref("1");
 
-const isRowControlsOpen = ref(false);
+const isGridControlsOpen = ref(false);
 
-watch(rowStore.getSelectedRow, async (value) => {
-  isRowControlsOpen.value = true;
+watch(rowStore.getSelectedGrid, async (value) => {
+  isGridControlsOpen.value = true;
   await nextTick();
-  selectedRow.value = value;
+  selectedGrid.value = value;
 });
 
-const updateIsRowControlOpen = (value: boolean) => {
-  isRowControlsOpen.value = value;
+const updateIsGridControlOpen = (value: boolean) => {
+  isGridControlsOpen.value = value;
 };
 
 const updateCubeProperties = (newProperties: Cube) => {
   Object.assign(cubeProperties, newProperties);
 };
 
-const updateRows = (rows: Row[]) => {
-  cubeProperties.rows = rows;
+const updateGrid = (grids: Grid[]) => {
+  cubeProperties.grids = grids;
 };
 
 const updateZoom = (value: string) => {

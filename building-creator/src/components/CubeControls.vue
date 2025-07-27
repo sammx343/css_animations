@@ -31,7 +31,7 @@
             <p>{{ cubeProperties.color.hex }}</p>
         </div>
         <div class="controls--group">
-            <button @click="openRowControl">Row options</button>
+            <button @click="openGridControl">Grid options</button>
         </div>
     </div>
 </template>
@@ -50,7 +50,7 @@ const props = defineProps({
     }
 });
 
-const emit = defineEmits(['update:cubeProperties', 'update:isRowControlOpen', 'update:zoom']);
+const emit = defineEmits(['update:cubeProperties', 'update:isGridControlOpen', 'update:zoom']);
 
 const updateDimension = (dimension: string, value: string) => {
     emit('update:cubeProperties', {
@@ -66,8 +66,8 @@ const updateColor = (hex: string) => {
     });
 };
 
-const openRowControl = () => {
-    emit('update:isRowControlOpen', true);
+const openGridControl = () => {
+    emit('update:isGridControlOpen', true);
 };
 
 const updateZoom = (value: string) => {
