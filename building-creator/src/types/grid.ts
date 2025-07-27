@@ -21,9 +21,8 @@ export type Grid = {
   columnGap: string
   borderRadius? : string
   excludedFaces: (1 | 2 | 3 | 4 | 5 | 6)[]
-  borderTop: Border
-  showBorderTop?: boolean
-  showBorderLeft?: boolean
-  showBorderRight?: boolean
-  showBorderBottom?: boolean
+  borderTop?: Border
+  borderBottom?: Border
+  borderLeft?: Border
+  borderRight?: Border
 }

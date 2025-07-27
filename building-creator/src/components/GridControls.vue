@@ -105,7 +105,7 @@
                     <div class="controls--group">
                         <label :for="`border-radius-${grid.id}`">Border Radius {{ grid.borderRadius }}</label>
                         <input :id="`border-radius-${grid.id}`" type="range" min="0" max="50" step="1"
-                            :value="parseFloat(grid.borderRadius)"
+                            :value="parseFloat(grid.borderRadius || '0')"
                             @input="updateGrid(grid.id, 'borderRadius', `${($event.target as HTMLInputElement).value}%`)" />
                     </div>
                     <div class="controls--group">
@@ -114,19 +114,64 @@
                             @input="updateGrid(grid.id, 'color', ($event.target as HTMLInputElement).value)" />
                     </div>
                     <div class="controls--group">
-                        <label :for="`justify-content-${grid.id}`">Border-top: {{ grid.borderTop.size }}</label>
+                        <label :for="`border-top-${grid.id}`">Border-top: {{ grid.borderTop?.size }}</label>
                         <div class="d-flex">
                             <input type="range" min="0" :max="`50`" 
                                 @input="changeBorder(grid.id, 'borderTop', ($event.target as HTMLInputElement).value, 'size')"/>
-                            <select :id="`justify-content-${grid.id}`" :value="grid.borderTop.style"
+                            <select :id="`border-top-${grid.id}`" :value="grid.borderTop?.style"
                                 @change="changeBorder(grid.id, 'borderTop', ($event.target as HTMLInputElement).value, 'style')">
                                 <option value="none">none</option>
                                 <option value="solid">solid</option>
                                 <option value="inset">inset</option>
                                 <option value="dashed">dashed</option>
                             </select>
-                            <input :id="`color-${grid.id}`" type="color" :value="grid.color"
+                            <input :id="`color-${grid.id}`" type="color" :value="grid.borderTop?.color"
                                 @input="changeBorder(grid.id, 'borderTop', ($event.target as HTMLInputElement).value, 'color')" />
+                        </div>
+                        
+                        <label :for="`border-bottom-${grid.id}`">Border-bottom: {{ grid.borderBottom?.size }}</label>
+                        <div class="d-flex">
+                            <input type="range" min="0" :max="`50`" 
+                                @input="changeBorder(grid.id, 'borderBottom', ($event.target as HTMLInputElement).value, 'size')"/>
+                            <select :id="`border-bottom-${grid.id}`" :value="grid.borderBottom?.style"
+                                @change="changeBorder(grid.id, 'borderBottom', ($event.target as HTMLInputElement).value, 'style')">
+                                <option value="none">none</option>
+                                <option value="solid">solid</option>
+                                <option value="inset">inset</option>
+                                <option value="dashed">dashed</option>
+                            </select>
+                            <input :id="`color-${grid.id}`" type="color" :value="grid.borderBottom?.color"
+                                @input="changeBorder(grid.id, 'borderBottom', ($event.target as HTMLInputElement).value, 'color')" />
+                        </div>
+
+                        <label :for="`border-bottom-${grid.id}`">Border-left: {{ grid.borderLeft?.size }}</label>
+                        <div class="d-flex">
+                            <input type="range" min="0" :max="`50`" 
+                                @input="changeBorder(grid.id, 'borderLeft', ($event.target as HTMLInputElement).value, 'size')"/>
+                            <select :id="`border-bottom-${grid.id}`" :value="grid.borderLeft?.style"
+                                @change="changeBorder(grid.id, 'borderLeft', ($event.target as HTMLInputElement).value, 'style')">
+                                <option value="none">none</option>
+                                <option value="solid">solid</option>
+                                <option value="inset">inset</option>
+                                <option value="dashed">dashed</option>
+                            </select>
+                            <input :id="`color-${grid.id}`" type="color" :value="grid.borderLeft?.color"
+                                @input="changeBorder(grid.id, 'borderLeft', ($event.target as HTMLInputElement).value, 'color')" />
+                        </div>
+
+                        <label :for="`border-bottom-${grid.id}`">Border-right: {{ grid.borderRight?.size }}</label>
+                        <div class="d-flex">
+                            <input type="range" min="0" :max="`50`" 
+                                @input="changeBorder(grid.id, 'borderRight', ($event.target as HTMLInputElement).value, 'size')"/>
+                            <select :id="`border-bottom-${grid.id}`" :value="grid.borderRight?.style"
+                                @change="changeBorder(grid.id, 'borderRight', ($event.target as HTMLInputElement).value, 'style')">
+                                <option value="none">none</option>
+                                <option value="solid">solid</option>
+                                <option value="inset">inset</option>
+                                <option value="dashed">dashed</option>
+                            </select>
+                            <input :id="`color-${grid.id}`" type="color" :value="grid.borderRight?.color"
+                                @input="changeBorder(grid.id, 'borderRight', ($event.target as HTMLInputElement).value, 'color')" />
                         </div>
                     </div>
                     <div class="controls--group">
