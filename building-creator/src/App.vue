@@ -32,7 +32,7 @@ const cubeProperties = reactive<Cube>({
       rows: 5,
       columns: 5,
       excludedWindows: [],
-      color: '#000000',
+      colors: ['#000000'],
       top: '2%',
       left: '2%',
       windowWidth: '50%',

@@ -18,10 +18,10 @@
                         <v-icon name="md-deleteforever-outlined"></v-icon> Delete
                     </button>
                     <button class="grid-button" @click="switchPosition(index, -1)">
-                        <v-icon name="bi-arrow-up" style="fill: black;"  />
+                        <v-icon name="bi-arrow-up" style="fill: black;" />
                     </button>
                     <button class="grid-button" @click="switchPosition(index, 1)">
-                        <v-icon name="bi-arrow-down" style="fill: black;"/>
+                        <v-icon name="bi-arrow-down" style="fill: black;" />
                     </button>
                 </div>
                 <p class="controls-expandable-icon" @click="changeExpand(index)">V</p>
@@ -52,7 +52,7 @@
                             </div>
                         </div>
                         <button class="grid-button reverse-grid" @click="reverseSelectedWindows(grid)">
-                            <v-icon name="md-flipcameraandroid" ></v-icon> Reverse</button>
+                            <v-icon name="md-flipcameraandroid"></v-icon> Reverse</button>
                     </div>
                     <div class="controls--group">
                         <label :for="`position-top-${grid.id}`">Position top: {{ grid.top }}</label>
@@ -109,15 +109,24 @@
                             @input="updateGrid(grid.id, 'borderRadius', `${($event.target as HTMLInputElement).value}%`)" />
                     </div>
                     <div class="controls--group">
-                        <label>Window Color: {{ grid.color }}</label>
-                        <input :id="`color-${grid.id}`" type="color" :value="grid.color"
-                            @input="updateGrid(grid.id, 'color', ($event.target as HTMLInputElement).value)" />
+                        <div v-for="(color, colorIndex) in grid.colors" :key="`color-index-${colorIndex}`"
+                            style="position: relative;">
+                            <label>Window Color: {{ color }}</label>
+                            <v-icon v-if="grid.colors.length > 1" name="md-deleteforever-outlined"
+                                style="position: absolute; right: 0; top: 0; cursor: pointer;"
+                                @click="deleteColor(grid, index)"></v-icon>
+                            <input :id="`color-${grid.id}`" type="color" :value="color"
+                                @input="updateColors(grid, ($event.target as HTMLInputElement).value, colorIndex)" />
+
+                        </div>
+                        <button class="grid-button" @click="addColors(grid)" style="background: blue;">Add color
+                            <v-icon class="md-addcircleoutline "></v-icon></button>
                     </div>
                     <div class="controls--group">
                         <label :for="`border-top-${grid.id}`">Border-top: {{ grid.borderTop?.size }}</label>
                         <div class="d-flex">
-                            <input type="range" min="0" :max="`50`" 
-                                @input="changeBorder(grid.id, 'borderTop', ($event.target as HTMLInputElement).value, 'size')"/>
+                            <input type="range" min="0" :max="`50`"
+                                @input="changeBorder(grid.id, 'borderTop', ($event.target as HTMLInputElement).value, 'size')" />
                             <select :id="`border-top-${grid.id}`" :value="grid.borderTop?.style"
                                 @change="changeBorder(grid.id, 'borderTop', ($event.target as HTMLInputElement).value, 'style')">
                                 <option value="none">none</option>
@@ -128,11 +137,11 @@
                             <input :id="`color-${grid.id}`" type="color" :value="grid.borderTop?.color"
                                 @input="changeBorder(grid.id, 'borderTop', ($event.target as HTMLInputElement).value, 'color')" />
                         </div>
-                        
+
                         <label :for="`border-bottom-${grid.id}`">Border-bottom: {{ grid.borderBottom?.size }}</label>
                         <div class="d-flex">
-                            <input type="range" min="0" :max="`50`" 
-                                @input="changeBorder(grid.id, 'borderBottom', ($event.target as HTMLInputElement).value, 'size')"/>
+                            <input type="range" min="0" :max="`50`"
+                                @input="changeBorder(grid.id, 'borderBottom', ($event.target as HTMLInputElement).value, 'size')" />
                             <select :id="`border-bottom-${grid.id}`" :value="grid.borderBottom?.style"
                                 @change="changeBorder(grid.id, 'borderBottom', ($event.target as HTMLInputElement).value, 'style')">
                                 <option value="none">none</option>
@@ -146,8 +155,8 @@
 
                         <label :for="`border-bottom-${grid.id}`">Border-left: {{ grid.borderLeft?.size }}</label>
                         <div class="d-flex">
-                            <input type="range" min="0" :max="`50`" 
-                                @input="changeBorder(grid.id, 'borderLeft', ($event.target as HTMLInputElement).value, 'size')"/>
+                            <input type="range" min="0" :max="`50`"
+                                @input="changeBorder(grid.id, 'borderLeft', ($event.target as HTMLInputElement).value, 'size')" />
                             <select :id="`border-bottom-${grid.id}`" :value="grid.borderLeft?.style"
                                 @change="changeBorder(grid.id, 'borderLeft', ($event.target as HTMLInputElement).value, 'style')">
                                 <option value="none">none</option>
@@ -161,8 +170,8 @@
 
                         <label :for="`border-bottom-${grid.id}`">Border-right: {{ grid.borderRight?.size }}</label>
                         <div class="d-flex">
-                            <input type="range" min="0" :max="`50`" 
-                                @input="changeBorder(grid.id, 'borderRight', ($event.target as HTMLInputElement).value, 'size')"/>
+                            <input type="range" min="0" :max="`50`"
+                                @input="changeBorder(grid.id, 'borderRight', ($event.target as HTMLInputElement).value, 'size')" />
                             <select :id="`border-bottom-${grid.id}`" :value="grid.borderRight?.style"
                                 @change="changeBorder(grid.id, 'borderRight', ($event.target as HTMLInputElement).value, 'style')">
                                 <option value="none">none</option>
@@ -226,7 +235,7 @@ const creategrid = () => {
         rows: 5,
         columns: 5,
         excludedWindows: [],
-        color: '#000000',
+        colors: ['#000000'],
         top: '2%',
         left: '2%',
         windowWidth: '50%',
@@ -258,14 +267,14 @@ watch(() => props.selectedGrid, async (value: Grid, lastValue: Grid) => {
     addSelectedStyle(selectedgridRef);
 });
 
-function reverseSelectedWindows(grid: Grid){
+function reverseSelectedWindows(grid: Grid) {
     const size = grid.columns * grid.rows;
-    if(!size) return;
+    if (!size) return;
 
-    let newArr = [];
+    const newArr = [];
 
-    for(let index = 0; index <= size; index++){
-        if(!grid.excludedWindows?.includes(index)){
+    for (let index = 0; index <= size; index++) {
+        if (!grid.excludedWindows?.includes(index)) {
             newArr.push(index);
         }
     }
@@ -287,9 +296,28 @@ function removeSelectedStyle(lastgridRef: any) {
     }
 }
 
+function updateColors(currentGrid: Grid, color: string, index: number) {
+    const updatedGrids = props.grid.map((grid) => {
+        if (grid.id === currentGrid.id) {
+            const colors = [...grid.colors];
+            colors[index] = color;
+        }
+        return grid;
+    });
+    emit('update:grids', updatedGrids);
+}
+
+function addColors(grid: Grid) {
+    grid.colors.push('#000000');
+}
+
+function deleteColor(grid: Grid, index: number) {
+    grid.colors.splice(index, 1);
+}
+
 const changeBorder = (id: string, key: keyof Grid, value: string | number, borderProperty: string) => {
     const updatedGrids = props.grid.map((grid) =>
-        grid.id === id ? { ...grid, [key]: { ...grid[key], [borderProperty]: value} } : grid
+        grid.id === id ? { ...grid, [key]: { ...grid[key], [borderProperty]: value } } : grid
     );
     emit('update:grids', updatedGrids);
 }
@@ -385,7 +413,7 @@ const updateGrid = (id: string, key: keyof Grid, value: string | number) => {
     background: #df635a;
 }
 
-.reverse-grid{
+.reverse-grid {
     background: #000000;
 }
 
