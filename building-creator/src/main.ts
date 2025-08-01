@@ -11,10 +11,20 @@ import {
   BiChevronDown,
   BiArrowUp,
   BiArrowDown,
-  MdFlipcameraandroid 
+  MdFlipcameraandroid,
+  MdAddcircleOutlined,
 } from 'oh-vue-icons/icons'
 
 const pinia = createPinia()
 
-addIcons(HiDuplicate, MdDeleteforeverOutlined, BiChevronUp, BiChevronDown, BiArrowUp, BiArrowDown, MdFlipcameraandroid )
+addIcons(
+  HiDuplicate,
+  MdDeleteforeverOutlined,
+  BiChevronUp,
+  BiChevronDown,
+  BiArrowUp,
+  BiArrowDown,
+  MdFlipcameraandroid,
+  MdAddcircleOutlined,
+)
 createApp(App).use(pinia).component('v-icon', OhVueIcon).mount('#app')

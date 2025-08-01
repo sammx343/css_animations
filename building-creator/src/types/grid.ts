@@ -1,3 +1,5 @@
+import type { Color } from './color'
+
 export type Border = {
   size: number
   style: string
@@ -7,7 +9,8 @@ export type Border = {
 export type Grid = {
   id: string
   name: string
-  color: string
+  colors: Color[]
+  colorsAngle: number
   top: string
   left: string
   windowWidth: string
@@ -19,7 +22,7 @@ export type Grid = {
   excludedWindows?: number[]
   rowGap: string
   columnGap: string
-  borderRadius? : string
+  borderRadius?: string
   excludedFaces: (1 | 2 | 3 | 4 | 5 | 6)[]
   borderTop?: Border
   borderBottom?: Border

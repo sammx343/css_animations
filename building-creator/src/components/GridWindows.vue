@@ -1,7 +1,8 @@
 <template>
     <div class="grid" :style="rowStyle">
         <template v-for="index in grid.rows * grid.columns">
-            <div v-if="!isWindowExcluded(index)" @dblclick="selectGrid()"  :key="index" class="window individual-window" :style="windowStyle">
+            <div v-if="!isWindowExcluded(index)" @dblclick="selectGrid()" :key="index" class="window individual-window"
+                :style="windowStyle">
             </div>
             <div v-else :key="index + '-'"></div>
         </template>
@@ -33,15 +34,20 @@ const rowStyle = computed(() => ({
 }));
 
 const windowStyle = computed(() => ({
-    backgroundColor: props.grid.color,
-    borderTop: props.grid.borderTop? `${props.grid.borderTop.size}px ${props.grid.borderTop.style} ${props.grid.borderTop.color}` : '',
-    borderBottom: props.grid.borderBottom? `${props.grid.borderBottom.size}px ${props.grid.borderBottom.style} ${props.grid.borderBottom.color}` : '',
-    borderLeft: props.grid.borderLeft? `${props.grid.borderLeft.size}px ${props.grid.borderLeft.style} ${props.grid.borderLeft.color}` : '',
-    borderRight: props.grid.borderRight? `${props.grid.borderRight.size}px ${props.grid.borderRight.style} ${props.grid.borderRight.color}` : '',
+    background: colorsToLinearBackground(props.grid.colors),
+    borderTop: props.grid.borderTop ? `${props.grid.borderTop.size}px ${props.grid.borderTop.style} ${props.grid.borderTop.color}` : '',
+    borderBottom: props.grid.borderBottom ? `${props.grid.borderBottom.size}px ${props.grid.borderBottom.style} ${props.grid.borderBottom.color}` : '',
+    borderLeft: props.grid.borderLeft ? `${props.grid.borderLeft.size}px ${props.grid.borderLeft.style} ${props.grid.borderLeft.color}` : '',
+    borderRight: props.grid.borderRight ? `${props.grid.borderRight.size}px ${props.grid.borderRight.style} ${props.grid.borderRight.color}` : '',
     borderRadius: props.grid.borderRadius,
     width: props.grid.windowWidth,
     height: props.grid.windowHeight,
 }));
+
+const colorsToLinearBackground = (colors: { hex: string, percentage: number }[]) => {
+    const colorString = colors.map(color => `${color.hex} ${color.percentage}%`);
+    return `linear-gradient(${props.grid.colorsAngle || 0}deg, ${colorString})`
+}
 
 const isWindowExcluded = (index: number) => {
     return props.grid.excludedWindows?.includes(index);

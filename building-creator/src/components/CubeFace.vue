@@ -1,7 +1,7 @@
 <template>
     <div class="cube__face" :class="`cube__face--${faceIndex + 1}`" :style="faceStyle">
         <template v-for="grid in grids">
-            <GridWindows v-if="!grid.excludedFaces.includes(faceIndex + 1)" :key="grid.id" :grid="grid"/>
+            <GridWindows v-if="!grid.excludedFaces.includes(faceIndex + 1)" :key="grid.id" :grid="grid" />
         </template>
     </div>
 </template>
@@ -18,9 +18,14 @@ const props = defineProps<{
 }>();
 
 const faceStyle = computed(() => {
-    const { width, long, height } = props.cubeProperties;
+    const { width, long, height, colors } = props.cubeProperties;
     const index = props.faceIndex;
-    const style = { background: props.cubeProperties.color.hex, transform: '', width: '', height: '' };
+    const style = {
+        background: colors.length === 1 ? props.cubeProperties.colors[0].hex : `linear-gradient(${parseColorsToGradientString(colors)})`,
+        transform: '',
+        width: '',
+        height: ''
+    };
 
     if (index === 0) {
         style.transform = `translateZ(${width / 2}px)`;
@@ -52,6 +57,13 @@ const faceStyle = computed(() => {
 
     return style;
 });
+
+const parseColorsToGradientString = (colors: any) => {
+    const arr = colors.map(color => {
+        return color.hex;
+    })
+    return arr;
+}
 </script>
 
 <style scoped>
