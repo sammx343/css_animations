@@ -34,7 +34,7 @@ const rowStyle = computed(() => ({
 }));
 
 const windowStyle = computed(() => ({
-    background: props.grid.colors.length === 1 ? props.grid.colors[0] : colorsToLinearBackground(props.grid.colors),
+    background: colorsToLinearBackground(props.grid.colors),
     borderTop: props.grid.borderTop ? `${props.grid.borderTop.size}px ${props.grid.borderTop.style} ${props.grid.borderTop.color}` : '',
     borderBottom: props.grid.borderBottom ? `${props.grid.borderBottom.size}px ${props.grid.borderBottom.style} ${props.grid.borderBottom.color}` : '',
     borderLeft: props.grid.borderLeft ? `${props.grid.borderLeft.size}px ${props.grid.borderLeft.style} ${props.grid.borderLeft.color}` : '',
@@ -44,8 +44,9 @@ const windowStyle = computed(() => ({
     height: props.grid.windowHeight,
 }));
 
-const colorsToLinearBackground = (colors: string[]) => {
-    return `linear-gradient(${colors})`
+const colorsToLinearBackground = (colors: { hex: string, percentage: number }[]) => {
+    const colorString = colors.map(color => `${color.hex} ${color.percentage}%`);
+    return `linear-gradient(${props.grid.colorsAngle || 0}deg, ${colorString})`
 }
 
 const isWindowExcluded = (index: number) => {

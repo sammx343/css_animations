@@ -109,18 +109,31 @@
                             @input="updateGrid(grid.id, 'borderRadius', `${($event.target as HTMLInputElement).value}%`)" />
                     </div>
                     <div class="controls--group">
+                        <h3>Colors:</h3>
+                        <div class="d-flex">
+                            <label :for="`color-percentage-angle-${grid.id}`">Angle: {{ grid.colorsAngle }}</label>
+                            <input :id="`color-percentage-angle-${grid.id}`" type="range" min="1" max="360"
+                                v-model="grid.colorsAngle" />
+                        </div>
                         <div v-for="(color, colorIndex) in grid.colors" :key="`color-index-${colorIndex}`"
                             style="position: relative;">
-                            <label>Window Color: {{ color }}</label>
-                            <v-icon v-if="grid.colors.length > 1" name="md-deleteforever-outlined"
-                                style="position: absolute; right: 0; top: 0; cursor: pointer;"
-                                @click="deleteColor(grid, index)"></v-icon>
-                            <input :id="`color-${grid.id}`" type="color" :value="color"
-                                @input="updateColors(grid, ($event.target as HTMLInputElement).value, colorIndex)" />
-
+                            <label> Color {{ colorIndex + 1 }}: {{ color.hex }}</label>
+                            <div class="d-flex">
+                                <v-icon v-if="grid.colors.length > 1" name="md-deleteforever-outlined"
+                                    style="position: absolute; right: 0; top: 0; cursor: pointer;"
+                                    @click="deleteColor(grid, colorIndex)"></v-icon>
+                                <input :id="`color-${grid.id}`" type="color" :value="color.hex"
+                                    @input="updateColors(grid, ($event.target as HTMLInputElement).value, colorIndex)" />
+                            </div>
+                            <div class="d-flex">
+                                <label :for="`color-percentage-${grid.id}-${index}`">{{ parseInt(color.percentage)
+                                    }}%</label>
+                                <input :id="`color-percentage-${grid.id}-${index}`" type="range" min="1" max="100"
+                                    v-model="color.percentage" />
+                            </div>
                         </div>
                         <button class="grid-button" @click="addColors(grid)" style="background: blue;">Add color
-                            <v-icon class="md-addcircleoutline "></v-icon></button>
+                            <v-icon name="md-addcircle-outlined"></v-icon></button>
                     </div>
                     <div class="controls--group">
                         <label :for="`border-top-${grid.id}`">Border-top: {{ grid.borderTop?.size }}</label>
@@ -203,8 +216,7 @@
 import type { Grid } from '@/types/grid';
 import { nextTick, ref, useTemplateRef, watch, computed } from 'vue';
 import { generateId } from '@/utils/generateId';
-import { useGridStore } from '@/store/gridStore';
-import { storeToRefs } from 'pinia';
+import type { Color } from '@/types/color';
 
 const props = defineProps<{
     grid: Grid[];
@@ -300,7 +312,8 @@ function updateColors(currentGrid: Grid, color: string, index: number) {
     const updatedGrids = props.grid.map((grid) => {
         if (grid.id === currentGrid.id) {
             const colors = [...grid.colors];
-            colors[index] = color;
+            colors[index].hex = color;
+            grid.colors = colors;
         }
         return grid;
     });
@@ -308,7 +321,13 @@ function updateColors(currentGrid: Grid, color: string, index: number) {
 }
 
 function addColors(grid: Grid) {
-    grid.colors.push('#000000');
+    const colorsCopy = [...grid.colors, { hex: '#000000', percentage: 100 }];
+
+    const colors = colorsCopy.map((color: Color, index: number) => {
+        return { ...color, percentage: (100 / (colorsCopy.length)) * (index + 1) }
+    });
+
+    grid.colors = colors;
 }
 
 function deleteColor(grid: Grid, index: number) {
@@ -345,7 +364,9 @@ const duplicateGrid = (grid: Grid) => {
         name: grid.name + " duplicated"
     };
 
-    emit('update:grids', [...props.grid, newgrid]);
+    const deepCloneGrid = JSON.parse(JSON.stringify(newgrid));
+
+    emit('update:grids', [...props.grid, deepCloneGrid]);
 }
 
 const deleteGrid = (id: string) => {

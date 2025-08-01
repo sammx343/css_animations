@@ -1,4 +1,14 @@
 @import './base.css';
+.button {
+  margin-right: 5px;
+  border-radius: 10px;
+  border: 1px solid black;
+  color: white;
+  text-shadow: 1px 1px 1px black;
+  padding: 5px 10px;
+  font-weight: 600;
+  cursor: pointer;
+}
 
 .controls {
   z-index: 1;
