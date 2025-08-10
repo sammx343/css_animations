@@ -11,6 +11,7 @@ import { computed } from 'vue';
 import GridWindows from './GridWindows.vue';
 import type { Grid } from '@/types/grid';
 import type { Cube } from '@/types/cube';
+import type { Color } from '@/types/color';
 const props = defineProps<{
     faceIndex: number,
     cubeProperties: Cube,
@@ -18,10 +19,10 @@ const props = defineProps<{
 }>();
 
 const faceStyle = computed(() => {
-    const { width, long, height, colors } = props.cubeProperties;
+    const { width, long, height, colors, colorsAngle } = props.cubeProperties;
     const index = props.faceIndex;
     const style = {
-        background: colors.length === 1 ? props.cubeProperties.colors[0].hex : `linear-gradient(${parseColorsToGradientString(colors)})`,
+        background: colorsToLinearBackground(colors, colorsAngle),
         transform: '',
         width: '',
         height: ''
@@ -58,11 +59,10 @@ const faceStyle = computed(() => {
     return style;
 });
 
-const parseColorsToGradientString = (colors: any) => {
-    const arr = colors.map(color => {
-        return color.hex;
-    })
-    return arr;
+
+const colorsToLinearBackground = (colors: Color[], colorsAngle = 90) => {
+    const colorString = colors.map(color => `${color.hex} ${color.percentage}%`);
+    return `linear-gradient(${colorsAngle}deg, ${colorString})`
 }
 </script>
 

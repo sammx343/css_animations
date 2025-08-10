@@ -1,12 +1,10 @@
 import type { Grid } from './grid'
+import type { Color } from './color'
 export type Cube = {
   width: number
   long: number
   height: number
-  colors: [
-    {
-      hex: string
-    },
-  ]
+  colors: Color[]
+  colorsAngle?: number
   grids: Grid[]
 }

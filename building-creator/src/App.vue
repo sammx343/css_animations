@@ -24,7 +24,8 @@ const cubeProperties = reactive<Cube>({
   width: 300,
   height: 300,
   long: 300,
-  colors: [{ hex: '#ff7360' }],
+  colors: [{ hex: '#ff7360', percentage: 100 }],
+  colorsAngle: 0,
   grids: [
     {
       id: generateId(),
