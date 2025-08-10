@@ -127,7 +127,7 @@
                             </div>
                             <div class="d-flex">
                                 <label :for="`color-percentage-${grid.id}-${index}`">{{ parseInt(color.percentage)
-                                    }}%</label>
+                                }}%</label>
                                 <input :id="`color-percentage-${grid.id}-${index}`" type="range" min="1" max="100"
                                     v-model="color.percentage" />
                             </div>
@@ -397,7 +397,7 @@ const updateGrid = (id: string, key: keyof Grid, value: string | number) => {
 }
 
 .controls-expandable.expanded {
-    max-height: 150vh;
+    max-height: 200vh;
     /* transition: 0.5s max-height; */
 }
 
