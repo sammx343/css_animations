@@ -25,18 +25,21 @@
   overflow: hidden;
 }
 
-.controls p {
+.cube-control {
+}
+
+.cube-control p {
   margin: 0;
 }
 
-.controls .close {
+.cube-control .close {
   position: absolute;
   top: 0;
   right: 0;
   cursor: pointer;
 }
 
-.controls--group {
+.cube-control--group {
   display: flex;
   flex-direction: column;
 }

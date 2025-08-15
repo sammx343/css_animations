@@ -1,30 +1,43 @@
 <template>
-    <div class="controls">
-        <h2>Controls:</h2>
-        <div class="controls--group">
-            <label for="cube-height">Zoom: {{ zoom }}</label>
-            <input id="cube-height" type="range" min="0.2" max="1.5" step="0.01" :value="zoom"
-                @input="updateZoom(($event.target as HTMLInputElement).value)" />
-        </div>
-        <div class="controls--group">
+    <div class="cube-controls">
+        <div class="cube-controls--group">
             <label for="cube-width">Cube Width:</label>
             <input id="cube-width" type="range" min="1" max="1000" :value="cubeProperties.width"
                 @input="updateProperty('width', ($event.target as HTMLInputElement).value)" />
             <p>{{ cubeProperties.width }}</p>
         </div>
-        <div class="controls--group">
+        <div class="cube-controls--group">
             <label for="cube-height">Cube Height:</label>
             <input id="cube-height" type="range" min="1" max="1000" :value="cubeProperties.height"
                 @input="updateProperty('height', ($event.target as HTMLInputElement).value)" />
             <p>{{ cubeProperties.height }}</p>
         </div>
-        <div class="controls--group">
+        <div class="cube-controls--group">
             <label for="cube-long">Cube Long:</label>
             <input id="cube-long" type="range" min="1" max="1000" :value="cubeProperties.long"
                 @input="updateProperty('long', ($event.target as HTMLInputElement).value)" />
             <p>{{ cubeProperties.long }}</p>
         </div>
-        <div class="controls--group">
+        <div class="cube-controls--group">
+            <label for="cube-long">Cube position X:</label>
+            <input id="cube-long" type="range" min="-500" max="500" :value="cubeProperties.positionX"
+                @input="updateProperty('positionX', ($event.target as HTMLInputElement).value)" />
+            <p>{{ cubeProperties.positionX }}</p>
+        </div>
+        <div class="cube-controls--group">
+            <label for="cube-long">Cube position Y:</label>
+            <input id="cube-long" type="range" min="-500" max="500" :value="cubeProperties.positionY"
+                @input="updateProperty('positionY', ($event.target as HTMLInputElement).value)" />
+            <p>{{ cubeProperties.positionY }}</p>
+        </div>
+
+        <div class="cube-controls--group">
+            <label for="cube-long">Cube position Z:</label>
+            <input id="cube-long" type="range" min="-500" max="500" :value="cubeProperties.positionZ"
+                @input="updateProperty('positionZ', ($event.target as HTMLInputElement).value)" />
+            <p>{{ cubeProperties.positionZ }}</p>
+        </div>
+        <div class="cube-controls--group">
             <h3>Color picker:</h3>
             <div class="d-flex">
                 <label :for="`color-percentage-angle`">Angle: {{ cubeProperties.colorsAngle }}</label>
@@ -47,11 +60,15 @@
                 <v-icon v-if="cubeProperties.colors.length > 1" name="md-deleteforever-outlined"
                     style="position: absolute; right: 0; top: 0; cursor: pointer;" @click="deleteColor(index)"></v-icon>
             </div>
-            <button class="butt*on grid-button" @click="addColors()" style="background: blue; margin-bottom: 10px;">Add
+            <button class="button grid-button" @click="addColors()" style="background: blue; margin-bottom: 10px;">Add
                 color
                 <v-icon name="md-addcircle-outlined"></v-icon></button>
+
+            <!-- <button class="button" @click="addBlock()" style="background: yellow; margin-bottom: 10px;">Add
+                block
+                <v-icon name="md-addcircle-outlined"></v-icon></button> -->
         </div>
-        <div class="controls--group">
+        <div class="cube-controls--group">
             <button class="button" @click="openGridControl" style="background: violet;">Grid options</button>
         </div>
     </div>
@@ -67,7 +84,7 @@ const props = defineProps<{
     zoom: string
 }>();
 
-const emit = defineEmits(['update:cubeProperties', 'update:isGridControlOpen', 'update:zoom']);
+const emit = defineEmits(['update:cubeProperties', 'update:isGridControlOpen']);
 
 const updateProperty = (dimension: string, value: string) => {
     emit('update:cubeProperties', {
@@ -113,9 +130,6 @@ const openGridControl = () => {
     emit('update:isGridControlOpen', true);
 };
 
-const updateZoom = (value: string) => {
-    emit('update:zoom', value);
-}
 </script>
 
 <style scoped></style>
