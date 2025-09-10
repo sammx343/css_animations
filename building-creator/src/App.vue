@@ -5,7 +5,23 @@
       <div class="controls-container">
         <div class="cube-control" v-for="(block, index) in reactiveBlocks" :key="index">
           <hr />
-          <h3>Block #{{ index + 1 }}</h3>
+          <div class="d-flex flex-start">
+            <label>Name: </label>
+            <h3><input :id="`name-${block.id}`" type="text" v-model="block.name" /></h3>
+          </div>
+
+          <div class="d-flex">
+            <button class="grid-button duplicate-grid" @click="duplicateBlock(block)">
+              <v-icon name="hi-duplicate" />Duplicate
+            </button>
+            <button
+              v-if="index != 0"
+              class="grid-button delete-grid"
+              @click="deleteBlock(block.id)"
+            >
+              <v-icon name="md-deleteforever-outlined"></v-icon> Delete
+            </button>
+          </div>
           <hr />
           <div class="expandable" :class="{ expanded: isBlockExpanded[index] }">
             <CubeControls
@@ -21,6 +37,7 @@
             <v-icon v-else name="bi-arrow-down" style="fill: black" />
           </div>
         </div>
+        <button @click="createBlock">Create New Block</button>
       </div>
       <GridControls
         v-if="isGridControlsOpen && selectedCube"
@@ -44,10 +61,12 @@ import type { Cube } from '@/types/cube'
 import type { Grid } from '@/types/grid'
 import { generateId } from './utils/generateId'
 import { useGridStore } from '@/store/gridStore'
+import { useCubeStore } from './store/cubeStore'
 
 const blocks: Cube[] = [
   {
     id: generateId(),
+    name: 'block 1',
     width: 300,
     height: 300,
     long: 300,
@@ -85,6 +104,7 @@ const blocks: Cube[] = [
   },
   {
     id: generateId(),
+    name: 'block 2',
     width: 100,
     height: 100,
     long: 100,
@@ -129,6 +149,7 @@ const reactiveBlocks = ref<Cube[]>(blocks)
 const isBlockExpanded = ref(new Array(reactiveBlocks.value.length).fill(false))
 const selectedGrid = ref<{ cubeId: string; grid: Grid }>()
 const gridStore = useGridStore()
+const cubeStore = useCubeStore()
 const selectedCube = ref<Cube>()
 
 const zoom = ref('1')
@@ -139,6 +160,74 @@ const changeExpand = (index: number) => {
   isBlockExpanded.value[index] = !isBlockExpanded.value[index]
 }
 
+const createBlock = () => {
+  const newBlock = {
+    id: generateId(),
+    name: `block ${reactiveBlocks.value.length + 1}`,
+    width: 100,
+    height: 100,
+    long: 100,
+    colors: [{ hex: '#ffffff', percentage: 100 }],
+    colorsAngle: 0,
+    left: -300,
+    bottom: 0,
+    positionX: 400,
+    positionY: 0,
+    positionZ: 0,
+    grids: [
+      {
+        id: generateId(),
+        name: 'Grid 0',
+        rows: 2,
+        columns: 2,
+        excludedWindows: [],
+        colors: [{ hex: '#000000', percentage: 100 }],
+        colorsAngle: 0,
+        top: '0%',
+        left: '0%',
+        windowWidth: '40%',
+        windowHeight: '40%',
+        gridWidth: '100%',
+        gridHeight: '100%',
+        rowGap: '5px',
+        columnGap: '5px',
+        borderRadius: '0%',
+        excludedFaces: [5, 6],
+        borderTop: {
+          size: 0,
+          style: 'none',
+          color: '#000000',
+        },
+      },
+    ],
+  }
+
+  reactiveBlocks.value.push(newBlock)
+}
+
+const deleteBlock = (blockId: string) => {
+  reactiveBlocks.value = reactiveBlocks.value.filter((block) => block.id !== blockId)
+}
+
+const duplicateBlock = (block: Cube) => {
+  const newBlock = {
+    ...block,
+    name: block.name + ' copy',
+    id: generateId(),
+  }
+
+  newBlock.grids = newBlock.grids.map((grid: Grid) => {
+    return {
+      ...grid,
+      id: generateId(),
+    }
+  })
+
+  const deepCloneBlocked = JSON.parse(JSON.stringify(newBlock))
+
+  reactiveBlocks.value.push(deepCloneBlocked)
+}
+
 watch(gridStore.getSelectedGrid, async (value) => {
   isGridControlsOpen.value = true
   await nextTick()
@@ -146,6 +235,14 @@ watch(gridStore.getSelectedGrid, async (value) => {
   selectedCube.value = reactiveBlocks.value.find(
     (reactiveBlock) => reactiveBlock.id === value?.cubeId,
   )
+})
+
+watch(cubeStore.getSelectedCube, async (value) => {
+  isGridControlsOpen.value = false
+  selectedCube.value = value?.cube
+  isBlockExpanded.value = new Array(reactiveBlocks.value.length).fill(false)
+  const selectedBlockIndex = reactiveBlocks.value.findIndex((block) => block.id === value?.cube.id)
+  isBlockExpanded.value[selectedBlockIndex] = true
 })
 
 const updateIsGridControlOpen = (value: boolean, cube: Cube | null) => {

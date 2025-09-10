@@ -3,7 +3,7 @@
     <template v-for="index in grid.rows * grid.columns">
       <div
         v-if="!isWindowExcluded(index)"
-        @dblclick="selectGrid()"
+        @dblclick.stop="selectGrid()"
         :key="index"
         class="window individual-window"
         :style="windowStyle"

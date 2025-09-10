@@ -6,6 +6,7 @@
     <button @click="creategrid">Create grid</button>
     <div class="grids-container" ref="gridsContainer">
       <div class="grids" v-for="(grid, index) in props.grids" :key="grid.id" ref="grids-ref">
+        <h3>{{ cube.name }}</h3>
         <hr />
         <div class="d-flex flex-start">
           <label>Name: </label>
@@ -530,11 +531,8 @@ const creategrid = () => {
 watch(
   () => props.selectedGrid,
   async (value: Grid | undefined, lastValue: Grid | undefined) => {
-    console.log('Watcher triggered - value:', value, 'lastValue:', lastValue)
-
     // If no selected grid, reset and exit
     if (!value) {
-      console.log('No selected grid')
       isgridExpanded.value = new Array(props.grids.length).fill(false)
       return
     }
@@ -542,7 +540,6 @@ watch(
     // Find the index of the selected grid
     const selectedgridIndex = props.grids.findIndex((grid) => value.id === grid.id)
     if (selectedgridIndex === -1) {
-      console.log('Selected grid not found in grids')
       return
     }
 
@@ -560,8 +557,6 @@ watch(
 
     // Get the DOM element for the selected grid
     const selectedgridRef = gridsRef.value[selectedgridIndex]
-    console.log('selectedgridIndex:', selectedgridIndex)
-    console.log('gridsRef:', gridsRef.value)
 
     // Handle the previously selected grid
     const previousSelectedgridIndex = props.grids.findIndex((grid) => lastValue?.id === grid.id)
@@ -578,7 +573,7 @@ watch(
   },
   {
     deep: true,
-    immediate: true, // Trigger on mount
+    immediate: true,
   },
 )
 
@@ -602,7 +597,6 @@ function scrollToTarget(selectedgridRef: any) {
 }
 
 function addSelectedStyle(selectedgridRef: any) {
-  console.log('does')
   selectedgridRef.classList.add('selected')
 }
 

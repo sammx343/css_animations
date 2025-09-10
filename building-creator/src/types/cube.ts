@@ -2,6 +2,7 @@ import type { Grid } from './grid'
 import type { Color } from './color'
 export type Cube = {
   id: string
+  name: string
   width: number
   long: number
   height: number

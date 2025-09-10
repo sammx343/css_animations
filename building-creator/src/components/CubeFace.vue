@@ -1,11 +1,16 @@
 <template>
-  <div class="cube__face" :class="`cube__face--${faceIndex + 1}`" :style="faceStyle">
+  <div
+    class="cube__face"
+    :class="`cube__face--${faceIndex + 1}`"
+    :style="faceStyle"
+    @dblclick="selectCube"
+  >
     <template v-for="grid in grids">
       <GridWindows
         v-if="!grid.excludedFaces.includes(faceIndex + 1)"
         :key="grid.id"
         :grid="grid"
-        :cubeId="cubeProperties.id"
+        :cubeId="cube.id"
       />
     </template>
   </div>
@@ -15,16 +20,19 @@
 import { computed } from 'vue'
 import GridWindows from './GridWindows.vue'
 import type { Grid } from '@/types/grid'
-import type { Cube } from '@/types/cube'
+import { Cube } from '@/types/cube'
 import type { Color } from '@/types/color'
+import { useCubeStore } from '@/store/cubeStore'
 const props = defineProps<{
   faceIndex: number
-  cubeProperties: Cube
+  cube: Cube
   grids: Grid[]
 }>()
 
+const cubeStore = useCubeStore()
+
 const faceStyle = computed(() => {
-  const { width, long, height, colors, colorsAngle } = props.cubeProperties
+  const { width, long, height, colors, colorsAngle } = props.cube
   const index = props.faceIndex
   const style = {
     background: colorsToLinearBackground(colors, colorsAngle),
@@ -63,6 +71,10 @@ const faceStyle = computed(() => {
 
   return style
 })
+
+const selectCube = () => {
+  cubeStore.setSelectedCube(props.cube)
+}
 
 const colorsToLinearBackground = (colors: Color[], colorsAngle = 90) => {
   const colorString = colors.map((color) => `${color.hex} ${color.percentage}%`)
