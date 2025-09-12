@@ -95,10 +95,10 @@ const blocks: Cube[] = [
         colorsAngle: 0,
         top: '2%',
         left: '2%',
-        windowWidth: '50px',
-        windowHeight: '50px',
-        gridWidth: '100%',
-        gridHeight: '100%',
+        windowWidth: '50',
+        windowHeight: '50',
+        gridWidth: '100',
+        gridHeight: '100',
         rowGap: '5px',
         columnGap: '5px',
         borderRadius: '0%',
@@ -135,10 +135,10 @@ const blocks: Cube[] = [
         colorsAngle: 0,
         top: '0%',
         left: '0%',
-        windowWidth: '40px',
-        windowHeight: '40px',
-        gridWidth: '100%',
-        gridHeight: '100%',
+        windowWidth: '40',
+        windowHeight: '40',
+        gridWidth: '100',
+        gridHeight: '100',
         rowGap: '5px',
         columnGap: '5px',
         borderRadius: '0%',
@@ -194,10 +194,10 @@ const createBlock = () => {
         colorsAngle: 0,
         top: '0%',
         left: '0%',
-        windowWidth: '40%',
-        windowHeight: '40%',
-        gridWidth: '100%',
-        gridHeight: '100%',
+        windowWidth: '40',
+        windowHeight: '40',
+        gridWidth: '100',
+        gridHeight: '100',
         rowGap: '5px',
         columnGap: '5px',
         borderRadius: '0%',
@@ -235,6 +235,7 @@ const duplicateBlock = (block: Cube) => {
   const deepCloneBlocked = JSON.parse(JSON.stringify(newBlock))
 
   reactiveBlocks.value.push(deepCloneBlocked)
+  expandBlock(deepCloneBlocked)
 }
 
 watch(gridStore.getSelectedGrid, async (value) => {
@@ -249,10 +250,15 @@ watch(gridStore.getSelectedGrid, async (value) => {
 watch(cubeStore.getSelectedCube, async (value) => {
   isGridControlsOpen.value = false
   selectedCube.value = value?.cube
-  isBlockExpanded.value = new Array(reactiveBlocks.value.length).fill(false)
-  const selectedBlockIndex = reactiveBlocks.value.findIndex((block) => block.id === value?.cube.id)
-  isBlockExpanded.value[selectedBlockIndex] = true
+  expandBlock(value?.cube)
 })
+
+const expandBlock = (cube: Cube | undefined) => {
+  if (!cube) return
+  isBlockExpanded.value = new Array(reactiveBlocks.value.length).fill(false)
+  const selectedBlockIndex = reactiveBlocks.value.findIndex((block) => block.id === cube.id)
+  isBlockExpanded.value[selectedBlockIndex] = true
+}
 
 const openGridControl = (value: boolean, cube: Cube | null) => {
   isGridControlsOpen.value = value

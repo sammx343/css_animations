@@ -10,7 +10,7 @@
         :value="cubeProperties.width"
         @input="updateProperty('width', ($event.target as HTMLInputElement).value)"
       />
-      <p>{{ cubeProperties.width }}</p>
+      <p>{{ cubeProperties.width }}px</p>
     </div>
     <div class="cube-controls--group">
       <label for="cube-height">Cube Height:</label>
@@ -22,7 +22,7 @@
         :value="cubeProperties.height"
         @input="updateProperty('height', ($event.target as HTMLInputElement).value)"
       />
-      <p>{{ cubeProperties.height }}</p>
+      <p>{{ cubeProperties.height }}px</p>
     </div>
     <div class="cube-controls--group">
       <label for="cube-long">Cube Long:</label>
@@ -34,7 +34,7 @@
         :value="cubeProperties.long"
         @input="updateProperty('long', ($event.target as HTMLInputElement).value)"
       />
-      <p>{{ cubeProperties.long }}</p>
+      <p>{{ cubeProperties.long }}px</p>
     </div>
     <div class="cube-controls--group">
       <label for="cube-long">Cube position X:</label>
@@ -124,10 +124,6 @@
       >
         Add color <v-icon name="md-addcircle-outlined"></v-icon>
       </button>
-
-      <!-- <button class="button" @click="addBlock()" style="background: yellow; margin-bottom: 10px;">Add
-                block
-                <v-icon name="md-addcircle-outlined"></v-icon></button> -->
     </div>
   </div>
 </template>

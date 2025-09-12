@@ -107,7 +107,7 @@
         />
       </div>
       <div class="controls--group">
-        <label :for="`window-width-${grid.id}`">Window Width: {{ localGrid.windowWidth }}</label>
+        <label :for="`window-width-${grid.id}`">Window Width: {{ localGrid.windowWidth }}px</label>
         <input
           :id="`window-width-${grid.id}`"
           type="range"
@@ -115,11 +115,13 @@
           max="100"
           step="0.1"
           :value="parseFloat(localGrid.windowWidth)"
-          @input="updateGrid('windowWidth', `${$event.target.value}px`)"
+          @input="updateGrid('windowWidth', `${$event.target.value}`)"
         />
       </div>
       <div class="controls--group">
-        <label :for="`window-height-${grid.id}`">Window Height: {{ localGrid.windowHeight }}</label>
+        <label :for="`window-height-${grid.id}`"
+          >Window Height: {{ localGrid.windowHeight }}px</label
+        >
         <input
           :id="`window-height-${grid.id}`"
           type="range"
@@ -127,11 +129,11 @@
           max="100"
           step="0.1"
           :value="parseFloat(localGrid.windowHeight)"
-          @input="updateGrid('windowHeight', `${$event.target.value}px`)"
+          @input="updateGrid('windowHeight', `${$event.target.value}`)"
         />
       </div>
       <div class="controls--group">
-        <label :for="`window-width-${grid.id}`">Grid Width: {{ localGrid.gridWidth }}</label>
+        <label :for="`window-width-${grid.id}`">Grid Width: {{ localGrid.gridWidth }}%</label>
         <input
           :id="`window-width-${grid.id}`"
           type="range"
@@ -139,11 +141,11 @@
           max="100"
           step="0.1"
           :value="parseFloat(localGrid.gridWidth)"
-          @input="updateGrid('gridWidth', `${$event.target.value}%`)"
+          @input="updateGrid('gridWidth', `${$event.target.value}`)"
         />
       </div>
       <div class="controls--group">
-        <label :for="`window-height-${grid.id}`">Grid Height: {{ localGrid.gridHeight }}</label>
+        <label :for="`window-height-${grid.id}`">Grid Height: {{ localGrid.gridHeight }}%</label>
         <input
           :id="`window-height-${grid.id}`"
           type="range"
@@ -151,7 +153,7 @@
           max="100"
           step="0.1"
           :value="parseFloat(localGrid.gridHeight)"
-          @input="updateGrid('gridHeight', `${$event.target.value}%`)"
+          @input="updateGrid('gridHeight', `${$event.target.value}`)"
         />
       </div>
       <div class="controls--group">
