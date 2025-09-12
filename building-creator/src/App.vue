@@ -2,7 +2,7 @@
   <main class="main">
     <div class="controls">
       <h2>Controls</h2>
-      <div class="controls-container">
+      <div class="controls-container" v-if="!isGridControlsOpen">
         <div class="cube-control" v-for="(block, index) in reactiveBlocks" :key="index">
           <hr />
           <div class="d-flex flex-start">
@@ -10,10 +10,24 @@
             <h3><input :id="`name-${block.id}`" type="text" v-model="block.name" /></h3>
           </div>
 
+          <div class="expandable-icon" @click="changeExpand(index)">
+            <v-icon v-if="isBlockExpanded[index]" name="bi-arrow-up" style="fill: black" />
+            <v-icon v-else name="bi-arrow-down" style="fill: black" />
+          </div>
           <div class="d-flex">
             <button class="grid-button duplicate-grid" @click="duplicateBlock(block)">
               <v-icon name="hi-duplicate" />Duplicate
             </button>
+
+            <div class="cube-controls--group">
+              <button
+                class="button"
+                @click="openGridControl(true, block)"
+                style="background: violet"
+              >
+                Grid options
+              </button>
+            </div>
             <button
               v-if="index != 0"
               class="grid-button delete-grid"
@@ -22,19 +36,14 @@
               <v-icon name="md-deleteforever-outlined"></v-icon> Delete
             </button>
           </div>
-          <hr />
           <div class="expandable" :class="{ expanded: isBlockExpanded[index] }">
             <CubeControls
               v-if="!isGridControlsOpen"
               :cube-properties="block"
               @update:cube-properties="updateCubeProperties"
-              @update:is-grid-control-open="(value) => updateIsGridControlOpen(value, block)"
+              @update:is-grid-control-open="(value) => openGridControl(value, block)"
               :zoom="zoom"
             />
-          </div>
-          <div class="expandable-icon" @click="changeExpand(index)">
-            <v-icon v-if="isBlockExpanded[index]" name="bi-arrow-up" style="fill: black" />
-            <v-icon v-else name="bi-arrow-down" style="fill: black" />
           </div>
         </div>
         <button @click="createBlock">Create New Block</button>
@@ -45,7 +54,7 @@
         :cube="selectedCube"
         :grids="selectedCube.grids"
         @update:grids="updateGrids"
-        @update:is-grid-control-open="updateIsGridControlOpen(false, null)"
+        @update:is-grid-control-open="openGridControl(false, null)"
       />
     </div>
     <CubeScene :zoom="zoom" @update:zoom="updateZoom" :blocks="reactiveBlocks" />
@@ -54,9 +63,9 @@
 
 <script setup lang="ts">
 import { nextTick, reactive, ref, watch } from 'vue'
-import CubeScene from './components/CubeScene.vue'
-import CubeControls from './components/CubeControls.vue'
-import GridControls from './components/GridControls.vue'
+import CubeScene from './components/Cube/CubeScene.vue'
+import CubeControls from './components/Cube/CubeControls.vue'
+import GridControls from './components/Grid/GridControls.vue'
 import type { Cube } from '@/types/cube'
 import type { Grid } from '@/types/grid'
 import { generateId } from './utils/generateId'
@@ -86,8 +95,8 @@ const blocks: Cube[] = [
         colorsAngle: 0,
         top: '2%',
         left: '2%',
-        windowWidth: '50%',
-        windowHeight: '50%',
+        windowWidth: '50px',
+        windowHeight: '50px',
         gridWidth: '100%',
         gridHeight: '100%',
         rowGap: '5px',
@@ -126,8 +135,8 @@ const blocks: Cube[] = [
         colorsAngle: 0,
         top: '0%',
         left: '0%',
-        windowWidth: '40%',
-        windowHeight: '40%',
+        windowWidth: '40px',
+        windowHeight: '40px',
         gridWidth: '100%',
         gridHeight: '100%',
         rowGap: '5px',
@@ -245,7 +254,7 @@ watch(cubeStore.getSelectedCube, async (value) => {
   isBlockExpanded.value[selectedBlockIndex] = true
 })
 
-const updateIsGridControlOpen = (value: boolean, cube: Cube | null) => {
+const openGridControl = (value: boolean, cube: Cube | null) => {
   isGridControlsOpen.value = value
   if (cube) selectedCube.value = cube
 }

@@ -26,8 +26,8 @@ const props = defineProps<{
 const rowStore = useGridStore()
 
 const rowStyle = computed(() => ({
-  width: props.grid.gridWidth,
-  height: props.grid.gridHeight,
+  width: `${props.grid.gridWidth}%`,
+  height: `${props.grid.gridHeight}%`,
   position: 'absolute',
   top: props.grid.top,
   left: props.grid.left,

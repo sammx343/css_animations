@@ -63,3 +63,74 @@
 .justify-center {
   justify-content: center;
 }
+
+.controls-expandable {
+  max-height: 0vh;
+  overflow: hidden;
+}
+
+.controls-expandable.expanded {
+  max-height: 200vh;
+}
+
+.controls-expandable-icon {
+  display: flex;
+  justify-content: center;
+  background: bisque;
+  border-radius: 10px;
+  font-family: system-ui;
+  border: 2px solid black;
+  cursor: pointer;
+}
+
+.grid-button {
+  margin-right: 5px;
+  border-radius: 10px;
+  border: 1px solid black;
+  color: white;
+  text-shadow: 1px 1px 1px black;
+  padding: 5px 10px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.grids.selected {
+  background: red;
+}
+
+.duplicate-grid {
+  background: green;
+}
+
+.delete-grid {
+  background: #df635a;
+}
+
+.reverse-grid {
+  background: #000000;
+}
+
+.grids-container {
+  max-height: 80vh;
+  padding-bottom: 20px;
+  overflow-y: scroll;
+}
+
+label {
+  margin-bottom: 0.5rem;
+}
+
+input[type='range'],
+input[type='color'] {
+  width: 100%;
+}
+
+hr {
+  border: 0;
+  border-top: 1px solid white;
+  margin: 1rem 0;
+}
+
+p {
+  margin: 0.5rem 0;
+}
