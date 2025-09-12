@@ -61,10 +61,10 @@ const createGrid = () => {
     colors: [{ hex: '#000000', percentage: 100 }],
     top: '2%',
     left: '2%',
-    windowWidth: '50%',
-    windowHeight: '50%',
-    gridWidth: '50px',
-    gridHeight: '50px',
+    windowWidth: '50px',
+    windowHeight: '50px',
+    gridWidth: '50%',
+    gridHeight: '50%',
     rowGap: '5px',
     columnGap: '5px',
     borderRadius: '0%',
@@ -121,24 +121,32 @@ watch(
       isGridExpanded.value = new Array(props.grids.length).fill(false)
       return
     }
+    console.log('gets here')
 
     const selectedGridIndex = props.grids.findIndex((grid) => value.id === grid.id)
     if (selectedGridIndex === -1) return
 
+    console.log('selectedGridIndex')
     await nextTick()
-    if (!gridsRef.value || !gridsRef.value[selectedGridIndex]) return
 
+    if (!gridsContainer.value || gridsContainer.value[selectedGridIndex]) return
+
+    console.log('and gets here')
     isGridExpanded.value = new Array(props.grids.length).fill(false)
-    const selectedGridRef = gridsRef.value[selectedGridIndex]
+    const selectedGridRef = gridsContainer.value?.children[selectedGridIndex]
     const previousSelectedGridIndex = props.grids.findIndex((grid) => lastValue?.id === grid.id)
+    console.log(previousSelectedGridIndex)
     const previousSelectedGridRef =
-      previousSelectedGridIndex >= 0 ? gridsRef.value[previousSelectedGridIndex] : null
+      previousSelectedGridIndex >= 0
+        ? gridsContainer.value[selectedGridIndex]?.children.length
+        : null
 
     removeSelectedStyle(previousSelectedGridRef)
     isGridExpanded.value[selectedGridIndex] = true
     await nextTick()
+
     scrollToTarget(selectedGridRef)
-    await nextTick()
+
     addSelectedStyle(selectedGridRef)
   },
   { deep: true, immediate: true },

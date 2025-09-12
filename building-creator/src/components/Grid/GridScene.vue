@@ -1,12 +1,12 @@
 <template>
-  <div class="grid" :style="rowStyle">
+  <div class="grid" :style="gridStyle">
     <template v-for="index in grid.rows * grid.columns">
       <div
         v-if="!isWindowExcluded(index)"
         @dblclick.stop="selectGrid()"
         :key="index"
         class="window individual-window"
-        :style="windowStyle"
+        :style="gridItemStyle"
       ></div>
       <div v-else :key="index + '-'"></div>
     </template>
@@ -25,7 +25,7 @@ const props = defineProps<{
 
 const rowStore = useGridStore()
 
-const rowStyle = computed(() => ({
+const gridStyle = computed(() => ({
   width: `${props.grid.gridWidth}%`,
   height: `${props.grid.gridHeight}%`,
   position: 'absolute',
@@ -38,7 +38,7 @@ const rowStyle = computed(() => ({
   gridTemplateRows: `repeat(${props.grid.rows}, 1fr)`,
 }))
 
-const windowStyle = computed(() => ({
+const gridItemStyle = computed(() => ({
   background: colorsToLinearBackground(props.grid.colors),
   borderTop: props.grid.borderTop
     ? `${props.grid.borderTop.size}px ${props.grid.borderTop.style} ${props.grid.borderTop.color}`
@@ -53,8 +53,8 @@ const windowStyle = computed(() => ({
     ? `${props.grid.borderRight.size}px ${props.grid.borderRight.style} ${props.grid.borderRight.color}`
     : '',
   borderRadius: props.grid.borderRadius,
-  width: props.grid.windowWidth,
-  height: props.grid.windowHeight,
+  width: `${props.grid.windowWidth}px`,
+  height: `${props.grid.windowHeight}px`,
 }))
 
 const colorsToLinearBackground = (colors: { hex: string; percentage: number }[]) => {
