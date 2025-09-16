@@ -1,5 +1,21 @@
 <template>
   <div class="cube-controls">
+    <SliderComponent
+      id="cube-width"
+      label="Cube Width:"
+      :min="1"
+      :max="1000"
+      propertyName="width"
+      class="cube-controls--group"
+      :property="cubeProperties.width"
+      :input-function="
+        ($event) => updateProperty('width', ($event.target as HTMLInputElement).value)
+      "
+      :substract-function="() => updateProperty('width', `${cubeProperties.width - 1}`)"
+      :add-function="() => updateProperty('width', `${parseInt(cubeProperties.width) + 1}`)"
+      sufix="px"
+    ></SliderComponent>
+
     <div class="cube-controls--group">
       <label for="cube-width">Cube Width:</label>
       <input
@@ -132,6 +148,7 @@
 import { defineProps, defineEmits } from 'vue'
 import type { Cube } from '@/types/cube'
 import type { Color } from '@/types/color'
+import SliderComponent from '../UI/SliderComponent.vue'
 
 const props = defineProps<{
   cubeProperties: Cube
