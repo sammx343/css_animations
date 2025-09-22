@@ -28,8 +28,8 @@
 .cube-control {
 }
 
-.cube-control p {
-  margin: 0;
+p {
+  margin: 0 !important;
 }
 
 .cube-control .close {

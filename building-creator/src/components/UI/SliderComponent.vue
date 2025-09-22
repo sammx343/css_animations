@@ -1,11 +1,11 @@
 <template>
   <div class="slider" :class="props.class">
     <div class="d-flex">
-      <label for="cube-width">{{ props.label }}</label>
-      <p>{{ property }} {{ sufix }}</p>
+      <label :for="id">{{ props.label }}</label>
+      <p>{{ value }} {{ sufix }}</p>
     </div>
     <div class="d-flex">
-      <button @click="substractFunction">
+      <button @click="inputFunction(propertyName, parseInt(value) + -1)">
         <v-icon name="hi-solid-chevron-left" style="fill: black" />
       </button>
       <input
@@ -13,10 +13,12 @@
         type="range"
         :min="props.min"
         :max="props.max"
-        :value="property"
-        @input="inputFunction"
+        :value="value"
+        @input="
+          (event) => inputFunction(propertyName, (event.target as HTMLInputElement).value, index)
+        "
       />
-      <button @click="addFunction">
+      <button @click="inputFunction(propertyName, parseInt(value) + 1)">
         <v-icon name="hi-solid-chevron-right" style="fill: black" />
       </button>
     </div>
@@ -29,11 +31,10 @@ const props = defineProps<{
   class: string
   min: number
   max: number
-  property: string | number
+  index?: number
+  value: string | number
   propertyName: string
   sufix: string
-  substractFunction: (dimension: string, value: string) => void
-  addFunction: (dimension: string, value: string) => void
-  inputFunction: (dimension: string, value: string) => void
+  inputFunction: (dimension: string, value: string, index: number) => void
 }>()
 </script>

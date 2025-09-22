@@ -99,8 +99,8 @@ const blocks: Cube[] = [
         windowHeight: '50',
         gridWidth: '100',
         gridHeight: '100',
-        rowGap: '5px',
-        columnGap: '5px',
+        rowGap: '5',
+        columnGap: '5',
         borderRadius: '0%',
         excludedFaces: [5, 6],
         borderTop: {

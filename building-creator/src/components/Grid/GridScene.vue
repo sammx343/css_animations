@@ -29,10 +29,10 @@ const gridStyle = computed(() => ({
   width: `${props.grid.gridWidth}%`,
   height: `${props.grid.gridHeight}%`,
   position: 'absolute',
-  top: props.grid.top,
-  left: props.grid.left,
-  rowGap: props.grid.columnGap,
-  columnGap: props.grid.rowGap,
+  top: `${props.grid.top}%`,
+  left: `${props.grid.left}%`,
+  rowGap: `${props.grid.rowGap}px`,
+  columnGap: `${props.grid.columnGap}px`,
   transform: 'translate(0%, 0%)',
   gridTemplateColumns: `repeat(${props.grid.columns}, 1fr)`,
   gridTemplateRows: `repeat(${props.grid.rows}, 1fr)`,
@@ -52,7 +52,7 @@ const gridItemStyle = computed(() => ({
   borderRight: props.grid.borderRight
     ? `${props.grid.borderRight.size}px ${props.grid.borderRight.style} ${props.grid.borderRight.color}`
     : '',
-  borderRadius: props.grid.borderRadius,
+  borderRadius: `${props.grid.borderRadius}%`,
   width: `${props.grid.windowWidth}px`,
   height: `${props.grid.windowHeight}px`,
 }))
