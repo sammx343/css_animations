@@ -27,30 +27,29 @@
     </div>
 
     <div class="controls-expandable" :class="{ expanded: isExpanded }">
-      <div class="controls--group">
-        <label :for="`number-of-windows-${grid.id}`">Number of rows: {{ localGrid.rows }}</label>
-        <input
-          :id="`number-of-windows-${grid.id}`"
-          type="range"
-          min="1"
-          max="20"
-          :value="localGrid.rows"
-          @input="updateGrid('rows', $event.target.value)"
-        />
-      </div>
-      <div class="controls--group">
-        <label :for="`number-of-windows-${grid.id}`"
-          >Number of columns: {{ localGrid.columns }}</label
-        >
-        <input
-          :id="`number-of-windows-${grid.id}`"
-          type="range"
-          min="1"
-          max="20"
-          :value="localGrid.columns"
-          @input="updateGrid('columns', $event.target.value)"
-        />
-      </div>
+      <SliderComponent
+        :id="`number-of-rows-${grid.id}`"
+        label="Number of rows: "
+        :min="1"
+        :max="20"
+        propertyName="rows"
+        class="controls--group"
+        :value="localGrid.rows"
+        :input-function="updateGrid"
+        sufix=""
+      ></SliderComponent>
+
+      <SliderComponent
+        :id="`number-of-columns-${grid.id}`"
+        label="Number of columns: "
+        :min="1"
+        :max="20"
+        propertyName="columns"
+        class="controls--group"
+        :value="localGrid.columns"
+        :input-function="updateGrid"
+        sufix=""
+      ></SliderComponent>
       <div class="controls--group">
         <div class="d-flex">
           <label>Active windows: {{ localGrid.columns }}</label>
@@ -82,129 +81,129 @@
           <v-icon name="md-flipcameraandroid"></v-icon> Reverse
         </button>
       </div>
-      <div class="controls--group">
-        <label :for="`position-top-${grid.id}`">Position top: {{ localGrid.top }}</label>
-        <input
-          :id="`position-top-${grid.id}`"
-          type="range"
-          min="0"
-          max="100"
-          step="0.1"
-          :value="parseFloat(localGrid.top)"
-          @input="updateGrid('top', `${$event.target.value}%`)"
-        />
-      </div>
-      <div class="controls--group">
-        <label :for="`position-left-${grid.id}`">Position left: {{ localGrid.left }}</label>
-        <input
-          :id="`position-left-${grid.id}`"
-          type="range"
-          min="0"
-          max="100"
-          step="0.1"
-          :value="parseFloat(localGrid.left)"
-          @input="updateGrid('left', `${$event.target.value}%`)"
-        />
-      </div>
-      <div class="controls--group">
-        <label :for="`window-width-${grid.id}`">Window Width: {{ localGrid.windowWidth }}px</label>
-        <input
-          :id="`window-width-${grid.id}`"
-          type="range"
-          min="0"
-          max="100"
-          step="0.1"
-          :value="parseFloat(localGrid.windowWidth)"
-          @input="updateGrid('windowWidth', `${$event.target.value}`)"
-        />
-      </div>
-      <div class="controls--group">
-        <label :for="`window-height-${grid.id}`"
-          >Window Height: {{ localGrid.windowHeight }}px</label
-        >
-        <input
-          :id="`window-height-${grid.id}`"
-          type="range"
-          min="0"
-          max="100"
-          step="0.1"
-          :value="parseFloat(localGrid.windowHeight)"
-          @input="updateGrid('windowHeight', `${$event.target.value}`)"
-        />
-      </div>
-      <div class="controls--group">
-        <label :for="`window-width-${grid.id}`">Grid Width: {{ localGrid.gridWidth }}%</label>
-        <input
-          :id="`window-width-${grid.id}`"
-          type="range"
-          min="0"
-          max="100"
-          step="0.1"
-          :value="parseFloat(localGrid.gridWidth)"
-          @input="updateGrid('gridWidth', `${$event.target.value}`)"
-        />
-      </div>
-      <div class="controls--group">
-        <label :for="`window-height-${grid.id}`">Grid Height: {{ localGrid.gridHeight }}%</label>
-        <input
-          :id="`window-height-${grid.id}`"
-          type="range"
-          min="0"
-          max="100"
-          step="0.1"
-          :value="parseFloat(localGrid.gridHeight)"
-          @input="updateGrid('gridHeight', `${$event.target.value}`)"
-        />
-      </div>
-      <div class="controls--group">
-        <label :for="`row-gap-${grid.id}`">Row gap: {{ localGrid.rowGap }}</label>
-        <input
-          :id="`row-gap-${grid.id}`"
-          type="range"
-          min="0"
-          max="100"
-          :value="parseFloat(localGrid.rowGap)"
-          @input="updateGrid('rowGap', `${$event.target.value}px`)"
-        />
-      </div>
-      <div class="controls--group">
-        <label :for="`column-gap-${grid.id}`">Column gap: {{ localGrid.columnGap }}</label>
-        <input
-          :id="`column-gap-${grid.id}`"
-          type="range"
-          min="0"
-          max="100"
-          :value="parseFloat(localGrid.columnGap)"
-          @input="updateGrid('columnGap', `${$event.target.value}px`)"
-        />
-      </div>
-      <div class="controls--group">
-        <label :for="`border-radius-${grid.id}`">Border Radius {{ localGrid.borderRadius }}</label>
-        <input
-          :id="`border-radius-${grid.id}`"
-          type="range"
-          min="0"
-          max="50"
-          step="1"
-          :value="parseFloat(localGrid.borderRadius || '0')"
-          @input="updateGrid('borderRadius', `${$event.target.value}%`)"
-        />
-      </div>
+
+      <SliderComponent
+        :id="`position-top-${grid.id}`"
+        label="Position top: "
+        :min="-100"
+        :max="100"
+        propertyName="top"
+        class="controls--group"
+        :value="localGrid.top"
+        :input-function="updateGrid"
+        sufix="%"
+      ></SliderComponent>
+
+      <SliderComponent
+        :id="`position-left-${grid.id}`"
+        label="Position left: "
+        :min="-100"
+        :max="100"
+        propertyName="left"
+        class="controls--group"
+        :value="localGrid.left"
+        :input-function="updateGrid"
+        sufix="%"
+      ></SliderComponent>
+
+      <SliderComponent
+        :id="`window-width-${grid.id}`"
+        label="Window Width: "
+        :min="0"
+        :max="100"
+        propertyName="windowWidth"
+        class="controls--group"
+        :value="localGrid.windowWidth"
+        :input-function="updateGrid"
+        sufix="px"
+      ></SliderComponent>
+
+      <SliderComponent
+        :id="`window-height-${grid.id}`"
+        label="Window Height: "
+        :min="0"
+        :max="100"
+        propertyName="windowHeight"
+        class="controls--group"
+        :value="localGrid.windowHeight"
+        :input-function="updateGrid"
+        sufix="px"
+      ></SliderComponent>
+
+      <SliderComponent
+        :id="`grid-width-${grid.id}`"
+        label="Grid Width: "
+        :min="0"
+        :max="100"
+        propertyName="gridWidth"
+        class="controls--group"
+        :value="localGrid.gridWidth"
+        :input-function="updateGrid"
+        sufix="%"
+      ></SliderComponent>
+
+      <SliderComponent
+        :id="`grid-height-${grid.id}`"
+        label="Grid Height: "
+        :min="0"
+        :max="100"
+        propertyName="gridHeight"
+        class="controls--group"
+        :value="localGrid.gridHeight"
+        :input-function="updateGrid"
+        sufix="%"
+      ></SliderComponent>
+
+      <SliderComponent
+        :id="`row-gap-${grid.id}`"
+        label="Row gap: "
+        :min="0"
+        :max="100"
+        propertyName="rowGap"
+        class="controls--group"
+        :value="localGrid.rowGap"
+        :input-function="updateGrid"
+        sufix="px"
+      ></SliderComponent>
+
+      <SliderComponent
+        :id="`column-gap-${grid.id}`"
+        label="Column gap: "
+        :min="0"
+        :max="100"
+        propertyName="columnGap"
+        class="controls--group"
+        :value="localGrid.columnGap"
+        :input-function="updateGrid"
+        sufix="px"
+      ></SliderComponent>
+
+      <SliderComponent
+        :id="`border-radius-${grid.id}`"
+        label="Border Radius: "
+        :min="0"
+        :max="50"
+        propertyName="borderRadius"
+        class="controls--group"
+        :value="localGrid.borderRadius"
+        :input-function="updateGrid"
+        sufix="%"
+      ></SliderComponent>
+
       <div class="controls--group">
         <h3>Colors:</h3>
-        <div class="d-flex">
-          <label :for="`color-percentage-angle-${grid.id}`"
-            >Angle: {{ localGrid.colorsAngle }}</label
-          >
-          <input
-            :id="`color-percentage-angle-${grid.id}`"
-            type="range"
-            min="1"
-            max="360"
-            v-model="localGrid.colorsAngle"
-            @input="update"
-          />
-        </div>
+        <SliderComponent
+          v-if="localGrid.colors.length > 1"
+          :id="`color-percentage-angle-${grid.id}`"
+          label="Colors angle: "
+          :min="0"
+          :max="360"
+          propertyName="colorsAngle"
+          class="controls--group"
+          :value="localGrid.colorsAngle"
+          :input-function="updateGrid"
+          sufix="deg"
+        ></SliderComponent>
         <div
           v-for="(color, colorIndex) in localGrid.colors"
           :key="`color-index-${colorIndex}`"
@@ -376,7 +375,8 @@
 <script setup lang="ts">
 import type { Grid } from '@/types/grid'
 import type { Cube } from '@/types/cube'
-import { ref, watch, computed } from 'vue'
+import { ref, watch } from 'vue'
+import SliderComponent from '../UI/SliderComponent.vue'
 
 const props = defineProps<{
   grid: Grid
