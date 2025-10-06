@@ -2,7 +2,7 @@
   <div class="cube-controls">
     <SliderComponent
       id="cube-width"
-      label="Cube Width:"
+      label="Width:"
       :min="1"
       :max="1000"
       propertyName="width"
@@ -14,7 +14,7 @@
 
     <SliderComponent
       id="cube-height"
-      label="Cube Height:"
+      label="Height:"
       :min="1"
       :max="1000"
       propertyName="height"
@@ -26,7 +26,7 @@
 
     <SliderComponent
       id="cube-long"
-      label="Cube Long:"
+      label="Long:"
       :min="1"
       :max="1000"
       propertyName="long"
@@ -38,7 +38,7 @@
 
     <SliderComponent
       id="cube-position-x"
-      label="Cube Position X:"
+      label="Position X:"
       :min="-1000"
       :max="1000"
       propertyName="positionX"
@@ -50,7 +50,7 @@
 
     <SliderComponent
       id="cube-position-y"
-      label="Cube Position Y:"
+      label="Position Y:"
       :min="-1000"
       :max="1000"
       propertyName="positionY"
@@ -62,12 +62,48 @@
 
     <SliderComponent
       id="cube-position-z"
-      label="Cube Position Z:"
+      label="Position Z:"
       :min="-1000"
       :max="1000"
       propertyName="positionZ"
       class="cube-controls--group"
       :value="cubeProperties.positionZ"
+      :input-function="updateProperty"
+      sufix="px"
+    ></SliderComponent>
+
+    <SliderComponent
+      id="cube-rotation-x"
+      label="Rotation X:"
+      :min="0"
+      :max="360"
+      propertyName="rotationX"
+      class="cube-controls--group"
+      :value="cubeProperties.rotationX || 0"
+      :input-function="updateProperty"
+      sufix="px"
+    ></SliderComponent>
+
+    <SliderComponent
+      id="cube-rotation-y"
+      label="Rotation Y:"
+      :min="0"
+      :max="360"
+      propertyName="rotationY"
+      class="cube-controls--group"
+      :value="cubeProperties.rotationY || 0"
+      :input-function="updateProperty"
+      sufix="px"
+    ></SliderComponent>
+
+    <SliderComponent
+      id="cube-rotation-z"
+      label="Rotation Z:"
+      :min="0"
+      :max="360"
+      propertyName="rotationZ"
+      class="cube-controls--group"
+      :value="cubeProperties.rotationZ || 0"
       :input-function="updateProperty"
       sufix="px"
     ></SliderComponent>

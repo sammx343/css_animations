@@ -59,7 +59,7 @@ const cubeContainerStyle = (block: Cube) => ({})
 const getCubeStyle = (block: Cube) => ({
   width: `${block.long}px`,
   height: `${block.height}px`,
-  transform: `translateX(${block.positionX}px) translateY(${block.positionY}px) translateZ(${block.positionZ}px)`,
+  transform: `rotateX(${block.rotationX}deg) rotateY(${block.rotationY}deg) rotateZ(${block.rotationZ}deg) translateX(${block.positionX}px) translateY(${block.positionY}px) translateZ(${block.positionZ}px)`,
   left: `${block.left || 0}px`,
   bottom: `${block.bottom || 0}px`,
   position: 'absolute',
@@ -101,7 +101,7 @@ onMounted(() => {
 .cube {
   position: absolute;
   transform-style: preserve-3d;
-  transform-origin: top right;
+  transform-origin: center;
 }
 
 .cube-container {

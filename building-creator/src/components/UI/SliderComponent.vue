@@ -5,7 +5,7 @@
       <p>{{ value }} {{ sufix }}</p>
     </div>
     <div class="d-flex">
-      <button @click="inputFunction(propertyName, parseInt(value) + -1)">
+      <button @click="inputFunction(propertyName, parseInt(value) - 1)">
         <v-icon name="hi-solid-chevron-left" style="fill: black" />
       </button>
       <input
@@ -35,6 +35,6 @@ const props = defineProps<{
   value: string | number
   propertyName: string
   sufix: string
-  inputFunction: (dimension: string, value: string, index: number) => void
+  inputFunction: (dimension: string, value: string, index?: number) => void
 }>()
 </script>
