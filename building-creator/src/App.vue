@@ -84,6 +84,9 @@ const blocks: Cube[] = [
     positionX: 0,
     positionY: 0,
     positionZ: 0,
+    rotationX: 0,
+    rotationY: 0,
+    rotationZ: 0,
     grids: [
       {
         id: generateId(),
@@ -124,6 +127,9 @@ const blocks: Cube[] = [
     positionX: 0,
     positionY: 0,
     positionZ: 0,
+    rotationX: 0,
+    rotationY: 0,
+    rotationZ: 0,
     grids: [
       {
         id: generateId(),
@@ -183,6 +189,9 @@ const createBlock = () => {
     positionX: 400,
     positionY: 0,
     positionZ: 0,
+    rotationX: 0,
+    rotationY: 0,
+    rotationZ: 0,
     grids: [
       {
         id: generateId(),
