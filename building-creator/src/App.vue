@@ -2,8 +2,12 @@
   <main class="main">
     <div class="controls">
       <h2>Controls</h2>
+      <div class="flex">
+        <button @click="saveBuilding()">Save Building</button>
+        <button @click="loadBuilding()">Load Building</button>
+      </div>
       <div class="controls-container" v-if="!isGridControlsOpen">
-        <div class="cube-control" v-for="(block, index) in reactiveBlocks" :key="index">
+        <div class="cube-control" v-for="(block, index) in building.blocks" :key="index">
           <hr />
           <div class="d-flex flex-start">
             <label>Name: </label>
@@ -57,12 +61,16 @@
         @update:is-grid-control-open="openGridControl(false, null)"
       />
     </div>
-    <CubeScene :zoom="zoom" @update:zoom="updateZoom" :blocks="reactiveBlocks" />
+    <CubeScene :zoom="zoom" @update:zoom="updateZoom" :blocks="building.blocks" />
+    <Modal v-if="showBuildingsModal" @close-modal="closeLoadBuildingsModal">
+      <BuildingList></BuildingList>
+    </Modal>
   </main>
 </template>
 
 <script setup lang="ts">
-import { nextTick, reactive, ref, watch } from 'vue'
+import { nextTick, ref, watch } from 'vue'
+import Modal from './components/UI/Modal.vue'
 import CubeScene from './components/Cube/CubeScene.vue'
 import CubeControls from './components/Cube/CubeControls.vue'
 import GridControls from './components/Grid/GridControls.vue'
@@ -71,6 +79,9 @@ import type { Grid } from '@/types/grid'
 import { generateId } from './utils/generateId'
 import { useGridStore } from '@/store/gridStore'
 import { useCubeStore } from './store/cubeStore'
+import { useBuildingStore } from './store/buildingStore'
+import type { Building } from './types/building'
+import BuildingList from './components/BuildingList.vue'
 
 const blocks: Cube[] = [
   {
@@ -159,13 +170,19 @@ const blocks: Cube[] = [
   },
 ]
 
-const reactiveBlocks = ref<Cube[]>(blocks)
+const building = ref<Building>({
+  id: generateId(),
+  name: 'building -1',
+  blocks: blocks,
+})
 
-const isBlockExpanded = ref(new Array(reactiveBlocks.value.length).fill(false))
+const isBlockExpanded = ref(new Array(building.value.blocks.length).fill(false))
 const selectedGrid = ref<{ cubeId: string; grid: Grid }>()
 const gridStore = useGridStore()
 const cubeStore = useCubeStore()
+const buildingStore = useBuildingStore()
 const selectedCube = ref<Cube>()
+const showBuildingsModal = ref(false)
 
 const zoom = ref('1')
 
@@ -175,10 +192,14 @@ const changeExpand = (index: number) => {
   isBlockExpanded.value[index] = !isBlockExpanded.value[index]
 }
 
+const closeLoadBuildingsModal = () => {
+  showBuildingsModal.value = false
+}
+
 const createBlock = () => {
   const newBlock = {
     id: generateId(),
-    name: `block ${reactiveBlocks.value.length + 1}`,
+    name: `block ${building.value.blocks.length + 1}`,
     width: 100,
     height: 100,
     long: 100,
@@ -220,11 +241,11 @@ const createBlock = () => {
     ],
   }
 
-  reactiveBlocks.value.push(newBlock)
+  building.value.blocks.push(newBlock)
 }
 
 const deleteBlock = (blockId: string) => {
-  reactiveBlocks.value = reactiveBlocks.value.filter((block) => block.id !== blockId)
+  building.value.blocks = building.value.blocks.filter((block) => block.id !== blockId)
 }
 
 const duplicateBlock = (block: Cube) => {
@@ -243,15 +264,23 @@ const duplicateBlock = (block: Cube) => {
 
   const deepCloneBlocked = JSON.parse(JSON.stringify(newBlock))
 
-  reactiveBlocks.value.push(deepCloneBlocked)
+  building.value.blocks.push(deepCloneBlocked)
   expandBlock(deepCloneBlocked)
+}
+
+const saveBuilding = () => {
+  buildingStore.saveBuilding(building.value)
+}
+
+const loadBuilding = () => {
+  showBuildingsModal.value = true
 }
 
 watch(gridStore.getSelectedGrid, async (value) => {
   isGridControlsOpen.value = true
   await nextTick()
   selectedGrid.value = value?.grid
-  selectedCube.value = reactiveBlocks.value.find(
+  selectedCube.value = building.value.blocks.find(
     (reactiveBlock) => reactiveBlock.id === value?.cubeId,
   )
 })
@@ -264,8 +293,8 @@ watch(cubeStore.getSelectedCube, async (value) => {
 
 const expandBlock = (cube: Cube | undefined) => {
   if (!cube) return
-  isBlockExpanded.value = new Array(reactiveBlocks.value.length).fill(false)
-  const selectedBlockIndex = reactiveBlocks.value.findIndex((block) => block.id === cube.id)
+  isBlockExpanded.value = new Array(building.value.length).fill(false)
+  const selectedBlockIndex = building.value.blocks.findIndex((block) => block.id === cube.id)
   isBlockExpanded.value[selectedBlockIndex] = true
 }
 
@@ -275,14 +304,14 @@ const openGridControl = (value: boolean, cube: Cube | null) => {
 }
 
 const updateCubeProperties = (newBlock: Cube) => {
-  reactiveBlocks.value = reactiveBlocks.value.map((block: Cube) => {
+  building.value.blocks = building.value.blocks.map((block: Cube) => {
     if (block.id === newBlock.id) return newBlock
     return block
   })
 }
 
 const updateGrids = (grids: Grid[], cubeId: string) => {
-  reactiveBlocks.value = reactiveBlocks.value.map((block: Cube) => {
+  building.value.blocks = building.value.blocks.map((block: Cube) => {
     if (block.id === cubeId) {
       const newBlock = {
         ...block,

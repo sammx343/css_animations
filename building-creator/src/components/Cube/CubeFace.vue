@@ -85,6 +85,7 @@ const colorsToLinearBackground = (colors: Color[], colorsAngle = 90) => {
 <style scoped>
 .cube__face {
   display: flex;
+  overflow: hidden;
   align-items: center;
   justify-content: center;
   position: absolute;

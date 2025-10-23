@@ -15,6 +15,7 @@ import {
   MdAddcircleOutlined,
   HiSolidChevronLeft,
   HiSolidChevronRight,
+  IoClose,
 } from 'oh-vue-icons/icons'
 
 const pinia = createPinia()
@@ -30,5 +31,6 @@ addIcons(
   MdAddcircleOutlined,
   HiSolidChevronLeft,
   HiSolidChevronRight,
+  IoClose,
 )
 createApp(App).use(pinia).component('v-icon', OhVueIcon).mount('#app')
