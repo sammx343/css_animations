@@ -6,7 +6,7 @@
     @dblclick="selectCube"
   >
     <template v-for="grid in grids">
-      <GridWindows
+      <GridScene
         v-if="!grid.excludedFaces.includes(faceIndex + 1)"
         :key="grid.id"
         :grid="grid"
@@ -18,7 +18,7 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
-import GridWindows from '../Grid/GridScene.vue'
+import GridScene from '../Grid/GridScene.vue'
 import type { Grid } from '@/types/grid'
 import { Cube } from '@/types/cube'
 import type { Color } from '@/types/color'
@@ -85,10 +85,11 @@ const colorsToLinearBackground = (colors: Color[], colorsAngle = 90) => {
 <style scoped>
 .cube__face {
   display: flex;
+  overflow: hidden;
   align-items: center;
   justify-content: center;
   position: absolute;
   backface-visibility: inherit;
-  border: 2px solid black;
+  border: 1px solid black;
 }
 </style>

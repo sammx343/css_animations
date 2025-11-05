@@ -6,7 +6,7 @@
     <hr />
     <button @click="createGrid">Create grid</button>
     <div class="grids-container" ref="gridsContainer">
-      <GridControlItem
+      <GridControlsForm
         v-for="(grid, index) in grids"
         :key="grid.id"
         :grid="grid"
@@ -29,7 +29,7 @@ import type { Grid } from '@/types/grid'
 import type { Cube } from '@/types/cube'
 import { ref, watch, nextTick, useTemplateRef } from 'vue'
 import { generateId } from '@/utils/generateId'
-import GridControlItem from './GridControlItem.vue'
+import GridControlsForm from './GridControlsForm.vue'
 
 const props = defineProps<{
   cube: Cube
@@ -59,15 +59,15 @@ const createGrid = () => {
     excludedWindows: [],
     colorsAngle: 0,
     colors: [{ hex: '#000000', percentage: 100 }],
-    top: '2%',
-    left: '2%',
-    windowWidth: '50px',
-    windowHeight: '50px',
-    gridWidth: '50%',
-    gridHeight: '50%',
-    rowGap: '5px',
-    columnGap: '5px',
-    borderRadius: '0%',
+    top: '2',
+    left: '2',
+    windowWidth: '50',
+    windowHeight: '50',
+    gridWidth: '50',
+    gridHeight: '50',
+    rowGap: '5',
+    columnGap: '5',
+    borderRadius: '0',
     excludedFaces: [5, 6],
   }
   emitGridChanges([...props.grids, newGrid])
@@ -132,7 +132,7 @@ watch(
     isGridExpanded.value = new Array(props.grids.length).fill(false)
     const selectedGridRef = gridsContainer.value?.children[selectedGridIndex]
     const previousSelectedGridIndex = props.grids.findIndex((grid) => lastValue?.id === grid.id)
-    console.log(previousSelectedGridIndex)
+
     const previousSelectedGridRef =
       previousSelectedGridIndex >= 0
         ? gridsContainer.value[selectedGridIndex]?.children.length
