@@ -1,0 +1,1744 @@
+[
+  {
+    "id": "704121196009446285297",
+    "name": "Hospital 1",
+    "blocks": [
+      {
+        "id": "622441122029480535691",
+        "name": "block center",
+        "width": 480,
+        "height": 300,
+        "long": 300,
+        "colors": [
+          {
+            "hex": "#f7f3f2",
+            "percentage": "26"
+          },
+          {
+            "hex": "#bdb3b3",
+            "percentage": "49"
+          },
+          {
+            "hex": "#a3b6f0",
+            "percentage": "56"
+          }
+        ],
+        "colorsAngle": "176",
+        "positionX": 0,
+        "positionY": 0,
+        "positionZ": 0,
+        "rotationX": 0,
+        "rotationY": 180,
+        "rotationZ": "0",
+        "grids": [
+          {
+            "id": "63127436834083473864",
+            "name": "Grid 0",
+            "rows": "5",
+            "columns": "11",
+            "excludedWindows": [],
+            "colors": [
+              {
+                "hex": "#000000",
+                "percentage": "11"
+              }
+            ],
+            "colorsAngle": "91",
+            "top": "2%",
+            "left": 0,
+            "windowWidth": "41",
+            "windowHeight": "50",
+            "gridWidth": "100",
+            "gridHeight": "100",
+            "rowGap": "5",
+            "columnGap": "2",
+            "borderRadius": "0",
+            "excludedFaces": [5, 6],
+            "borderTop": {
+              "size": 0,
+              "style": "none",
+              "color": "#000000"
+            },
+            "borderBottom": {
+              "size": "5",
+              "style": "solid",
+              "color": "#a27220"
+            }
+          }
+        ]
+      },
+      {
+        "id": "40002558372720439913",
+        "name": "block left",
+        "width": 480,
+        "height": 300,
+        "long": 300,
+        "colors": [
+          {
+            "hex": "#f7f3f2",
+            "percentage": 33.333333333333336
+          },
+          {
+            "hex": "#bdb3b3",
+            "percentage": "53"
+          },
+          {
+            "hex": "#a3b6f0",
+            "percentage": "100"
+          }
+        ],
+        "colorsAngle": "176",
+        "positionX": -106,
+        "positionY": 0,
+        "positionZ": -362,
+        "rotationX": "0",
+        "rotationY": "33",
+        "rotationZ": 0,
+        "grids": [
+          {
+            "id": "203281241806838833245",
+            "name": "Grid 0",
+            "rows": "5",
+            "columns": "11",
+            "excludedWindows": [],
+            "colors": [
+              {
+                "hex": "#000000",
+                "percentage": 33.333333333333336
+              }
+            ],
+            "colorsAngle": "91",
+            "top": "2%",
+            "left": 0,
+            "windowWidth": "41",
+            "windowHeight": "50",
+            "gridWidth": "100",
+            "gridHeight": "100",
+            "rowGap": "5",
+            "columnGap": "2",
+            "borderRadius": "0",
+            "excludedFaces": [5, 6],
+            "borderTop": {
+              "size": 0,
+              "style": "none",
+              "color": "#000000"
+            },
+            "borderBottom": {
+              "size": "5",
+              "style": "solid",
+              "color": "#a27220"
+            }
+          }
+        ]
+      },
+      {
+        "id": "57088623546918279514",
+        "name": "block right",
+        "width": "378",
+        "height": 300,
+        "long": 300,
+        "colors": [
+          {
+            "hex": "#f7f3f2",
+            "percentage": 33.333333333333336
+          },
+          {
+            "hex": "#bdb3b3",
+            "percentage": "53"
+          },
+          {
+            "hex": "#a3b6f0",
+            "percentage": "100"
+          }
+        ],
+        "colorsAngle": "176",
+        "positionX": "-60",
+        "positionY": 0,
+        "positionZ": "353",
+        "rotationX": 0,
+        "rotationY": "336",
+        "rotationZ": 0,
+        "grids": [
+          {
+            "id": "18861460227105236489",
+            "name": "Grid 0",
+            "rows": "5",
+            "columns": "11",
+            "excludedWindows": [],
+            "colors": [
+              {
+                "hex": "#000000",
+                "percentage": "1"
+              }
+            ],
+            "colorsAngle": 90,
+            "top": "2%",
+            "left": 0,
+            "windowWidth": "41",
+            "windowHeight": "50",
+            "gridWidth": "100",
+            "gridHeight": "100",
+            "rowGap": "5",
+            "columnGap": "2",
+            "borderRadius": "0%",
+            "excludedFaces": [5, 6],
+            "borderTop": {
+              "size": 0,
+              "style": "none",
+              "color": "#000000"
+            },
+            "borderBottom": {
+              "size": "5",
+              "style": "solid",
+              "color": "#a27220"
+            }
+          }
+        ]
+      },
+      {
+        "id": "83534776791589985999",
+        "name": "block center top",
+        "width": "235",
+        "height": 300,
+        "long": 300,
+        "colors": [
+          {
+            "hex": "#f7f3f2",
+            "percentage": 33.333333333333336
+          },
+          {
+            "hex": "#bdb3b3",
+            "percentage": "53"
+          },
+          {
+            "hex": "#a3b6f0",
+            "percentage": "100"
+          }
+        ],
+        "colorsAngle": "176",
+        "positionX": "-32",
+        "positionY": "-302",
+        "positionZ": -1,
+        "rotationX": 0,
+        "rotationY": "271",
+        "rotationZ": 0,
+        "grids": [
+          {
+            "id": "16070466779526862335",
+            "name": "Grid 0",
+            "rows": "5",
+            "columns": "11",
+            "excludedWindows": [],
+            "colors": [
+              {
+                "hex": "#000000",
+                "percentage": "14"
+              }
+            ],
+            "colorsAngle": "88",
+            "top": "2%",
+            "left": 0,
+            "windowWidth": "41",
+            "windowHeight": "50",
+            "gridWidth": "100",
+            "gridHeight": "100",
+            "rowGap": "5",
+            "columnGap": "2",
+            "borderRadius": "0%",
+            "excludedFaces": [5, 6],
+            "borderTop": {
+              "size": 0,
+              "style": "none",
+              "color": "#000000"
+            },
+            "borderBottom": {
+              "size": "5",
+              "style": "solid",
+              "color": "#a27220"
+            }
+          }
+        ]
+      },
+      {
+        "id": "43803264214837152750",
+        "name": "Cross Vertical",
+        "width": "11",
+        "height": 100,
+        "long": "25",
+        "colors": [
+          {
+            "hex": "#e13333",
+            "percentage": "46"
+          },
+          {
+            "hex": "#2f0909",
+            "percentage": "19"
+          },
+          {
+            "hex": "#e70d0d",
+            "percentage": 100
+          }
+        ],
+        "colorsAngle": "180",
+        "left": -300,
+        "bottom": 0,
+        "positionX": "296",
+        "positionY": -602,
+        "positionZ": 0,
+        "rotationX": 0,
+        "rotationY": 90,
+        "rotationZ": 0,
+        "grids": [
+          {
+            "name": "grid 0",
+            "id": "81944197368151159088",
+            "rows": 5,
+            "columns": 5,
+            "excludedWindows": [],
+            "colorsAngle": 0,
+            "colors": [
+              {
+                "hex": "#cf2020",
+                "percentage": 100
+              }
+            ],
+            "top": "2",
+            "left": "2",
+            "windowWidth": "50",
+            "windowHeight": "50",
+            "gridWidth": "50",
+            "gridHeight": "50",
+            "rowGap": "5",
+            "columnGap": "5",
+            "borderRadius": "0",
+            "excludedFaces": [1, 2]
+          }
+        ]
+      },
+      {
+        "id": "86165137391726573972",
+        "name": "Cross Horizontal",
+        "width": "11",
+        "height": 100,
+        "long": "25",
+        "colors": [
+          {
+            "hex": "#e13333",
+            "percentage": 100
+          }
+        ],
+        "colorsAngle": 0,
+        "left": -300,
+        "bottom": 0,
+        "positionX": 296,
+        "positionY": -603,
+        "positionZ": 0,
+        "rotationX": 0,
+        "rotationY": 90,
+        "rotationZ": 90,
+        "grids": [
+          {
+            "name": "shadow back",
+            "id": "79255535713409894304",
+            "rows": "1",
+            "columns": "1",
+            "excludedWindows": [],
+            "colorsAngle": 90,
+            "colors": [
+              {
+                "hex": "#c31313",
+                "percentage": "50"
+              },
+              {
+                "hex": "#6e3535",
+                "percentage": 100
+              }
+            ],
+            "top": 0,
+            "left": "-100",
+            "windowWidth": "47",
+            "windowHeight": "100",
+            "gridWidth": "100",
+            "gridHeight": "100",
+            "rowGap": "0",
+            "columnGap": "0",
+            "borderRadius": "0",
+            "excludedFaces": [6, 5, 4, 3, 2]
+          },
+          {
+            "name": "shadow top ",
+            "id": "53070955120761102838",
+            "rows": "1",
+            "columns": "1",
+            "excludedWindows": [],
+            "colorsAngle": "157",
+            "colors": [
+              {
+                "hex": "#e43a3a",
+                "percentage": 50
+              },
+              {
+                "hex": "#691111",
+                "percentage": 100
+              }
+            ],
+            "top": "-62",
+            "left": "-100",
+            "windowWidth": "19",
+            "windowHeight": "100",
+            "gridWidth": "100",
+            "gridHeight": "100",
+            "rowGap": "0",
+            "columnGap": "0",
+            "borderRadius": "0",
+            "excludedFaces": [5, 6, 4, 1, 2]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "565841321665164155500",
+    "name": "Empire State",
+    "blocks": [
+      {
+        "id": "1111882870209520567",
+        "name": "Base Low",
+        "width": "643",
+        "height": "143",
+        "long": "330",
+        "colors": [
+          {
+            "hex": "#d4bcb9",
+            "percentage": 50
+          },
+          {
+            "hex": "#b88e8e",
+            "percentage": 100
+          }
+        ],
+        "colorsAngle": "0",
+        "positionX": 0,
+        "positionY": "43",
+        "positionZ": 0,
+        "rotationX": 0,
+        "rotationY": 0,
+        "rotationZ": 0,
+        "grids": [
+          {
+            "id": "766811425632733537203",
+            "name": "windows 1",
+            "rows": 4,
+            "columns": "8",
+            "excludedWindows": [],
+            "colors": [
+              {
+                "hex": "#000000",
+                "percentage": 100
+              }
+            ],
+            "colorsAngle": 0,
+            "top": "2%",
+            "left": "1",
+            "windowWidth": "17",
+            "windowHeight": "30",
+            "gridWidth": "28",
+            "gridHeight": "100",
+            "rowGap": "4",
+            "columnGap": "4",
+            "borderRadius": "20",
+            "excludedFaces": [5, 6, 2, 1],
+            "borderTop": {
+              "size": 0,
+              "style": "none",
+              "color": "#000000"
+            }
+          },
+          {
+            "id": "92621706648873350572",
+            "name": "windows 2",
+            "rows": 4,
+            "columns": "8",
+            "excludedWindows": [],
+            "colors": [
+              {
+                "hex": "#000000",
+                "percentage": 100
+              }
+            ],
+            "colorsAngle": 0,
+            "top": "2%",
+            "left": "37",
+            "windowWidth": "17",
+            "windowHeight": "30",
+            "gridWidth": "27",
+            "gridHeight": "100",
+            "rowGap": "4",
+            "columnGap": "4",
+            "borderRadius": "20",
+            "excludedFaces": [5, 6, 1, 2],
+            "borderTop": {
+              "size": 0,
+              "style": "none",
+              "color": "#000000"
+            }
+          },
+          {
+            "id": "40111691728006053120",
+            "name": "windows 3",
+            "rows": 4,
+            "columns": "8",
+            "excludedWindows": [],
+            "colors": [
+              {
+                "hex": "#000000",
+                "percentage": 100
+              }
+            ],
+            "colorsAngle": 0,
+            "top": "2%",
+            "left": "72",
+            "windowWidth": "17",
+            "windowHeight": "30",
+            "gridWidth": "27",
+            "gridHeight": "100",
+            "rowGap": "4",
+            "columnGap": "4",
+            "borderRadius": "20",
+            "excludedFaces": [5, 6, 1, 2],
+            "borderTop": {
+              "size": 0,
+              "style": "none",
+              "color": "#000000"
+            }
+          },
+          {
+            "id": "83391833528524708220",
+            "name": "windows 3 duplicated",
+            "rows": 4,
+            "columns": "15",
+            "excludedWindows": [],
+            "colors": [
+              {
+                "hex": "#000000",
+                "percentage": 100
+              }
+            ],
+            "colorsAngle": 0,
+            "top": "2%",
+            "left": "3",
+            "windowWidth": "17",
+            "windowHeight": "30",
+            "gridWidth": "95",
+            "gridHeight": "100",
+            "rowGap": "4",
+            "columnGap": "4",
+            "borderRadius": "20",
+            "excludedFaces": [5, 6, 4, 3],
+            "borderTop": {
+              "size": 0,
+              "style": "none",
+              "color": "#000000"
+            }
+          }
+        ]
+      },
+      {
+        "id": "214091036183482635952",
+        "name": "Base Center",
+        "width": "278",
+        "height": "776",
+        "long": "212",
+        "colors": [
+          {
+            "hex": "#d4bcb9",
+            "percentage": "11"
+          },
+          {
+            "hex": "#a68282",
+            "percentage": "100"
+          }
+        ],
+        "colorsAngle": "130",
+        "positionX": "58",
+        "positionY": -101,
+        "positionZ": "8",
+        "rotationX": 0,
+        "rotationY": 0,
+        "rotationZ": 0,
+        "grids": [
+          {
+            "name": "decoration top",
+            "id": "140551177161638382708",
+            "rows": "1",
+            "columns": "7",
+            "excludedWindows": [],
+            "colorsAngle": 0,
+            "colors": [
+              {
+                "hex": "#ac8b8b",
+                "percentage": 100
+              }
+            ],
+            "top": 1,
+            "left": 10,
+            "windowWidth": "29",
+            "windowHeight": "31",
+            "gridWidth": "81",
+            "gridHeight": "2",
+            "rowGap": "5",
+            "columnGap": "0",
+            "borderRadius": "50",
+            "excludedFaces": [5, 6, 1, 2],
+            "borderTop": {
+              "style": "inset",
+              "size": "4",
+              "color": "#4f4040"
+            },
+            "borderLeft": {
+              "size": "4",
+              "style": "inset",
+              "color": "#603e3e"
+            },
+            "borderRight": {
+              "size": "4",
+              "style": "inset",
+              "color": "#604848"
+            }
+          },
+          {
+            "id": "883541506695370159420",
+            "name": "windows",
+            "rows": "20",
+            "columns": 8,
+            "excludedWindows": [],
+            "colors": [
+              {
+                "hex": "#000000",
+                "percentage": 100
+              }
+            ],
+            "colorsAngle": 0,
+            "top": 3,
+            "left": "10",
+            "windowWidth": "22",
+            "windowHeight": "32",
+            "gridWidth": "82",
+            "gridHeight": "96",
+            "rowGap": "4",
+            "columnGap": "4",
+            "borderRadius": "20",
+            "excludedFaces": [5, 6],
+            "borderTop": {
+              "size": "3",
+              "style": "inset",
+              "color": "#d1cd61"
+            },
+            "borderBottom": {
+              "size": "3",
+              "style": "inset",
+              "color": "#91a720"
+            },
+            "borderLeft": {
+              "size": "3",
+              "style": "inset",
+              "color": "#939a32"
+            },
+            "borderRight": {
+              "size": "3",
+              "style": "inset",
+              "color": "#c2a53d"
+            }
+          },
+          {
+            "name": "decoration top duplicated",
+            "id": "30223718985096635656",
+            "rows": "1",
+            "columns": "6",
+            "excludedWindows": [],
+            "colorsAngle": 0,
+            "colors": [
+              {
+                "hex": "#ac8b8b",
+                "percentage": 100
+              }
+            ],
+            "top": 1,
+            "left": "9",
+            "windowWidth": "29",
+            "windowHeight": "31",
+            "gridWidth": "85",
+            "gridHeight": "2",
+            "rowGap": "5",
+            "columnGap": "0",
+            "borderRadius": "50",
+            "excludedFaces": [5, 6, 3, 4],
+            "borderTop": {
+              "style": "inset",
+              "size": "4",
+              "color": "#4f4040"
+            },
+            "borderLeft": {
+              "size": "4",
+              "style": "inset",
+              "color": "#603e3e"
+            },
+            "borderRight": {
+              "size": "4",
+              "style": "inset",
+              "color": "#604848"
+            }
+          }
+        ]
+      },
+      {
+        "id": "553391166588101392178",
+        "name": "Base Center Left 2",
+        "width": 119,
+        "height": "166",
+        "long": 127,
+        "colors": [
+          {
+            "hex": "#d4bcb9",
+            "percentage": 50
+          },
+          {
+            "hex": "#a97070",
+            "percentage": 100
+          }
+        ],
+        "colorsAngle": "122",
+        "positionX": 13,
+        "positionY": -101,
+        "positionZ": -168,
+        "rotationX": 0,
+        "rotationY": 0,
+        "rotationZ": 0,
+        "grids": [
+          {
+            "id": "59116921639844453860",
+            "name": "windows",
+            "rows": "4",
+            "columns": "4",
+            "excludedWindows": [],
+            "colors": [
+              {
+                "hex": "#000000",
+                "percentage": 100
+              }
+            ],
+            "colorsAngle": 0,
+            "top": "2%",
+            "left": "10",
+            "windowWidth": "22",
+            "windowHeight": "32",
+            "gridWidth": "82",
+            "gridHeight": "96",
+            "rowGap": "4",
+            "columnGap": "4",
+            "borderRadius": "20",
+            "excludedFaces": [5, 6],
+            "borderTop": {
+              "size": "3",
+              "style": "inset",
+              "color": "#d1cd61"
+            },
+            "borderBottom": {
+              "size": "3",
+              "style": "inset",
+              "color": "#91a720"
+            },
+            "borderLeft": {
+              "size": "3",
+              "style": "inset",
+              "color": "#939a32"
+            },
+            "borderRight": {
+              "size": "3",
+              "style": "inset",
+              "color": "#c2a53d"
+            }
+          }
+        ]
+      },
+      {
+        "id": "93194556860835613520",
+        "name": "Base Center Left 3",
+        "width": 119,
+        "height": "87",
+        "long": 127,
+        "colors": [
+          {
+            "hex": "#d4bcb9",
+            "percentage": 100
+          }
+        ],
+        "colorsAngle": 0,
+        "positionX": 73,
+        "positionY": -101,
+        "positionZ": "-201",
+        "rotationX": 0,
+        "rotationY": 0,
+        "rotationZ": 0,
+        "grids": [
+          {
+            "id": "95131716400170530280",
+            "name": "windows",
+            "rows": 2,
+            "columns": 4,
+            "excludedWindows": [],
+            "colors": [
+              {
+                "hex": "#000000",
+                "percentage": 100
+              }
+            ],
+            "colorsAngle": 0,
+            "top": "2%",
+            "left": "10",
+            "windowWidth": "22",
+            "windowHeight": "32",
+            "gridWidth": "82",
+            "gridHeight": "96",
+            "rowGap": "4",
+            "columnGap": "4",
+            "borderRadius": "20",
+            "excludedFaces": [5, 6],
+            "borderTop": {
+              "size": "3",
+              "style": "inset",
+              "color": "#d1cd61"
+            },
+            "borderBottom": {
+              "size": "3",
+              "style": "inset",
+              "color": "#91a720"
+            },
+            "borderLeft": {
+              "size": "3",
+              "style": "inset",
+              "color": "#939a32"
+            },
+            "borderRight": {
+              "size": "3",
+              "style": "inset",
+              "color": "#c2a53d"
+            }
+          }
+        ]
+      },
+      {
+        "id": "974851386865486956081",
+        "name": "Base Center Left 4",
+        "width": 119,
+        "height": "166",
+        "long": 127,
+        "colors": [
+          {
+            "hex": "#d4bcb9",
+            "percentage": 100
+          }
+        ],
+        "colorsAngle": 0,
+        "positionX": 194,
+        "positionY": -101,
+        "positionZ": "-168",
+        "rotationX": 0,
+        "rotationY": 0,
+        "rotationZ": 0,
+        "grids": [
+          {
+            "id": "897991603618288602330",
+            "name": "windows",
+            "rows": "4",
+            "columns": "4",
+            "excludedWindows": [],
+            "colors": [
+              {
+                "hex": "#000000",
+                "percentage": 100
+              }
+            ],
+            "colorsAngle": 0,
+            "top": "2%",
+            "left": "10",
+            "windowWidth": "22",
+            "windowHeight": "32",
+            "gridWidth": "82",
+            "gridHeight": "96",
+            "rowGap": "4",
+            "columnGap": "4",
+            "borderRadius": "20",
+            "excludedFaces": [5, 6],
+            "borderTop": {
+              "size": "3",
+              "style": "inset",
+              "color": "#d1cd61"
+            },
+            "borderBottom": {
+              "size": "3",
+              "style": "inset",
+              "color": "#91a720"
+            },
+            "borderLeft": {
+              "size": "3",
+              "style": "inset",
+              "color": "#939a32"
+            },
+            "borderRight": {
+              "size": "3",
+              "style": "inset",
+              "color": "#c2a53d"
+            }
+          }
+        ]
+      },
+      {
+        "id": "78631623003211624299",
+        "name": "Base Top Center",
+        "width": "179",
+        "height": "199",
+        "long": "149",
+        "colors": [
+          {
+            "hex": "#d4bcb9",
+            "percentage": "10"
+          },
+          {
+            "hex": "#ad7676",
+            "percentage": 66.66666666666667
+          },
+          {
+            "hex": "#9c5e5e",
+            "percentage": 100
+          }
+        ],
+        "colorsAngle": "122",
+        "positionX": 90,
+        "positionY": -875,
+        "positionZ": 5,
+        "rotationX": 0,
+        "rotationY": 0,
+        "rotationZ": 0,
+        "grids": [
+          {
+            "name": "decoration face 3-4",
+            "id": "97581554276691262358",
+            "rows": "1",
+            "columns": "7",
+            "excludedWindows": [],
+            "colorsAngle": 0,
+            "colors": [
+              {
+                "hex": "#ac8b8b",
+                "percentage": 100
+              }
+            ],
+            "top": 1,
+            "left": 10,
+            "windowWidth": "29",
+            "windowHeight": "31",
+            "gridWidth": "81",
+            "gridHeight": "7",
+            "rowGap": "5",
+            "columnGap": "0",
+            "borderRadius": "50",
+            "excludedFaces": [5, 6, 1, 2],
+            "borderTop": {
+              "style": "inset",
+              "size": "4",
+              "color": "#4f4040"
+            },
+            "borderLeft": {
+              "size": "4",
+              "style": "inset",
+              "color": "#603e3e"
+            },
+            "borderRight": {
+              "size": "4",
+              "style": "inset",
+              "color": "#604848"
+            }
+          },
+          {
+            "id": "17958281954955331040",
+            "name": "windows",
+            "rows": "5",
+            "columns": "6",
+            "excludedWindows": [],
+            "colors": [
+              {
+                "hex": "#000000",
+                "percentage": 100
+              }
+            ],
+            "colorsAngle": 0,
+            "top": "7",
+            "left": "10",
+            "windowWidth": "21",
+            "windowHeight": "32",
+            "gridWidth": "85",
+            "gridHeight": "97",
+            "rowGap": "4",
+            "columnGap": "4",
+            "borderRadius": "20",
+            "excludedFaces": [5, 6],
+            "borderTop": {
+              "size": "3",
+              "style": "inset",
+              "color": "#d1cd61"
+            },
+            "borderBottom": {
+              "size": "3",
+              "style": "inset",
+              "color": "#91a720"
+            },
+            "borderLeft": {
+              "size": "3",
+              "style": "inset",
+              "color": "#939a32"
+            },
+            "borderRight": {
+              "size": "3",
+              "style": "inset",
+              "color": "#c2a53d"
+            }
+          },
+          {
+            "name": "decoration face 1-2",
+            "id": "68233715460699152920",
+            "rows": "1",
+            "columns": 4,
+            "excludedWindows": [],
+            "colorsAngle": 0,
+            "colors": [
+              {
+                "hex": "#ac8b8b",
+                "percentage": 100
+              }
+            ],
+            "top": 1,
+            "left": "9",
+            "windowWidth": "29",
+            "windowHeight": "31",
+            "gridWidth": "85",
+            "gridHeight": "6",
+            "rowGap": "5",
+            "columnGap": "0",
+            "borderRadius": "50",
+            "excludedFaces": [5, 6, 3, 4],
+            "borderTop": {
+              "style": "inset",
+              "size": "4",
+              "color": "#4f4040"
+            },
+            "borderLeft": {
+              "size": "4",
+              "style": "inset",
+              "color": "#603e3e"
+            },
+            "borderRight": {
+              "size": "4",
+              "style": "inset",
+              "color": "#604848"
+            }
+          }
+        ]
+      },
+      {
+        "id": "75505697838602856868",
+        "name": "Base Top Left",
+        "width": 85,
+        "height": 113,
+        "long": "187",
+        "colors": [
+          {
+            "hex": "#d4bcb9",
+            "percentage": 100
+          }
+        ],
+        "colorsAngle": 0,
+        "positionX": "66",
+        "positionY": -877,
+        "positionZ": -68,
+        "rotationX": 0,
+        "rotationY": 0,
+        "rotationZ": 0,
+        "grids": [
+          {
+            "name": "decoration face 3-4",
+            "id": "812031711114351954593",
+            "rows": "1",
+            "columns": "7",
+            "excludedWindows": [],
+            "colorsAngle": 0,
+            "colors": [
+              {
+                "hex": "#ac8b8b",
+                "percentage": 100
+              }
+            ],
+            "top": 1,
+            "left": 10,
+            "windowWidth": "29",
+            "windowHeight": "31",
+            "gridWidth": "81",
+            "gridHeight": "7",
+            "rowGap": "5",
+            "columnGap": "0",
+            "borderRadius": "50",
+            "excludedFaces": [5, 6, 1, 2],
+            "borderTop": {
+              "style": "inset",
+              "size": "4",
+              "color": "#4f4040"
+            },
+            "borderLeft": {
+              "size": "4",
+              "style": "inset",
+              "color": "#603e3e"
+            },
+            "borderRight": {
+              "size": "4",
+              "style": "inset",
+              "color": "#604848"
+            }
+          },
+          {
+            "id": "85615602678793376386",
+            "name": "windows faces 1-2",
+            "rows": "3",
+            "columns": "6",
+            "excludedWindows": [],
+            "colors": [
+              {
+                "hex": "#000000",
+                "percentage": 100
+              }
+            ],
+            "colorsAngle": 0,
+            "top": "7",
+            "left": "10",
+            "windowWidth": "21",
+            "windowHeight": "32",
+            "gridWidth": "85",
+            "gridHeight": "97",
+            "rowGap": "4",
+            "columnGap": "4",
+            "borderRadius": "20",
+            "excludedFaces": [5, 6, 3, 4],
+            "borderTop": {
+              "size": "3",
+              "style": "inset",
+              "color": "#d1cd61"
+            },
+            "borderBottom": {
+              "size": "3",
+              "style": "inset",
+              "color": "#91a720"
+            },
+            "borderLeft": {
+              "size": "3",
+              "style": "inset",
+              "color": "#939a32"
+            },
+            "borderRight": {
+              "size": "3",
+              "style": "inset",
+              "color": "#c2a53d"
+            }
+          },
+          {
+            "id": "63495172697455884212",
+            "name": "windows faces 1-2 duplicated",
+            "rows": "3",
+            "columns": "3",
+            "excludedWindows": [],
+            "colors": [
+              {
+                "hex": "#000000",
+                "percentage": 100
+              }
+            ],
+            "colorsAngle": 0,
+            "top": "7",
+            "left": "10",
+            "windowWidth": "21",
+            "windowHeight": "32",
+            "gridWidth": "85",
+            "gridHeight": "97",
+            "rowGap": "4",
+            "columnGap": "4",
+            "borderRadius": "20",
+            "excludedFaces": [5, 6, 2, 1],
+            "borderTop": {
+              "size": "3",
+              "style": "inset",
+              "color": "#d1cd61"
+            },
+            "borderBottom": {
+              "size": "3",
+              "style": "inset",
+              "color": "#91a720"
+            },
+            "borderLeft": {
+              "size": "3",
+              "style": "inset",
+              "color": "#939a32"
+            },
+            "borderRight": {
+              "size": "3",
+              "style": "inset",
+              "color": "#c2a53d"
+            }
+          },
+          {
+            "name": "decoration face 1-2",
+            "id": "38699197368493737296",
+            "rows": "1",
+            "columns": "5",
+            "excludedWindows": [],
+            "colorsAngle": 0,
+            "colors": [
+              {
+                "hex": "#ac8b8b",
+                "percentage": 100
+              }
+            ],
+            "top": 1,
+            "left": "9",
+            "windowWidth": "29",
+            "windowHeight": "31",
+            "gridWidth": "85",
+            "gridHeight": "6",
+            "rowGap": "5",
+            "columnGap": "0",
+            "borderRadius": "50",
+            "excludedFaces": [5, 6],
+            "borderTop": {
+              "style": "inset",
+              "size": "4",
+              "color": "#4f4040"
+            },
+            "borderLeft": {
+              "size": "4",
+              "style": "inset",
+              "color": "#603e3e"
+            },
+            "borderRight": {
+              "size": "4",
+              "style": "inset",
+              "color": "#604848"
+            }
+          }
+        ]
+      },
+      {
+        "id": "92291610668173357700",
+        "name": "Base Top Right",
+        "width": 85,
+        "height": 113,
+        "long": "187",
+        "colors": [
+          {
+            "hex": "#d4bcb9",
+            "percentage": 100
+          }
+        ],
+        "colorsAngle": 0,
+        "positionX": "66",
+        "positionY": -877,
+        "positionZ": "83",
+        "rotationX": 0,
+        "rotationY": 0,
+        "rotationZ": 0,
+        "grids": [
+          {
+            "name": "decoration face 3-4",
+            "id": "86428995653739548250",
+            "rows": "1",
+            "columns": "7",
+            "excludedWindows": [],
+            "colorsAngle": 0,
+            "colors": [
+              {
+                "hex": "#ac8b8b",
+                "percentage": 100
+              }
+            ],
+            "top": 1,
+            "left": 10,
+            "windowWidth": "29",
+            "windowHeight": "31",
+            "gridWidth": "81",
+            "gridHeight": "7",
+            "rowGap": "5",
+            "columnGap": "0",
+            "borderRadius": "50",
+            "excludedFaces": [5, 6, 1, 2],
+            "borderTop": {
+              "style": "inset",
+              "size": "4",
+              "color": "#4f4040"
+            },
+            "borderLeft": {
+              "size": "4",
+              "style": "inset",
+              "color": "#603e3e"
+            },
+            "borderRight": {
+              "size": "4",
+              "style": "inset",
+              "color": "#604848"
+            }
+          },
+          {
+            "id": "78021222039595014300",
+            "name": "windows faces 1-2",
+            "rows": "3",
+            "columns": "6",
+            "excludedWindows": [],
+            "colors": [
+              {
+                "hex": "#000000",
+                "percentage": 100
+              }
+            ],
+            "colorsAngle": 0,
+            "top": "7",
+            "left": "10",
+            "windowWidth": "21",
+            "windowHeight": "32",
+            "gridWidth": "85",
+            "gridHeight": "97",
+            "rowGap": "4",
+            "columnGap": "4",
+            "borderRadius": "20",
+            "excludedFaces": [5, 6, 3, 4],
+            "borderTop": {
+              "size": "3",
+              "style": "inset",
+              "color": "#d1cd61"
+            },
+            "borderBottom": {
+              "size": "3",
+              "style": "inset",
+              "color": "#91a720"
+            },
+            "borderLeft": {
+              "size": "3",
+              "style": "inset",
+              "color": "#939a32"
+            },
+            "borderRight": {
+              "size": "3",
+              "style": "inset",
+              "color": "#c2a53d"
+            }
+          },
+          {
+            "id": "627931279370999844300",
+            "name": "windows faces 1-2 duplicated",
+            "rows": "3",
+            "columns": "3",
+            "excludedWindows": [],
+            "colors": [
+              {
+                "hex": "#000000",
+                "percentage": 100
+              }
+            ],
+            "colorsAngle": 0,
+            "top": "7",
+            "left": "10",
+            "windowWidth": "21",
+            "windowHeight": "32",
+            "gridWidth": "85",
+            "gridHeight": "97",
+            "rowGap": "4",
+            "columnGap": "4",
+            "borderRadius": "20",
+            "excludedFaces": [5, 6, 2, 1],
+            "borderTop": {
+              "size": "3",
+              "style": "inset",
+              "color": "#d1cd61"
+            },
+            "borderBottom": {
+              "size": "3",
+              "style": "inset",
+              "color": "#91a720"
+            },
+            "borderLeft": {
+              "size": "3",
+              "style": "inset",
+              "color": "#939a32"
+            },
+            "borderRight": {
+              "size": "3",
+              "style": "inset",
+              "color": "#c2a53d"
+            }
+          },
+          {
+            "name": "decoration face 1-2",
+            "id": "51165858200656920350",
+            "rows": "1",
+            "columns": "5",
+            "excludedWindows": [],
+            "colorsAngle": 0,
+            "colors": [
+              {
+                "hex": "#ac8b8b",
+                "percentage": 100
+              }
+            ],
+            "top": 1,
+            "left": "9",
+            "windowWidth": "29",
+            "windowHeight": "31",
+            "gridWidth": "85",
+            "gridHeight": "6",
+            "rowGap": "5",
+            "columnGap": "0",
+            "borderRadius": "50",
+            "excludedFaces": [5, 6],
+            "borderTop": {
+              "style": "inset",
+              "size": "4",
+              "color": "#4f4040"
+            },
+            "borderLeft": {
+              "size": "4",
+              "style": "inset",
+              "color": "#603e3e"
+            },
+            "borderRight": {
+              "size": "4",
+              "style": "inset",
+              "color": "#604848"
+            }
+          }
+        ]
+      },
+      {
+        "id": "564171166589013796988",
+        "name": "Base Top Top",
+        "width": 81,
+        "height": "108",
+        "long": 68,
+        "colors": [
+          {
+            "hex": "#46486d",
+            "percentage": 50
+          },
+          {
+            "hex": "#764141",
+            "percentage": 100
+          }
+        ],
+        "colorsAngle": 0,
+        "positionX": 127,
+        "positionY": -1074,
+        "positionZ": 8,
+        "rotationX": 0,
+        "rotationY": 0,
+        "rotationZ": 0,
+        "grids": [
+          {
+            "name": "windows",
+            "id": "309921097862602893686",
+            "rows": "8",
+            "columns": "8",
+            "excludedWindows": [],
+            "colorsAngle": 0,
+            "colors": [
+              {
+                "hex": "#9c7777",
+                "percentage": 100
+              }
+            ],
+            "top": "2",
+            "left": "2",
+            "windowWidth": "6",
+            "windowHeight": "10",
+            "gridWidth": "100",
+            "gridHeight": "100",
+            "rowGap": "5",
+            "columnGap": "5",
+            "borderRadius": "0",
+            "excludedFaces": [5, 6],
+            "borderTop": {
+              "size": "2",
+              "style": "solid",
+              "color": "#d9c4c4"
+            },
+            "borderBottom": {
+              "size": "2",
+              "style": "solid",
+              "color": "#e7dada"
+            },
+            "borderLeft": {
+              "size": "2",
+              "style": "solid",
+              "color": "#fbeaea"
+            },
+            "borderRight": {
+              "size": "2",
+              "style": "solid",
+              "color": "#ece4e4"
+            }
+          }
+        ]
+      },
+      {
+        "id": "15373297815075893634",
+        "name": "Base Top Top",
+        "width": 69,
+        "height": "45",
+        "long": 46,
+        "colors": [
+          {
+            "hex": "#46486d",
+            "percentage": 50
+          },
+          {
+            "hex": "#764141",
+            "percentage": 100
+          }
+        ],
+        "colorsAngle": 0,
+        "positionX": 138,
+        "positionY": -1182,
+        "positionZ": 8,
+        "rotationX": 0,
+        "rotationY": 0,
+        "rotationZ": 0,
+        "grids": []
+      },
+      {
+        "id": "9929542293269117704",
+        "name": "Base Top Top Signal",
+        "width": "11",
+        "height": "153",
+        "long": "11",
+        "colors": [
+          {
+            "hex": "#e0e1e5",
+            "percentage": 50
+          },
+          {
+            "hex": "#000000",
+            "percentage": 100
+          }
+        ],
+        "colorsAngle": "91",
+        "positionX": 154,
+        "positionY": -1182,
+        "positionZ": 11,
+        "rotationX": 0,
+        "rotationY": 0,
+        "rotationZ": 0,
+        "grids": []
+      },
+      {
+        "id": "477991330475851745430",
+        "name": "Base Center Right 2",
+        "width": 119,
+        "height": "166",
+        "long": 127,
+        "colors": [
+          {
+            "hex": "#d4bcb9",
+            "percentage": 100
+          }
+        ],
+        "colorsAngle": 0,
+        "positionX": 13,
+        "positionY": -101,
+        "positionZ": 183,
+        "rotationX": 0,
+        "rotationY": 0,
+        "rotationZ": 0,
+        "grids": [
+          {
+            "id": "112371529606674589448",
+            "name": "windows",
+            "rows": "4",
+            "columns": "4",
+            "excludedWindows": [],
+            "colors": [
+              {
+                "hex": "#000000",
+                "percentage": 100
+              }
+            ],
+            "colorsAngle": 0,
+            "top": "2%",
+            "left": "10",
+            "windowWidth": "22",
+            "windowHeight": "32",
+            "gridWidth": "82",
+            "gridHeight": "96",
+            "rowGap": "4",
+            "columnGap": "4",
+            "borderRadius": "20",
+            "excludedFaces": [5, 6],
+            "borderTop": {
+              "size": "3",
+              "style": "inset",
+              "color": "#d1cd61"
+            },
+            "borderBottom": {
+              "size": "3",
+              "style": "inset",
+              "color": "#91a720"
+            },
+            "borderLeft": {
+              "size": "3",
+              "style": "inset",
+              "color": "#939a32"
+            },
+            "borderRight": {
+              "size": "3",
+              "style": "inset",
+              "color": "#c2a53d"
+            }
+          }
+        ]
+      },
+      {
+        "id": "21612281955155718560",
+        "name": "Base Center Right 3",
+        "width": 119,
+        "height": "87",
+        "long": 127,
+        "colors": [
+          {
+            "hex": "#d4bcb9",
+            "percentage": 100
+          }
+        ],
+        "colorsAngle": 0,
+        "positionX": 73,
+        "positionY": -101,
+        "positionZ": 218,
+        "rotationX": 0,
+        "rotationY": 0,
+        "rotationZ": 0,
+        "grids": [
+          {
+            "id": "19304186795290663546",
+            "name": "windows",
+            "rows": 2,
+            "columns": 4,
+            "excludedWindows": [],
+            "colors": [
+              {
+                "hex": "#000000",
+                "percentage": 100
+              }
+            ],
+            "colorsAngle": 0,
+            "top": "2%",
+            "left": "10",
+            "windowWidth": "22",
+            "windowHeight": "32",
+            "gridWidth": "82",
+            "gridHeight": "96",
+            "rowGap": "4",
+            "columnGap": "4",
+            "borderRadius": "20",
+            "excludedFaces": [5, 6],
+            "borderTop": {
+              "size": "3",
+              "style": "inset",
+              "color": "#d1cd61"
+            },
+            "borderBottom": {
+              "size": "3",
+              "style": "inset",
+              "color": "#91a720"
+            },
+            "borderLeft": {
+              "size": "3",
+              "style": "inset",
+              "color": "#939a32"
+            },
+            "borderRight": {
+              "size": "3",
+              "style": "inset",
+              "color": "#c2a53d"
+            }
+          }
+        ]
+      },
+      {
+        "id": "735221208882797256764",
+        "name": "Base Center Right 4",
+        "width": 119,
+        "height": "166",
+        "long": 127,
+        "colors": [
+          {
+            "hex": "#d4bcb9",
+            "percentage": 100
+          }
+        ],
+        "colorsAngle": 0,
+        "positionX": 194,
+        "positionY": -101,
+        "positionZ": "200",
+        "rotationX": 0,
+        "rotationY": 0,
+        "rotationZ": 0,
+        "grids": [
+          {
+            "id": "148131748122062505408",
+            "name": "windows",
+            "rows": "4",
+            "columns": "4",
+            "excludedWindows": [],
+            "colors": [
+              {
+                "hex": "#000000",
+                "percentage": 100
+              }
+            ],
+            "colorsAngle": 0,
+            "top": "2%",
+            "left": "10",
+            "windowWidth": "22",
+            "windowHeight": "32",
+            "gridWidth": "82",
+            "gridHeight": "96",
+            "rowGap": "4",
+            "columnGap": "4",
+            "borderRadius": "20",
+            "excludedFaces": [5, 6],
+            "borderTop": {
+              "size": "3",
+              "style": "inset",
+              "color": "#d1cd61"
+            },
+            "borderBottom": {
+              "size": "3",
+              "style": "inset",
+              "color": "#91a720"
+            },
+            "borderLeft": {
+              "size": "3",
+              "style": "inset",
+              "color": "#939a32"
+            },
+            "borderRight": {
+              "size": "3",
+              "style": "inset",
+              "color": "#c2a53d"
+            }
+          }
+        ]
+      }
+    ]
+  }
+]
