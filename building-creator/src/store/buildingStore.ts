@@ -2,8 +2,11 @@ import { defineStore } from 'pinia'
 import { ref } from 'vue'
 import type { Building, Cube } from '@/types'
 import { generateId } from '@/utils/generateId'
+import defaultBuildingsData from '@/assets/data/buildings.json'
 
 export const useBuildingStore = defineStore('building', () => {
+  const DEFAULT_BUILDINGS_KEY = 'default_buildings_initialized'
+
   const initialBlocks: Cube[] = [
     {
       id: generateId(),
@@ -143,6 +146,31 @@ export const useBuildingStore = defineStore('building', () => {
     }
   }
 
+  function initializeDefaultBuildings() {
+    const alreadyInitialized = localStorage.getItem(DEFAULT_BUILDINGS_KEY)
+    if (alreadyInitialized) return
+
+    // Load from JSON
+    const defaultBuildings: Building[] = defaultBuildingsData // imported below
+
+    const existing = loadBuildingList()
+    if (typeof existing === 'string') {
+      // Corrupted? Reset
+      localStorage.setItem('buildings', JSON.stringify(defaultBuildings))
+    } else {
+      // Merge: only add defaults that don't exist
+      const merged = [...existing]
+      defaultBuildings.forEach((defaultBldg) => {
+        if (!merged.some((b) => b.id === defaultBldg.id)) {
+          merged.push(defaultBldg)
+        }
+      })
+      localStorage.setItem('buildings', JSON.stringify(merged))
+    }
+
+    localStorage.setItem(DEFAULT_BUILDINGS_KEY, 'true')
+  }
+
   function saveSingleBuilding(buildings: Building[], buildingToSave: Building) {
     if (buildings.length > 0) {
       const foundBuildingIndex = buildings.findIndex(
@@ -171,5 +199,6 @@ export const useBuildingStore = defineStore('building', () => {
     setBuilding,
     saveCurrentBuildingAsNew,
     isCurrentBuildingSaved,
+    initializeDefaultBuildings,
   }
 })
