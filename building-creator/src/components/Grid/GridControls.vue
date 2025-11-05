@@ -132,7 +132,7 @@ watch(
     isGridExpanded.value = new Array(props.grids.length).fill(false)
     const selectedGridRef = gridsContainer.value?.children[selectedGridIndex]
     const previousSelectedGridIndex = props.grids.findIndex((grid) => lastValue?.id === grid.id)
-    console.log(previousSelectedGridIndex)
+
     const previousSelectedGridRef =
       previousSelectedGridIndex >= 0
         ? gridsContainer.value[selectedGridIndex]?.children.length

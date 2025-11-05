@@ -2,12 +2,27 @@
   <main class="main">
     <div class="controls">
       <h2>Controls</h2>
+      <div class="d-flex flex-start">
+        <label>Building Name: </label>
+        <h3><input id="building-name" type="text" v-model="buildingStore.building.name" /></h3>
+      </div>
       <div class="flex">
-        <button @click="saveBuilding()">Save Building</button>
-        <button @click="loadBuilding()">Load Building</button>
+        <button @click="buildingStore.newBuilding()">New Building</button>
+        <button @click="buildingStore.saveBuilding()">Save Building</button>
+        <button
+          v-if="buildingStore.isCurrentBuildingSaved()"
+          @click="buildingStore.saveCurrentBuildingAsNew()"
+        >
+          Save as new building
+        </button>
+        <button @click="openBuildingListModal()">Load Building</button>
       </div>
       <div class="controls-container" v-if="!isGridControlsOpen">
-        <div class="cube-control" v-for="(block, index) in building.blocks" :key="index">
+        <div
+          class="cube-control"
+          v-for="(block, index) in buildingStore.building.blocks"
+          :key="index"
+        >
           <hr />
           <div class="d-flex flex-start">
             <label>Name: </label>
@@ -61,9 +76,9 @@
         @update:is-grid-control-open="openGridControl(false, null)"
       />
     </div>
-    <CubeScene :zoom="zoom" @update:zoom="updateZoom" :blocks="building.blocks" />
+    <CubeScene :zoom="zoom" @update:zoom="updateZoom" :blocks="buildingStore.building.blocks" />
     <Modal v-if="showBuildingsModal" @close-modal="closeLoadBuildingsModal">
-      <BuildingList></BuildingList>
+      <BuildingList @selected-building="closeLoadBuildingsModal"></BuildingList>
     </Modal>
   </main>
 </template>
@@ -80,113 +95,17 @@ import { generateId } from './utils/generateId'
 import { useGridStore } from '@/store/gridStore'
 import { useCubeStore } from './store/cubeStore'
 import { useBuildingStore } from './store/buildingStore'
-import type { Building } from './types/building'
 import BuildingList from './components/BuildingList.vue'
 
-const blocks: Cube[] = [
-  {
-    id: generateId(),
-    name: 'block 1',
-    width: 300,
-    height: 300,
-    long: 300,
-    colors: [{ hex: '#ff7360', percentage: 100 }],
-    colorsAngle: 0,
-    positionX: 0,
-    positionY: 0,
-    positionZ: 0,
-    rotationX: 0,
-    rotationY: 0,
-    rotationZ: 0,
-    grids: [
-      {
-        id: generateId(),
-        name: 'Grid 0',
-        rows: 5,
-        columns: 5,
-        excludedWindows: [],
-        colors: [{ hex: '#000000', percentage: 100 }],
-        colorsAngle: 0,
-        top: '2%',
-        left: '2%',
-        windowWidth: '50',
-        windowHeight: '50',
-        gridWidth: '100',
-        gridHeight: '100',
-        rowGap: '5',
-        columnGap: '5',
-        borderRadius: '0%',
-        excludedFaces: [5, 6],
-        borderTop: {
-          size: 0,
-          style: 'none',
-          color: '#000000',
-        },
-      },
-    ],
-  },
-  {
-    id: generateId(),
-    name: 'block 2',
-    width: 100,
-    height: 100,
-    long: 100,
-    colors: [{ hex: '#ff0000', percentage: 100 }],
-    colorsAngle: 0,
-    left: -300,
-    bottom: 0,
-    positionX: 0,
-    positionY: 0,
-    positionZ: 0,
-    rotationX: 0,
-    rotationY: 0,
-    rotationZ: 0,
-    grids: [
-      {
-        id: generateId(),
-        name: 'Grid 0',
-        rows: 2,
-        columns: 2,
-        excludedWindows: [],
-        colors: [{ hex: '#000000', percentage: 100 }],
-        colorsAngle: 0,
-        top: '0%',
-        left: '0%',
-        windowWidth: '40',
-        windowHeight: '40',
-        gridWidth: '100',
-        gridHeight: '100',
-        rowGap: '5px',
-        columnGap: '5px',
-        borderRadius: '0%',
-        excludedFaces: [5, 6],
-        borderTop: {
-          size: 0,
-          style: 'none',
-          color: '#000000',
-        },
-      },
-    ],
-  },
-]
-
-const building = ref<Building>({
-  id: generateId(),
-  name: 'building -1',
-  blocks: blocks,
-})
-
-const isBlockExpanded = ref(new Array(building.value.blocks.length).fill(false))
-const selectedGrid = ref<{ cubeId: string; grid: Grid }>()
+const buildingStore = useBuildingStore()
 const gridStore = useGridStore()
 const cubeStore = useCubeStore()
-const buildingStore = useBuildingStore()
+const selectedGrid = ref<{ cubeId: string; grid: Grid }>()
 const selectedCube = ref<Cube>()
 const showBuildingsModal = ref(false)
-
 const zoom = ref('1')
-
 const isGridControlsOpen = ref(false)
+const isBlockExpanded = ref(new Array(buildingStore.building.blocks.length).fill(false))
 
 const changeExpand = (index: number) => {
   isBlockExpanded.value[index] = !isBlockExpanded.value[index]
@@ -196,10 +115,14 @@ const closeLoadBuildingsModal = () => {
   showBuildingsModal.value = false
 }
 
+const openBuildingListModal = () => {
+  showBuildingsModal.value = true
+}
+
 const createBlock = () => {
-  const newBlock = {
+  const newBlock: Cube = {
     id: generateId(),
-    name: `block ${building.value.blocks.length + 1}`,
+    name: `block ${buildingStore.building.blocks.length + 1}`,
     width: 100,
     height: 100,
     long: 100,
@@ -240,47 +163,53 @@ const createBlock = () => {
       },
     ],
   }
-
-  building.value.blocks.push(newBlock)
+  buildingStore.building.blocks.push(newBlock)
 }
 
 const deleteBlock = (blockId: string) => {
-  building.value.blocks = building.value.blocks.filter((block) => block.id !== blockId)
+  buildingStore.building.blocks = buildingStore.building.blocks.filter(
+    (block) => block.id !== blockId,
+  )
 }
 
 const duplicateBlock = (block: Cube) => {
-  const newBlock = {
+  const newBlock: Cube = {
     ...block,
     name: block.name + ' copy',
     id: generateId(),
-  }
-
-  newBlock.grids = newBlock.grids.map((grid: Grid) => {
-    return {
+    grids: block.grids.map((grid: Grid) => ({
       ...grid,
       id: generateId(),
-    }
-  })
-
+    })),
+  }
   const deepCloneBlocked = JSON.parse(JSON.stringify(newBlock))
-
-  building.value.blocks.push(deepCloneBlocked)
+  buildingStore.building.blocks.push(deepCloneBlocked)
   expandBlock(deepCloneBlocked)
 }
 
-const saveBuilding = () => {
-  buildingStore.saveBuilding(building.value)
+const updateCubeProperties = (newBlock: Cube) => {
+  buildingStore.building.blocks = buildingStore.building.blocks.map((block: Cube) => {
+    if (block.id === newBlock.id) return newBlock
+    return block
+  })
 }
 
-const loadBuilding = () => {
-  showBuildingsModal.value = true
+const updateGrids = (grids: Grid[], cubeId: string) => {
+  buildingStore.building.blocks = buildingStore.building.blocks.map((block: Cube) => {
+    if (block.id === cubeId) {
+      const newBlock = { ...block, grids }
+      selectedCube.value = newBlock
+      return newBlock
+    }
+    return block
+  })
 }
 
 watch(gridStore.getSelectedGrid, async (value) => {
   isGridControlsOpen.value = true
   await nextTick()
   selectedGrid.value = value?.grid
-  selectedCube.value = building.value.blocks.find(
+  selectedCube.value = buildingStore.building.blocks.find(
     (reactiveBlock) => reactiveBlock.id === value?.cubeId,
   )
 })
@@ -293,35 +222,16 @@ watch(cubeStore.getSelectedCube, async (value) => {
 
 const expandBlock = (cube: Cube | undefined) => {
   if (!cube) return
-  isBlockExpanded.value = new Array(building.value.length).fill(false)
-  const selectedBlockIndex = building.value.blocks.findIndex((block) => block.id === cube.id)
+  isBlockExpanded.value = new Array(buildingStore.building.blocks.length).fill(false)
+  const selectedBlockIndex = buildingStore.building.blocks.findIndex(
+    (block) => block.id === cube.id,
+  )
   isBlockExpanded.value[selectedBlockIndex] = true
 }
 
 const openGridControl = (value: boolean, cube: Cube | null) => {
   isGridControlsOpen.value = value
   if (cube) selectedCube.value = cube
-}
-
-const updateCubeProperties = (newBlock: Cube) => {
-  building.value.blocks = building.value.blocks.map((block: Cube) => {
-    if (block.id === newBlock.id) return newBlock
-    return block
-  })
-}
-
-const updateGrids = (grids: Grid[], cubeId: string) => {
-  building.value.blocks = building.value.blocks.map((block: Cube) => {
-    if (block.id === cubeId) {
-      const newBlock = {
-        ...block,
-        grids,
-      }
-      selectedCube.value = newBlock
-      return newBlock
-    }
-    return block
-  })
 }
 
 const updateZoom = (value: string) => {
@@ -342,7 +252,6 @@ const updateZoom = (value: string) => {
 
 .expandable.expanded {
   max-height: 200vh;
-  /* transition: 0.5s max-height; */
 }
 
 .expandable-icon {

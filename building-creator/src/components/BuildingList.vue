@@ -3,8 +3,9 @@
     <p>Choose a building:</p>
     <br />
     <ul class="building-list">
-      <li v-for="building in buildings" :key="building.id">
+      <li v-for="building in buildings" :key="building.id" @click="selectedBuilding(building)">
         <BuildingThumbnailScene :blocks="building.blocks"></BuildingThumbnailScene>
+        <strong>{{ building.name }}</strong>
       </li>
     </ul>
   </div>
@@ -19,8 +20,15 @@ const buildingStore = useBuildingStore()
 
 const buildings = ref<Building[]>()
 
+const emit = defineEmits(['selectedBuilding'])
+
+const selectedBuilding = (building: Building) => {
+  buildingStore.setBuilding(building)
+  emit('selectedBuilding')
+}
+
 onMounted(() => {
-  const loadedBuildings = buildingStore.loadBuildings()
+  const loadedBuildings = buildingStore.loadBuildingList()
   if (typeof loadedBuildings !== 'string') {
     buildings.value = loadedBuildings
   }
@@ -36,6 +44,7 @@ onMounted(() => {
   max-width: 80%;
   background: white;
   height: 90vh;
+  overflow: scroll;
   padding: 40px;
   border-radius: 5px;
 }

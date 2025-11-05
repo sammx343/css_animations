@@ -76,6 +76,7 @@ const selectGrid = () => {
   display: grid;
   position: absolute;
   pointer-events: none;
+  overflow: hidden;
 }
 
 .window {

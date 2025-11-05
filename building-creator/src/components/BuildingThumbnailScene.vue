@@ -33,7 +33,7 @@ const cubeFaces = ref(new Array(6).fill(null))
 const getCubeStyle = (block: Cube) => ({
   width: `${block.long}px`,
   height: `${block.height}px`,
-  transform: `rotateX(${block.rotationX}deg) rotateY(${block.rotationY}deg) rotateZ(${block.rotationZ}deg) translateX(${block.positionX}px) translateY(${block.positionY}px) translateZ(${block.positionZ}px)`,
+  transform: `translateX(${block.positionX}px) translateY(${block.positionY}px) translateZ(${block.positionZ}px) rotateX(${block.rotationX}deg) rotateY(${block.rotationY}deg) rotateZ(${block.rotationZ}deg) `,
   left: `${block.left || 0}px`,
   bottom: `${block.bottom || 0}px`,
   position: 'absolute',
@@ -75,7 +75,7 @@ const getCubeStyle = (block: Cube) => ({
   position: relative;
   top: 40%;
   left: 100px;
-  transform: scale(1);
+  transform: scale(1) scale(0.63) rotateX(-6deg) rotateY(804deg);
   width: 100%;
   height: 100%;
   transform-style: preserve-3d;
