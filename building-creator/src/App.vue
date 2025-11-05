@@ -84,7 +84,7 @@
 </template>
 
 <script setup lang="ts">
-import { nextTick, ref, watch } from 'vue'
+import { nextTick, ref, watch, onBeforeMount } from 'vue'
 import Modal from './components/UI/Modal.vue'
 import CubeScene from './components/Cube/CubeScene.vue'
 import CubeControls from './components/Cube/CubeControls.vue'
@@ -237,6 +237,10 @@ const openGridControl = (value: boolean, cube: Cube | null) => {
 const updateZoom = (value: string) => {
   zoom.value = value
 }
+
+onBeforeMount(() => {
+  buildingStore.initializeDefaultBuildings()
+})
 </script>
 
 <style scoped>
