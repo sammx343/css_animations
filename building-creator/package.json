@@ -15,7 +15,8 @@
   "dependencies": {
     "oh-vue-icons": "^1.0.0-rc3",
     "pinia": "^3.0.3",
-    "vue": "^3.5.17"
+    "vue": "^3.5.17",
+    "vue-gtag": "^3.6.3"
   },
   "devDependencies": {
     "@tsconfig/node22": "^22.0.2",

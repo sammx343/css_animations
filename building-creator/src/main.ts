@@ -4,6 +4,8 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import { createPinia } from 'pinia'
 import { OhVueIcon, addIcons } from 'oh-vue-icons'
+import { configure } from 'vue-gtag'
+
 import {
   HiDuplicate,
   MdDeleteforeverOutlined,
@@ -19,6 +21,9 @@ import {
 } from 'oh-vue-icons/icons'
 
 const pinia = createPinia()
+configure({
+  tagId: 'G-GMPZWDN6X8',
+})
 
 addIcons(
   HiDuplicate,
