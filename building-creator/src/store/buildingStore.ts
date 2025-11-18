@@ -146,6 +146,18 @@ export const useBuildingStore = defineStore('building', () => {
     }
   }
 
+  function deleteBuilding(buildingId: string) {
+    const buildings = loadBuildingList()
+
+    if (typeof buildings !== 'string' && buildings.length > 0) {
+      const filteredBuildings = buildings.filter((building) => {
+        return building.id !== buildingId
+      })
+
+      localStorage.setItem('buildings', JSON.stringify(filteredBuildings))
+    }
+  }
+
   function initializeDefaultBuildings() {
     const alreadyInitialized = localStorage.getItem(DEFAULT_BUILDINGS_KEY)
     if (alreadyInitialized) return
@@ -196,6 +208,7 @@ export const useBuildingStore = defineStore('building', () => {
     newBuilding,
     loadBuildingList,
     saveBuilding,
+    deleteBuilding,
     setBuilding,
     saveCurrentBuildingAsNew,
     isCurrentBuildingSaved,
