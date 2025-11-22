@@ -17,6 +17,9 @@
         </button>
         <button @click="openBuildingListModal()">Load Building</button>
       </div>
+      <div class="flex">
+        <button @click="createBlock">Create New Block</button>
+      </div>
       <div class="controls-container" v-if="!isGridControlsOpen">
         <div
           class="cube-control"
@@ -65,7 +68,6 @@
             />
           </div>
         </div>
-        <button @click="createBlock">Create New Block</button>
       </div>
       <GridControls
         v-if="isGridControlsOpen && selectedCube"
@@ -95,7 +97,7 @@ import { generateId } from './utils/generateId'
 import { useGridStore } from '@/store/gridStore'
 import { useCubeStore } from './store/cubeStore'
 import { useBuildingStore } from './store/buildingStore'
-import BuildingList from './components/BuildingList.vue'
+import BuildingList from './components/LoadBuildingModal/BuildingList.vue'
 
 const buildingStore = useBuildingStore()
 const gridStore = useGridStore()
