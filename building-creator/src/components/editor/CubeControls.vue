@@ -178,7 +178,6 @@ import SliderComponent from '../UI/SliderComponent.vue'
 
 const props = defineProps<{
   cubeProperties: Cube
-  zoom: string
 }>()
 
 const emit = defineEmits(['update:cubeProperties', 'update:isGridControlOpen'])

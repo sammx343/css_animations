@@ -1,26 +1,33 @@
 <template>
   <main class="main">
     <div class="controls">
-      <BuildingHeader />
-      <BuildingActions @open-building-list="showBuildingsModal = true" />
-      <BlockList />
-      <GridControlsPanel
-        v-if="isGridControlsOpen && selectedCube"
+      <div v-if="!gridStore.getGridControlOpen()">
+        <BuildingHeader />
+        <BuildingActions @open-building-list="showBuildingsModal = true" />
+        <BlockList />
+      </div>
+      <GridControls
+        v-if="gridStore.getGridControlOpen() && selectedCube"
         :cube="selectedCube"
         :grids="selectedCube.grids"
         @update:grids="updateGrids"
-        @close="isGridControlsOpen = false"
+        @close="() => gridStore.setGridControlOpen(false)"
       />
+      <!-- <div class="expandable" :class="{ expanded: isBlockExpanded[index] }">
+        <CubeControls
+          v-if="!isGridControlsOpen"
+          :cube-properties="block"
+          @update:cube-properties="updateCubeProperties"
+          @update:is-grid-control-open="(value) => openGridControl(value, block)"
+          :zoom="zoom"
+        />
+      </div> -->
     </div>
 
-    <CubeSceneViewer
-      :blocks="buildingStore.building.blocks"
-      :zoom="zoom"
-      @update:zoom="zoom = $event"
-    />
+    <CubeScene :blocks="buildingStore.building.blocks" :zoom="zoom" @update:zoom="zoom = $event" />
 
     <Modal v-if="showBuildingsModal" @close-modal="showBuildingsModal = false">
-      <BuildingListModal @close="showBuildingsModal = false" />
+      <BuildingList @close="showBuildingsModal = false" />
     </Modal>
   </main>
 </template>
@@ -31,12 +38,13 @@ import { useBuildingStore } from '@/store/buildingStore'
 import { useGridStore } from '@/store/gridStore'
 import { useCubeStore } from '@/store/cubeStore'
 
-import BuildingHeader from '@/components/building/BuildingHeader.vue'
-import BuildingActions from '@/components/building/BuildingActions.vue'
-import BuildingListModal from '@/components/building/BuildingListModal.vue'
-import BlockList from '@/components/block/BlockList.vue'
-import GridControlsPanel from '@/components/grid/GridControlsPanel.vue'
-import CubeSceneViewer from '@/components/scene/CubeSceneViewer.vue'
+import BuildingHeader from '@/components/editor/BuildingHeader.vue'
+import BuildingActions from '@/components/editor/BuildingActions.vue'
+import BuildingList from '@/components/editor/LoadBuildingModal/BuildingList.vue'
+
+import GridControls from '@/components/editor/GridControls.vue'
+import BlockList from '@/components/editor/BlockList.vue'
+import CubeScene from '@/components/scene/CubeScene.vue'
 import Modal from '@/components/UI/Modal.vue'
 
 const buildingStore = useBuildingStore()
@@ -56,6 +64,7 @@ watch(gridStore.getSelectedGrid, async (value) => {
 })
 
 watch(cubeStore.getSelectedCube, (value) => {
+  console.log('does open')
   isGridControlsOpen.value = false
   if (value?.cube) selectedCube.value = value.cube
 })
@@ -76,12 +85,11 @@ onBeforeMount(() => {
   height: 100vh;
 }
 .controls {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 380px;
   height: 100%;
-  background: rgba(255, 255, 255, 0.95);
   z-index: 10;
   overflow-y: auto;
   padding: 1rem;

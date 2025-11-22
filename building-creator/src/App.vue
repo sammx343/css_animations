@@ -1,4 +1,10 @@
 <template>
+  <buildingEditor></buildingEditor>
+</template>
+<script setup lang="ts">
+import buildingEditor from './views/buildingEditor.vue'
+</script>
+<!-- <template>
   <main class="main">
     <div class="controls">
       <h2>Controls</h2>
@@ -275,4 +281,4 @@ onBeforeMount(() => {
   width: 100%;
   height: 100vh;
 }
-</style>
+</style> -->

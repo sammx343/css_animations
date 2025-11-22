@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
-import type { Building, Cube } from '@/types'
+import type { Building, Cube, Grid } from '@/types'
 import { generateId } from '@/utils/generateId'
 import defaultBuildingsData from '@/assets/data/buildings.json'
 
@@ -109,6 +109,28 @@ export const useBuildingStore = defineStore('building', () => {
     }
   }
 
+  function updateBuildingBlock(newBlock: Cube) {
+    building.value.blocks = building.value.blocks.map((block: Cube) => {
+      if (block.id === newBlock.id) return newBlock
+      return block
+    })
+  }
+
+  const updateBlockGrids = (grids: Grid[], cubeId: string) => {
+    building.value.blocks = building.value.blocks.map((block: Cube) => {
+      console.log(block.id)
+      console.log(cubeId)
+
+      if (block.id === cubeId) {
+        console.log('its applying the change')
+        const newBlock = { ...block, grids }
+        selectedCube.value = newBlock
+        return newBlock
+      }
+      return block
+    })
+  }
+
   function isCurrentBuildingSaved() {
     const buildings = loadBuildingList()
     if (typeof buildings !== 'string') {
@@ -144,6 +166,25 @@ export const useBuildingStore = defineStore('building', () => {
     if (typeof buildings !== 'string') {
       saveSingleBuilding(buildings, building.value)
     }
+  }
+
+  const duplicateBlock = (block: Cube) => {
+    const newBlock: Cube = {
+      ...block,
+      name: block.name + ' copy',
+      id: generateId(),
+      grids: block.grids.map((grid: Grid) => ({
+        ...grid,
+        id: generateId(),
+      })),
+    }
+    const deepCloneBlocked = JSON.parse(JSON.stringify(newBlock))
+    building.value.blocks.push(deepCloneBlocked)
+    return deepCloneBlocked
+  }
+
+  const deleteBlock = (blockId: string) => {
+    building.value.blocks = building.value.blocks.filter((block: Cube) => block.id !== blockId)
   }
 
   function deleteBuilding(buildingId: string) {
@@ -206,6 +247,8 @@ export const useBuildingStore = defineStore('building', () => {
   return {
     building,
     newBuilding,
+    updateBuildingBlock,
+    updateBlockGrids,
     loadBuildingList,
     saveBuilding,
     deleteBuilding,
@@ -213,5 +256,7 @@ export const useBuildingStore = defineStore('building', () => {
     saveCurrentBuildingAsNew,
     isCurrentBuildingSaved,
     initializeDefaultBuildings,
+    duplicateBlock,
+    deleteBlock,
   }
 })
