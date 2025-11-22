@@ -18,7 +18,7 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
-import GridScene from '../Grid/GridScene.vue'
+import GridScene from './GridScene.vue'
 import type { Grid } from '@/types/grid'
 import { Cube } from '@/types/cube'
 import type { Color } from '@/types/color'

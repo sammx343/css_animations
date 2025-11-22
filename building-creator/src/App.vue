@@ -88,16 +88,16 @@
 <script setup lang="ts">
 import { nextTick, ref, watch, onBeforeMount } from 'vue'
 import Modal from './components/UI/Modal.vue'
-import CubeScene from './components/Cube/CubeScene.vue'
-import CubeControls from './components/Cube/CubeControls.vue'
-import GridControls from './components/Grid/GridControls.vue'
+import CubeScene from './components/scene/CubeScene.vue'
+import CubeControls from './components/editor/CubeControls.vue'
+import GridControls from './components/editor/GridControls.vue'
 import type { Cube } from '@/types/cube'
 import type { Grid } from '@/types/grid'
 import { generateId } from './utils/generateId'
 import { useGridStore } from '@/store/gridStore'
 import { useCubeStore } from './store/cubeStore'
 import { useBuildingStore } from './store/buildingStore'
-import BuildingList from './components/LoadBuildingModal/BuildingList.vue'
+import BuildingList from './components/editor/LoadBuildingModal/BuildingList.vue'
 
 const buildingStore = useBuildingStore()
 const gridStore = useGridStore()

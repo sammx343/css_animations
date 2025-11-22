@@ -33,8 +33,8 @@
 </template>
 <script setup lang="ts">
 import type { Building } from '@/types/building'
-import Modal from '../UI/Modal.vue'
-import ConfirmationPrompt from '../UI/ConfirmationPrompt.vue'
+import Modal from '@/components/UI/Modal.vue'
+import ConfirmationPrompt from '@/components/UI/ConfirmationPrompt.vue'
 import { onMounted, ref } from 'vue'
 import { useBuildingStore } from '@/store/buildingStore'
 import BuildingThumbnailScene from './BuildingThumbnailScene.vue'
