@@ -118,13 +118,10 @@ export const useBuildingStore = defineStore('building', () => {
 
   const updateBlockGrids = (grids: Grid[], cubeId: string) => {
     building.value.blocks = building.value.blocks.map((block: Cube) => {
-      console.log(block.id)
-      console.log(cubeId)
-
       if (block.id === cubeId) {
         console.log('its applying the change')
         const newBlock = { ...block, grids }
-        selectedCube.value = newBlock
+        // selectedCube.value = newBlock
         return newBlock
       }
       return block

@@ -1,6 +1,7 @@
 <template>
   <main class="main">
     <div class="controls">
+      <p>anything</p>
       <div v-if="!gridStore.getGridControlOpen()">
         <BuildingHeader />
         <BuildingActions @open-building-list="showBuildingsModal = true" />
@@ -54,23 +55,22 @@ const cubeStore = useCubeStore()
 const showBuildingsModal = ref(false)
 const zoom = ref('1')
 const isGridControlsOpen = ref(false)
-const selectedCube = ref<any>(null)
+const selectedCube = ref<any>(cubeStore.getSelectedCube)
 
 // React to global selections
 watch(gridStore.getSelectedGrid, async (value) => {
   if (!value) return
   isGridControlsOpen.value = true
-  selectedCube.value = buildingStore.building.blocks.find((b) => b.id === value.cubeId)
+  cubeStore.setSelectedCube(buildingStore.building.blocks.find((b) => b.id === value.cubeId))
 })
 
 watch(cubeStore.getSelectedCube, (value) => {
-  console.log('does open')
   isGridControlsOpen.value = false
   if (value?.cube) selectedCube.value = value.cube
 })
 
 const updateGrids = (grids: any[], cubeId: string) => {
-  buildingStore.updateBlockGrids(cubeId, grids)
+  buildingStore.updateBlockGrids(grids, cubeId)
 }
 
 onBeforeMount(() => {
