@@ -1,28 +1,19 @@
 <template>
   <main class="main">
     <div class="controls">
-      <p>anything</p>
       <div v-if="!gridStore.getGridControlOpen()">
-        <BuildingHeader />
+        <BuildingTitleHeader />
         <BuildingActions @open-building-list="showBuildingsModal = true" />
         <BlockList />
       </div>
-      <GridControls
+
+      <GridControl
         v-if="gridStore.getGridControlOpen() && selectedCube"
         :cube="selectedCube"
         :grids="selectedCube.grids"
         @update:grids="updateGrids"
         @close="() => gridStore.setGridControlOpen(false)"
       />
-      <!-- <div class="expandable" :class="{ expanded: isBlockExpanded[index] }">
-        <CubeControls
-          v-if="!isGridControlsOpen"
-          :cube-properties="block"
-          @update:cube-properties="updateCubeProperties"
-          @update:is-grid-control-open="(value) => openGridControl(value, block)"
-          :zoom="zoom"
-        />
-      </div> -->
     </div>
 
     <CubeScene :blocks="buildingStore.building.blocks" :zoom="zoom" @update:zoom="zoom = $event" />
@@ -34,19 +25,20 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch, onBeforeMount } from 'vue'
+import { ref, onBeforeMount, computed } from 'vue'
 import { useBuildingStore } from '@/store/buildingStore'
 import { useGridStore } from '@/store/gridStore'
 import { useCubeStore } from '@/store/cubeStore'
 
-import BuildingHeader from '@/components/editor/BuildingHeader.vue'
+import BuildingTitleHeader from '@/components/editor/BuildingTitleHeader.vue'
 import BuildingActions from '@/components/editor/BuildingActions.vue'
 import BuildingList from '@/components/editor/LoadBuildingModal/BuildingList.vue'
 
-import GridControls from '@/components/editor/GridControls.vue'
-import BlockList from '@/components/editor/BlockList.vue'
+import GridControl from '@/components/editor/grid/GridControl.vue'
+import BlockList from '@/components/editor/block/BlockList.vue'
 import CubeScene from '@/components/scene/CubeScene.vue'
 import Modal from '@/components/UI/Modal.vue'
+import type { Grid } from '@/types/grid'
 
 const buildingStore = useBuildingStore()
 const gridStore = useGridStore()
@@ -54,22 +46,9 @@ const cubeStore = useCubeStore()
 
 const showBuildingsModal = ref(false)
 const zoom = ref('1')
-const isGridControlsOpen = ref(false)
-const selectedCube = ref<any>(cubeStore.getSelectedCube)
+const selectedCube = computed(() => cubeStore.getSelectedCubeFromId)
 
-// React to global selections
-watch(gridStore.getSelectedGrid, async (value) => {
-  if (!value) return
-  isGridControlsOpen.value = true
-  cubeStore.setSelectedCube(buildingStore.building.blocks.find((b) => b.id === value.cubeId))
-})
-
-watch(cubeStore.getSelectedCube, (value) => {
-  isGridControlsOpen.value = false
-  if (value?.cube) selectedCube.value = value.cube
-})
-
-const updateGrids = (grids: any[], cubeId: string) => {
+const updateGrids = (grids: Grid[], cubeId: string) => {
   buildingStore.updateBlockGrids(grids, cubeId)
 }
 

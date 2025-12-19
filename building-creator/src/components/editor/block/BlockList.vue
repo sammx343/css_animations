@@ -1,6 +1,6 @@
 <template>
   <div class="block-list">
-    <BlockItem
+    <BlockControl
       v-for="(block, index) in blocks"
       :key="block.id"
       :block="block"
@@ -16,7 +16,7 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 import { useBuildingStore } from '@/store/buildingStore'
-import BlockItem from './BlockItem.vue'
+import BlockControl from './BlockControl.vue'
 
 const buildingStore = useBuildingStore()
 const blocks = computed(() => buildingStore.building.blocks)

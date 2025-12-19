@@ -10,13 +10,13 @@
 
     <div class="block-actions">
       <button @click="$emit('duplicate', block)">Duplicate</button>
-      <button @click="openGridControls">Grid Options</button>
+      <button @click="openGridControl">Grid Options</button>
       <button v-if="index > 0" class="delete" @click="$emit('delete', block.id)">Delete</button>
     </div>
 
     <transition name="expand">
       <div v-if="isExpanded" class="expanded-controls">
-        <BlockExpandableControls :block="block" />
+        <BlockControlForm :cube-properties="block" @update:cube-properties="updateBlock" />
       </div>
     </transition>
   </div>
@@ -25,7 +25,8 @@
 <script setup lang="ts">
 import { useCubeStore } from '@/store/cubeStore'
 import { useGridStore } from '@/store/gridStore'
-import BlockExpandableControls from './BlockExpandableControls.vue'
+import { useBuildingStore } from '@/store/buildingStore'
+import BlockControlForm from './BlockControlForm.vue'
 import type { Cube } from '@/types/cube'
 
 const props = defineProps<{
@@ -33,13 +34,18 @@ const props = defineProps<{
   index: number
   isExpanded: boolean
 }>()
+const buildingStore = useBuildingStore()
+
+const updateBlock = (updated: Cube) => {
+  buildingStore.updateBuildingBlock(updated)
+}
 
 defineEmits(['toggle-expand', 'duplicate', 'delete'])
 const cubeStore = useCubeStore()
 const gridStore = useGridStore()
 
-const openGridControls = () => {
-  cubeStore.setSelectedCube(props.block)
+const openGridControl = () => {
+  cubeStore.setSelectedCubeId(props.block.id)
   gridStore.setGridControlOpen(true)
 }
 </script>

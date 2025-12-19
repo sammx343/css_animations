@@ -174,7 +174,7 @@
 import { defineProps, defineEmits } from 'vue'
 import type { Cube } from '@/types/cube'
 import type { Color } from '@/types/color'
-import SliderComponent from '../UI/SliderComponent.vue'
+import SliderComponent from '@/components/UI/SliderComponent.vue'
 
 const props = defineProps<{
   cubeProperties: Cube

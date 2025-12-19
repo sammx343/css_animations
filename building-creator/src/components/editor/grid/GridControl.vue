@@ -1,12 +1,12 @@
 <!-- GridList.vue -->
 <template>
   <div class="controls">
-    <p class="close" style="cursor: pointer" @click="closeGridControls">X</p>
+    <p class="close" style="cursor: pointer" @click="closeGridControl">X</p>
     <h2>Grid Controls:</h2>
     <hr />
     <button @click="createGrid">Create grid</button>
     <div class="grids-container" ref="gridsContainer">
-      <GridControlsForm
+      <GridControlForm
         v-for="(grid, index) in grids"
         :key="grid.id"
         :grid="grid"
@@ -29,7 +29,7 @@ import type { Grid } from '@/types/grid'
 import type { Cube } from '@/types/cube'
 import { ref, watch, nextTick, useTemplateRef } from 'vue'
 import { generateId } from '@/utils/generateId'
-import GridControlsForm from './GridControlsForm.vue'
+import GridControlForm from '../grid/GridControlForm.vue'
 import { useCubeStore } from '@/store/cubeStore'
 import { useGridStore } from '@/store/gridStore'
 
@@ -49,7 +49,7 @@ const gridStore = useGridStore()
 const isGridExpanded = ref(new Array(props.grids.length).fill(false))
 const gridsContainer = ref(null)
 
-const closeGridControls = () => {
+const closeGridControl = () => {
   cubeStore.setSelectedCube(null)
   gridStore.setGridControlOpen(false)
 }

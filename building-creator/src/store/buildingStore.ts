@@ -6,6 +6,7 @@ import defaultBuildingsData from '@/assets/data/buildings.json'
 
 export const useBuildingStore = defineStore('building', () => {
   const DEFAULT_BUILDINGS_KEY = 'default_buildings_initialized'
+  const BUILDINGS_KEY = 'buildings'
 
   const initialBlocks: Cube[] = [
     {
@@ -119,9 +120,7 @@ export const useBuildingStore = defineStore('building', () => {
   const updateBlockGrids = (grids: Grid[], cubeId: string) => {
     building.value.blocks = building.value.blocks.map((block: Cube) => {
       if (block.id === cubeId) {
-        console.log('its applying the change')
         const newBlock = { ...block, grids }
-        // selectedCube.value = newBlock
         return newBlock
       }
       return block
@@ -140,7 +139,7 @@ export const useBuildingStore = defineStore('building', () => {
   }
 
   function loadBuildingList(): Building[] | string {
-    const unparsedBuildings = localStorage.getItem('buildings')
+    const unparsedBuildings = localStorage.getItem(BUILDINGS_KEY)
     let buildings: Building[] = []
     try {
       if (unparsedBuildings) {
@@ -192,7 +191,7 @@ export const useBuildingStore = defineStore('building', () => {
         return building.id !== buildingId
       })
 
-      localStorage.setItem('buildings', JSON.stringify(filteredBuildings))
+      localStorage.setItem(BUILDINGS_KEY, JSON.stringify(filteredBuildings))
     }
   }
 
@@ -206,7 +205,7 @@ export const useBuildingStore = defineStore('building', () => {
     const existing = loadBuildingList()
     if (typeof existing === 'string') {
       // Corrupted? Reset
-      localStorage.setItem('buildings', JSON.stringify(defaultBuildings))
+      localStorage.setItem(BUILDINGS_KEY, JSON.stringify(defaultBuildings))
     } else {
       // Merge: only add defaults that don't exist
       const merged = [...existing]
@@ -215,7 +214,7 @@ export const useBuildingStore = defineStore('building', () => {
           merged.push(defaultBldg)
         }
       })
-      localStorage.setItem('buildings', JSON.stringify(merged))
+      localStorage.setItem(BUILDINGS_KEY, JSON.stringify(merged))
     }
 
     localStorage.setItem(DEFAULT_BUILDINGS_KEY, 'true')
@@ -234,7 +233,7 @@ export const useBuildingStore = defineStore('building', () => {
     } else {
       buildings.push(buildingToSave)
     }
-    localStorage.setItem('buildings', JSON.stringify(buildings))
+    localStorage.setItem(BUILDINGS_KEY, JSON.stringify(buildings))
   }
 
   function setBuilding(newBuilding: Building) {
