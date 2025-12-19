@@ -1,11 +1,12 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
-import type { Building, Cube } from '@/types'
+import type { Building, Cube, Grid } from '@/types'
 import { generateId } from '@/utils/generateId'
 import defaultBuildingsData from '@/assets/data/buildings.json'
 
 export const useBuildingStore = defineStore('building', () => {
   const DEFAULT_BUILDINGS_KEY = 'default_buildings_initialized'
+  const BUILDINGS_KEY = 'buildings'
 
   const initialBlocks: Cube[] = [
     {
@@ -109,6 +110,23 @@ export const useBuildingStore = defineStore('building', () => {
     }
   }
 
+  function updateBuildingBlock(newBlock: Cube) {
+    building.value.blocks = building.value.blocks.map((block: Cube) => {
+      if (block.id === newBlock.id) return newBlock
+      return block
+    })
+  }
+
+  const updateBlockGrids = (grids: Grid[], cubeId: string) => {
+    building.value.blocks = building.value.blocks.map((block: Cube) => {
+      if (block.id === cubeId) {
+        const newBlock = { ...block, grids }
+        return newBlock
+      }
+      return block
+    })
+  }
+
   function isCurrentBuildingSaved() {
     const buildings = loadBuildingList()
     if (typeof buildings !== 'string') {
@@ -121,7 +139,7 @@ export const useBuildingStore = defineStore('building', () => {
   }
 
   function loadBuildingList(): Building[] | string {
-    const unparsedBuildings = localStorage.getItem('buildings')
+    const unparsedBuildings = localStorage.getItem(BUILDINGS_KEY)
     let buildings: Building[] = []
     try {
       if (unparsedBuildings) {
@@ -146,6 +164,25 @@ export const useBuildingStore = defineStore('building', () => {
     }
   }
 
+  const duplicateBlock = (block: Cube) => {
+    const newBlock: Cube = {
+      ...block,
+      name: block.name + ' copy',
+      id: generateId(),
+      grids: block.grids.map((grid: Grid) => ({
+        ...grid,
+        id: generateId(),
+      })),
+    }
+    const deepCloneBlocked = JSON.parse(JSON.stringify(newBlock))
+    building.value.blocks.push(deepCloneBlocked)
+    return deepCloneBlocked
+  }
+
+  const deleteBlock = (blockId: string) => {
+    building.value.blocks = building.value.blocks.filter((block: Cube) => block.id !== blockId)
+  }
+
   function deleteBuilding(buildingId: string) {
     const buildings = loadBuildingList()
 
@@ -154,7 +191,7 @@ export const useBuildingStore = defineStore('building', () => {
         return building.id !== buildingId
       })
 
-      localStorage.setItem('buildings', JSON.stringify(filteredBuildings))
+      localStorage.setItem(BUILDINGS_KEY, JSON.stringify(filteredBuildings))
     }
   }
 
@@ -168,7 +205,7 @@ export const useBuildingStore = defineStore('building', () => {
     const existing = loadBuildingList()
     if (typeof existing === 'string') {
       // Corrupted? Reset
-      localStorage.setItem('buildings', JSON.stringify(defaultBuildings))
+      localStorage.setItem(BUILDINGS_KEY, JSON.stringify(defaultBuildings))
     } else {
       // Merge: only add defaults that don't exist
       const merged = [...existing]
@@ -177,7 +214,7 @@ export const useBuildingStore = defineStore('building', () => {
           merged.push(defaultBldg)
         }
       })
-      localStorage.setItem('buildings', JSON.stringify(merged))
+      localStorage.setItem(BUILDINGS_KEY, JSON.stringify(merged))
     }
 
     localStorage.setItem(DEFAULT_BUILDINGS_KEY, 'true')
@@ -196,7 +233,7 @@ export const useBuildingStore = defineStore('building', () => {
     } else {
       buildings.push(buildingToSave)
     }
-    localStorage.setItem('buildings', JSON.stringify(buildings))
+    localStorage.setItem(BUILDINGS_KEY, JSON.stringify(buildings))
   }
 
   function setBuilding(newBuilding: Building) {
@@ -206,6 +243,8 @@ export const useBuildingStore = defineStore('building', () => {
   return {
     building,
     newBuilding,
+    updateBuildingBlock,
+    updateBlockGrids,
     loadBuildingList,
     saveBuilding,
     deleteBuilding,
@@ -213,5 +252,7 @@ export const useBuildingStore = defineStore('building', () => {
     saveCurrentBuildingAsNew,
     isCurrentBuildingSaved,
     initializeDefaultBuildings,
+    duplicateBlock,
+    deleteBlock,
   }
 })

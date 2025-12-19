@@ -18,7 +18,7 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
-import GridScene from '../Grid/GridScene.vue'
+import GridScene from './GridScene.vue'
 import type { Grid } from '@/types/grid'
 import { Cube } from '@/types/cube'
 import type { Color } from '@/types/color'
@@ -89,7 +89,7 @@ const colorsToLinearBackground = (colors: Color[], colorsAngle = 90) => {
   align-items: center;
   justify-content: center;
   position: absolute;
-  backface-visibility: inherit;
+  backface-visibility: hidden;
   border: 1px solid black;
 }
 </style>

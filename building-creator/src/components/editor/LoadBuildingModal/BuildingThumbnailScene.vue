@@ -23,7 +23,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import CubeFace from './Cube/CubeFace.vue'
+import CubeFace from '@/components/scene/CubeFace.vue'
 import type { Cube } from '@/types/cube'
 
 defineProps<{ blocks: Cube[] }>()

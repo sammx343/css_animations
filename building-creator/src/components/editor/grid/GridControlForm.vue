@@ -243,114 +243,35 @@
         </button>
       </div>
       <div class="controls--group">
-        <label :for="`border-top-${grid.id}`">Border-top: {{ localGrid.borderTop?.size }}</label>
-        <div class="d-flex">
-          <input
-            type="range"
-            min="0"
-            max="50"
-            :value="localGrid.borderTop?.size || 0"
-            @input="changeBorder('borderTop', $event.target.value, 'size')"
-          />
-          <select
-            :id="`border-top-${grid.id}`"
-            :value="localGrid.borderTop?.style"
-            @change="changeBorder('borderTop', $event.target.value, 'style')"
+        <div v-for="borderType in borderInputArr" :key="borderType">
+          <label :for="`border-${borderType}-${grid.id}`"
+            >Border-{{ borderType }}: {{ localGrid[`border${borderType}`]?.size }}</label
           >
-            <option value="none">none</option>
-            <option value="solid">solid</option>
-            <option value="inset">inset</option>
-            <option value="dashed">dashed</option>
-          </select>
-          <input
-            :id="`color-${grid.id}`"
-            type="color"
-            :value="localGrid.borderTop?.color"
-            @input="changeBorder('borderTop', $event.target.value, 'color')"
-          />
-        </div>
-        <!-- Repeat similar blocks for border-bottom, border-left, border-right -->
-        <label :for="`border-bottom-${grid.id}`"
-          >Border-bottom: {{ localGrid.borderBottom?.size }}</label
-        >
-        <div class="d-flex">
-          <input
-            type="range"
-            min="0"
-            max="50"
-            :value="localGrid.borderBottom?.size || 0"
-            @input="changeBorder('borderBottom', $event.target.value, 'size')"
-          />
-          <select
-            :id="`border-bottom-${grid.id}`"
-            :value="localGrid.borderBottom?.style"
-            @change="changeBorder('borderBottom', $event.target.value, 'style')"
-          >
-            <option value="none">none</option>
-            <option value="solid">solid</option>
-            <option value="inset">inset</option>
-            <option value="dashed">dashed</option>
-          </select>
-          <input
-            :id="`color-${grid.id}`"
-            type="color"
-            :value="localGrid.borderBottom?.color"
-            @input="changeBorder('borderBottom', $event.target.value, 'color')"
-          />
-        </div>
-        <label :for="`border-left-${grid.id}`">Border-left: {{ localGrid.borderLeft?.size }}</label>
-        <div class="d-flex">
-          <input
-            type="range"
-            min="0"
-            max="50"
-            :value="localGrid.borderLeft?.size || 0"
-            @input="changeBorder('borderLeft', $event.target.value, 'size')"
-          />
-          <select
-            :id="`border-left-${grid.id}`"
-            :value="localGrid.borderLeft?.style"
-            @change="changeBorder('borderLeft', $event.target.value, 'style')"
-          >
-            <option value="none">none</option>
-            <option value="solid">solid</option>
-            <option value="inset">inset</option>
-            <option value="dashed">dashed</option>
-          </select>
-          <input
-            :id="`color-${grid.id}`"
-            type="color"
-            :value="localGrid.borderLeft?.color"
-            @input="changeBorder('borderLeft', $event.target.value, 'color')"
-          />
-        </div>
-        <label :for="`border-right-${grid.id}`"
-          >Border-right: {{ localGrid.borderRight?.size }}</label
-        >
-        <div class="d-flex">
-          <input
-            type="range"
-            min="0"
-            max="50"
-            :value="localGrid.borderRight?.size || 0"
-            @input="changeBorder('borderRight', $event.target.value, 'size')"
-          />
-          <select
-            :id="`border-right-${grid.id}`"
-            :value="localGrid.borderRight?.style"
-            @change="changeBorder('borderRight', $event.target.value, 'style')"
-          >
-            <option value="none">none</option>
-            <option value="solid">solid</option>
-            <option value="inset">inset</option>
-            <option value="dashed">dashed</option>
-          </select>
-          <input
-            :id="`color-${grid.id}`"
-            type="color"
-            :value="localGrid.borderRight?.color"
-            @input="changeBorder('borderRight', $event.target.value, 'color')"
-          />
+          <div class="d-flex">
+            <input
+              type="range"
+              min="0"
+              max="50"
+              :value="localGrid[`border${borderType}`]?.size || 0"
+              @input="changeBorder(`border${borderType}`, $event.target.value, 'size')"
+            />
+            <select
+              :id="`border-top-${grid.id}`"
+              :value="localGrid[`border${borderType}`]?.style"
+              @change="changeBorder(`border${borderType}`, $event.target.value, 'style')"
+            >
+              <option value="none">none</option>
+              <option value="solid">solid</option>
+              <option value="inset">inset</option>
+              <option value="dashed">dashed</option>
+            </select>
+            <input
+              :id="`color-${grid.id}`"
+              type="color"
+              :value="localGrid[`border${borderType}`]?.color"
+              @input="changeBorder(`border${borderType}`, $event.target.value, 'color')"
+            />
+          </div>
         </div>
       </div>
       <div class="controls--group">
@@ -376,7 +297,7 @@
 import type { Grid } from '@/types/grid'
 import type { Cube } from '@/types/cube'
 import { ref, watch } from 'vue'
-import SliderComponent from '../UI/SliderComponent.vue'
+import SliderComponent from '../../UI/SliderComponent.vue'
 
 const props = defineProps<{
   grid: Grid
@@ -385,6 +306,9 @@ const props = defineProps<{
   isExpanded: boolean
   isSelected: boolean
 }>()
+
+type border = 'Top' | 'Bottom' | 'Left' | 'Right'
+const borderInputArr: border[] = ['Top', 'Bottom', 'Left', 'Right']
 
 const emit = defineEmits<{
   (e: 'update:grid', grid: Grid): void
@@ -395,14 +319,6 @@ const emit = defineEmits<{
 }>()
 
 const localGrid = ref({ ...props.grid })
-
-watch(
-  () => props.grid,
-  (newGrid) => {
-    localGrid.value = { ...newGrid }
-  },
-  { deep: true },
-)
 
 const update = () => {
   emit('update:grid', { ...localGrid.value })
