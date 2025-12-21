@@ -1,7 +1,7 @@
 <!-- GridItem.vue -->
 <template>
   <div class="grids" ref="gridRef" :class="{ selected: isSelected }">
-    <h3>{{ cube.name }}</h3>
+    <h3>{{ block.name }}</h3>
     <hr />
     <div class="d-flex flex-start">
       <label>Name: </label>
@@ -295,14 +295,14 @@
 
 <script setup lang="ts">
 import type { Grid } from '@/types/grid'
-import type { Cube } from '@/types/cube'
+import type { Block } from '@/types/block'
 import { ref, watch } from 'vue'
 import SliderComponent from '../../UI/SliderComponent.vue'
 
 const props = defineProps<{
   grid: Grid
   index: number
-  cube: Cube
+  block: Block
   isExpanded: boolean
   isSelected: boolean
 }>()

@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
-import type { Building, Cube, Grid } from '@/types'
+import type { Building, Grid, Block } from '@/types'
 import { generateId } from '@/utils/generateId'
 import defaultBuildingsData from '@/assets/data/buildings.json'
 
@@ -8,7 +8,7 @@ export const useBuildingStore = defineStore('building', () => {
   const DEFAULT_BUILDINGS_KEY = 'default_buildings_initialized'
   const BUILDINGS_KEY = 'buildings'
 
-  const initialBlocks: Cube[] = [
+  const initialBlocks: Block[] = [
     {
       id: generateId(),
       name: 'block 1',
@@ -110,16 +110,16 @@ export const useBuildingStore = defineStore('building', () => {
     }
   }
 
-  function updateBuildingBlock(newBlock: Cube) {
-    building.value.blocks = building.value.blocks.map((block: Cube) => {
+  function updateBuildingBlock(newBlock: Block) {
+    building.value.blocks = building.value.blocks.map((block: Block) => {
       if (block.id === newBlock.id) return newBlock
       return block
     })
   }
 
-  const updateBlockGrids = (grids: Grid[], cubeId: string) => {
-    building.value.blocks = building.value.blocks.map((block: Cube) => {
-      if (block.id === cubeId) {
+  const updateBlockGrids = (grids: Grid[], blockId: string) => {
+    building.value.blocks = building.value.blocks.map((block: Block) => {
+      if (block.id === blockId) {
         const newBlock = { ...block, grids }
         return newBlock
       }
@@ -164,8 +164,8 @@ export const useBuildingStore = defineStore('building', () => {
     }
   }
 
-  const duplicateBlock = (block: Cube) => {
-    const newBlock: Cube = {
+  const duplicateBlock = (block: Block) => {
+    const newBlock: Block = {
       ...block,
       name: block.name + ' copy',
       id: generateId(),
@@ -180,7 +180,7 @@ export const useBuildingStore = defineStore('building', () => {
   }
 
   const deleteBlock = (blockId: string) => {
-    building.value.blocks = building.value.blocks.filter((block: Cube) => block.id !== blockId)
+    building.value.blocks = building.value.blocks.filter((block: Block) => block.id !== blockId)
   }
 
   function deleteBuilding(buildingId: string) {

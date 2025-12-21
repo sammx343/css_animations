@@ -29,21 +29,21 @@ body.modal-open {
   overflow: hidden;
 }
 
-.cube-control {
+.block-control {
 }
 
 p {
   margin: 0 !important;
 }
 
-.cube-control .close {
+.block-control .close {
   position: absolute;
   top: 0;
   right: 0;
   cursor: pointer;
 }
 
-.cube-control--group {
+.block-control--group {
   display: flex;
   flex-direction: column;
 }

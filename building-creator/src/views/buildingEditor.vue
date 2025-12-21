@@ -8,15 +8,15 @@
       </div>
 
       <GridControl
-        v-if="gridStore.getGridControlOpen() && selectedCube"
-        :cube="selectedCube"
-        :grids="selectedCube.grids"
+        v-if="gridStore.getGridControlOpen() && selectedBlock"
+        :block="selectedBlock"
+        :grids="selectedBlock.grids"
         @update:grids="updateGrids"
         @close="() => gridStore.setGridControlOpen(false)"
       />
     </div>
 
-    <CubeScene :blocks="buildingStore.building.blocks" :zoom="zoom" @update:zoom="zoom = $event" />
+    <BlockScene :blocks="buildingStore.building.blocks" :zoom="zoom" @update:zoom="zoom = $event" />
 
     <Modal v-if="showBuildingsModal" @close-modal="showBuildingsModal = false">
       <BuildingList @close="showBuildingsModal = false" />
@@ -26,9 +26,9 @@
 
 <script setup lang="ts">
 import { ref, onBeforeMount, computed } from 'vue'
-import { useBuildingStore } from '@/store/buildingStore'
-import { useGridStore } from '@/store/gridStore'
-import { useCubeStore } from '@/store/cubeStore'
+import { useBuildingStore } from '@/store/useBuildingStore'
+import { useGridStore } from '@/store/useGridStore'
+import { useBlockStore } from '@/store/useBlockStore'
 
 import BuildingTitleHeader from '@/components/editor/BuildingTitleHeader.vue'
 import BuildingActions from '@/components/editor/BuildingActions.vue'
@@ -36,20 +36,20 @@ import BuildingList from '@/components/editor/LoadBuildingModal/BuildingList.vue
 
 import GridControl from '@/components/editor/grid/GridControl.vue'
 import BlockList from '@/components/editor/block/BlockList.vue'
-import CubeScene from '@/components/scene/CubeScene.vue'
+import BlockScene from '@/components/scene/BlockScene.vue'
 import Modal from '@/components/UI/Modal.vue'
 import type { Grid } from '@/types/grid'
 
 const buildingStore = useBuildingStore()
 const gridStore = useGridStore()
-const cubeStore = useCubeStore()
+const blockStore = useBlockStore()
 
 const showBuildingsModal = ref(false)
 const zoom = ref('1')
-const selectedCube = computed(() => cubeStore.getSelectedCubeFromId)
+const selectedBlock = computed(() => blockStore.getSelectedBlockFromId)
 
-const updateGrids = (grids: Grid[], cubeId: string) => {
-  buildingStore.updateBlockGrids(grids, cubeId)
+const updateGrids = (grids: Grid[], blockId: string) => {
+  buildingStore.updateBlockGrids(grids, blockId)
 }
 
 onBeforeMount(() => {

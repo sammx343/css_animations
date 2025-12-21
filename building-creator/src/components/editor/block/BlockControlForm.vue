@@ -1,118 +1,118 @@
 <template>
-  <div class="cube-controls">
+  <div class="block-controls">
     <SliderComponent
-      id="cube-width"
+      id="block-width"
       label="Width:"
       :min="1"
       :max="1000"
       propertyName="width"
-      class="cube-controls--group"
-      :value="cubeProperties.width"
+      class="block-controls--group"
+      :value="blockProperties.width"
       :input-function="updateProperty"
       sufix="px"
     ></SliderComponent>
 
     <SliderComponent
-      id="cube-height"
+      id="block-height"
       label="Height:"
       :min="1"
       :max="1000"
       propertyName="height"
-      class="cube-controls--group"
-      :value="cubeProperties.height"
+      class="block-controls--group"
+      :value="blockProperties.height"
       :input-function="updateProperty"
       sufix="px"
     ></SliderComponent>
 
     <SliderComponent
-      id="cube-long"
+      id="block-long"
       label="Long:"
       :min="1"
       :max="1000"
       propertyName="long"
-      class="cube-controls--group"
-      :value="cubeProperties.long"
+      class="block-controls--group"
+      :value="blockProperties.long"
       :input-function="updateProperty"
       sufix="px"
     ></SliderComponent>
 
     <SliderComponent
-      id="cube-position-x"
+      id="block-position-x"
       label="Position X:"
       :min="-1000"
       :max="1000"
       propertyName="positionX"
-      class="cube-controls--group"
-      :value="cubeProperties.positionX"
+      class="block-controls--group"
+      :value="blockProperties.positionX"
       :input-function="updateProperty"
       sufix="px"
     ></SliderComponent>
 
     <SliderComponent
-      id="cube-position-y"
+      id="block-position-y"
       label="Position Y:"
       :min="-1000"
       :max="1000"
       propertyName="positionY"
-      class="cube-controls--group"
-      :value="cubeProperties.positionY"
+      class="block-controls--group"
+      :value="blockProperties.positionY"
       :input-function="updateProperty"
       sufix="px"
     ></SliderComponent>
 
     <SliderComponent
-      id="cube-position-z"
+      id="block-position-z"
       label="Position Z:"
       :min="-1000"
       :max="1000"
       propertyName="positionZ"
-      class="cube-controls--group"
-      :value="cubeProperties.positionZ"
+      class="block-controls--group"
+      :value="blockProperties.positionZ"
       :input-function="updateProperty"
       sufix="px"
     ></SliderComponent>
 
     <SliderComponent
-      id="cube-rotation-x"
+      id="block-rotation-x"
       label="Rotation X:"
       :min="0"
       :max="360"
       propertyName="rotationX"
-      class="cube-controls--group"
-      :value="cubeProperties.rotationX || 0"
+      class="block-controls--group"
+      :value="blockProperties.rotationX || 0"
       :input-function="updateProperty"
       sufix="px"
     ></SliderComponent>
 
     <SliderComponent
-      id="cube-rotation-y"
+      id="block-rotation-y"
       label="Rotation Y:"
       :min="0"
       :max="360"
       propertyName="rotationY"
-      class="cube-controls--group"
-      :value="cubeProperties.rotationY || 0"
+      class="block-controls--group"
+      :value="blockProperties.rotationY || 0"
       :input-function="updateProperty"
       sufix="px"
     ></SliderComponent>
 
     <SliderComponent
-      id="cube-rotation-z"
+      id="block-rotation-z"
       label="Rotation Z:"
       :min="0"
       :max="360"
       propertyName="rotationZ"
-      class="cube-controls--group"
-      :value="cubeProperties.rotationZ || 0"
+      class="block-controls--group"
+      :value="blockProperties.rotationZ || 0"
       :input-function="updateProperty"
       sufix="px"
     ></SliderComponent>
 
-    <div class="cube-controls--group">
+    <div class="block-controls--group">
       <h3>Color picker:</h3>
 
       <div
-        v-for="(color, index) in cubeProperties.colors"
+        v-for="(color, index) in blockProperties.colors"
         class=""
         :key="`color-index-${index}`"
         style="position: relative"
@@ -120,27 +120,27 @@
         <div class="d-flex">
           <p>Color {{ index + 1 }} : {{ color.hex }}</p>
           <input
-            id="cube-color-picker"
+            id="block-color-picker"
             type="color"
             :value="color.hex"
             @input="updateColor('hex', ($event.target as HTMLInputElement).value, index)"
           />
         </div>
         <SliderComponent
-          v-if="cubeProperties.colors.length > 1"
-          id="cube-color-percentage"
+          v-if="blockProperties.colors.length > 1"
+          id="block-color-percentage"
           :label="`Color ${index + 1}# percentage: `"
           :min="1"
           :max="100"
           :index="index"
           propertyName="percentage"
-          class="cube-controls--group"
+          class="block-controls--group"
           :value="color.percentage"
           :input-function="updateColor"
           sufix="%"
         ></SliderComponent>
         <v-icon
-          v-if="cubeProperties.colors.length > 1"
+          v-if="blockProperties.colors.length > 1"
           name="md-deleteforever-outlined"
           style="position: absolute; right: 0; top: 0; cursor: pointer"
           @click="deleteColor(index)"
@@ -148,14 +148,14 @@
       </div>
 
       <SliderComponent
-        v-if="cubeProperties.colors.length > 1"
+        v-if="blockProperties.colors.length > 1"
         id="colors-angle"
         label="Colors Angle: "
         :min="0"
         :max="180"
         propertyName="colorsAngle"
-        class="cube-controls--group"
-        :value="cubeProperties.colorsAngle"
+        class="block-controls--group"
+        :value="blockProperties.colorsAngle"
         :input-function="updateProperty"
         sufix="degree"
       ></SliderComponent>
@@ -172,52 +172,52 @@
 
 <script setup lang="ts">
 import { defineProps, defineEmits } from 'vue'
-import type { Cube } from '@/types/cube'
+import type { Block } from '@/types/block'
 import type { Color } from '@/types/color'
 import SliderComponent from '@/components/UI/SliderComponent.vue'
 
 const props = defineProps<{
-  cubeProperties: Cube
+  blockProperties: Block
 }>()
 
-const emit = defineEmits(['update:cubeProperties', 'update:isGridControlOpen'])
+const emit = defineEmits(['update:blockProperties', 'update:isGridControlOpen'])
 
 const updateProperty = (dimension: string, value: string) => {
-  emit('update:cubeProperties', {
-    ...props.cubeProperties,
+  emit('update:blockProperties', {
+    ...props.blockProperties,
     [dimension]: value,
   })
 }
 
 const addColors = () => {
-  const colorsCopy = [...props.cubeProperties.colors, { hex: '#000000', percentage: 100 }]
+  const colorsCopy = [...props.blockProperties.colors, { hex: '#000000', percentage: 100 }]
 
   const colors = colorsCopy.map((color: Color, index: number) => {
     return { ...color, percentage: (100 / colorsCopy.length) * (index + 1) }
   })
 
-  emit('update:cubeProperties', {
-    ...props.cubeProperties,
+  emit('update:blockProperties', {
+    ...props.blockProperties,
     colors: colors,
   })
 }
 
 const updateColor = (property: string, value: string, index: number) => {
-  const newColorArray = [...props.cubeProperties.colors]
+  const newColorArray = [...props.blockProperties.colors]
   newColorArray[index][property] = value
 
-  emit('update:cubeProperties', {
-    ...props.cubeProperties,
+  emit('update:blockProperties', {
+    ...props.blockProperties,
     colors: newColorArray,
   })
 }
 
 function deleteColor(index: number) {
-  const newColorArray = [...props.cubeProperties.colors]
+  const newColorArray = [...props.blockProperties.colors]
   newColorArray.splice(index, 1)
 
-  emit('update:cubeProperties', {
-    ...props.cubeProperties,
+  emit('update:blockProperties', {
+    ...props.blockProperties,
     colors: newColorArray,
   })
 }

@@ -1,18 +1,18 @@
 <template>
   <div class="building-thumbnail scene">
     <div class="scene-container">
-      <div class="cubes-container">
+      <div class="blocks-container">
         <div
           v-for="(block, index) in blocks"
-          class="cube"
-          :style="getCubeStyle(block)"
+          class="block"
+          :style="getBlockStyle(block)"
           :key="index"
         >
-          <CubeFace
-            v-for="(face, index) in cubeFaces"
+          <BlockFace
+            v-for="(face, index) in blockFaces"
             :key="index"
             :face-index="index"
-            :cube="block"
+            :block="block"
             :grids="block.grids"
           />
         </div>
@@ -23,14 +23,14 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import CubeFace from '@/components/scene/CubeFace.vue'
-import type { Cube } from '@/types/cube'
+import BlockFace from '@/components/scene/BlockFace.vue'
+import type { Block } from '@/types/block'
 
-defineProps<{ blocks: Cube[] }>()
+defineProps<{ blocks: Block[] }>()
 
-const cubeFaces = ref(new Array(6).fill(null))
+const blockFaces = ref(new Array(6).fill(null))
 
-const getCubeStyle = (block: Cube) => ({
+const getBlockStyle = (block: Block) => ({
   width: `${block.long}px`,
   height: `${block.height}px`,
   transform: `translateX(${block.positionX}px) translateY(${block.positionY}px) translateZ(${block.positionZ}px) rotateX(${block.rotationX}deg) rotateY(${block.rotationY}deg) rotateZ(${block.rotationZ}deg) `,
@@ -53,17 +53,17 @@ const getCubeStyle = (block: Cube) => ({
   height: 100vh;
 }
 
-.cube {
+.block {
   position: absolute;
   transform-style: preserve-3d;
   transform-origin: center;
 }
 
-.cube-container {
+.block-container {
   transform-style: preserve-3d;
 }
 
-.cubes-container {
+.blocks-container {
   position: absolute;
   top: 50%;
   right: 50%;

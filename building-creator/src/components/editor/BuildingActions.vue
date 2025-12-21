@@ -16,14 +16,14 @@
 </template>
 
 <script setup lang="ts">
-import { useBuildingStore } from '@/store/buildingStore'
+import { useBuildingStore } from '@/store/useBuildingStore'
 
 const buildingStore = useBuildingStore()
 import { generateId } from '@/utils/generateId'
-import type { Cube } from '@/types/cube'
+import type { Block } from '@/types/block'
 
 const createBlock = () => {
-  const newBlock: Cube = {
+  const newBlock: Block = {
     id: generateId(),
     name: `block ${buildingStore.building.blocks.length + 1}`,
     width: 100,

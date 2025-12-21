@@ -1,16 +1,16 @@
 <template>
   <div
-    class="cube__face"
-    :class="`cube__face--${faceIndex + 1}`"
+    class="block__face"
+    :class="`block__face--${faceIndex + 1}`"
     :style="faceStyle"
-    @dblclick="selectCube"
+    @dblclick="selectBlock"
   >
     <template v-for="grid in grids">
       <GridScene
         v-if="!grid.excludedFaces.includes(faceIndex + 1)"
         :key="grid.id"
         :grid="grid"
-        :cubeId="cube.id"
+        :blockId="block.id"
       />
     </template>
   </div>
@@ -20,19 +20,19 @@
 import { computed } from 'vue'
 import GridScene from './GridScene.vue'
 import type { Grid } from '@/types/grid'
-import { Cube } from '@/types/cube'
+import type { Block } from '@/types/block'
 import type { Color } from '@/types/color'
-import { useCubeStore } from '@/store/cubeStore'
+import { useBlockStore } from '@/store/useBlockStore'
 const props = defineProps<{
   faceIndex: number
-  cube: Cube
+  block: Block
   grids: Grid[]
 }>()
 
-const cubeStore = useCubeStore()
+const blockStore = useBlockStore()
 
 const faceStyle = computed(() => {
-  const { width, long, height, colors, colorsAngle } = props.cube
+  const { width, long, height, colors, colorsAngle } = props.block
   const index = props.faceIndex
   const style = {
     background: colorsToLinearBackground(colors, colorsAngle),
@@ -72,8 +72,8 @@ const faceStyle = computed(() => {
   return style
 })
 
-const selectCube = () => {
-  cubeStore.setSelectedCube(props.cube)
+const selectBlock = () => {
+  blockStore.setSelectedBlockId(props.block.id)
 }
 
 const colorsToLinearBackground = (colors: Color[], colorsAngle = 90) => {
@@ -83,7 +83,7 @@ const colorsToLinearBackground = (colors: Color[], colorsAngle = 90) => {
 </script>
 
 <style scoped>
-.cube__face {
+.block__face {
   display: flex;
   overflow: hidden;
   align-items: center;

@@ -15,7 +15,7 @@
 
 <script setup lang="ts">
 import { computed, ref } from 'vue'
-import { useBuildingStore } from '@/store/buildingStore'
+import { useBuildingStore } from '@/store/useBuildingStore'
 import BlockControl from './BlockControl.vue'
 
 const buildingStore = useBuildingStore()
@@ -34,11 +34,11 @@ const duplicateBlock = (block: any) => {
   expandBlock(duplicatedBlock)
 }
 
-const expandBlock = (cube: Cube | undefined) => {
-  if (!cube) return
+const expandBlock = (block: block | undefined) => {
+  if (!block) return
   isBlockExpanded.value = new Array(buildingStore.building.blocks.length).fill(false)
   const selectedBlockIndex = buildingStore.building.blocks.findIndex(
-    (block) => block.id === cube.id,
+    (block) => block.id === block.id,
   )
   isBlockExpanded.value[selectedBlockIndex] = true
 }

@@ -1,18 +1,18 @@
 <template>
   <div class="scene" ref="sceneRef">
     <div class="scene-container" :style="sceneContainerStyle" ref="sceneContainerRef">
-      <div class="cubes-container">
+      <div class="blocks-container">
         <div
           v-for="(block, index) in blocks"
-          class="cube"
-          :style="getCubeStyle(block)"
+          class="block"
+          :style="getBlockStyle(block)"
           :key="index"
         >
-          <CubeFace
-            v-for="(face, index) in cubeFaces"
+          <BlockFace
+            v-for="(face, index) in blockFaces"
             :key="index"
             :face-index="index"
-            :cube="block"
+            :block="block"
             :grids="block.grids"
           />
         </div>
@@ -20,9 +20,9 @@
     </div>
   </div>
   <div class="zoom">
-    <label for="cube-height">Zoom: {{ zoom }}</label>
+    <label for="block-height">Zoom: {{ zoom }}</label>
     <input
-      id="cube-height"
+      id="block-height"
       type="range"
       min="0.2"
       max="1.5"
@@ -35,15 +35,15 @@
 
 <script setup lang="ts">
 import { ref, computed, onMounted, defineEmits } from 'vue'
-import CubeFace from './CubeFace.vue'
-import type { Cube } from '@/types/cube'
+import BlockFace from './BlockFace.vue'
+import type { Block } from '@/types/block'
 
 const emit = defineEmits(['update:zoom'])
 
-const props = defineProps<{ zoom: string; blocks: Cube[] }>()
+const props = defineProps<{ zoom: string; blocks: Block[] }>()
 
 const sceneRef = ref(null)
-const cubeFaces = ref(new Array(6).fill(null))
+const blockFaces = ref(new Array(6).fill(null))
 const sumX = ref(0)
 const sumY = ref(0)
 let lastMouseX = 0
@@ -53,7 +53,7 @@ const sceneContainerStyle = computed(() => ({
   transform: `scale(${props.zoom}) rotateX(${sumY.value}deg) rotateY(${sumX.value}deg) `,
 }))
 
-const getCubeStyle = (block: Cube) => ({
+const getBlockStyle = (block: Block) => ({
   width: `${block.long}px`,
   height: `${block.height}px`,
   transform: `translateX(${block.positionX}px) translateY(${block.positionY}px) translateZ(${block.positionZ}px) rotateX(${block.rotationX}deg) rotateY(${block.rotationY}deg) rotateZ(${block.rotationZ}deg)`,
@@ -95,17 +95,17 @@ onMounted(() => {
   height: 100vh;
 }
 
-.cube {
+.block {
   position: absolute;
   transform-style: preserve-3d;
   transform-origin: center;
 }
 
-.cube-container {
+.block-container {
   transform-style: preserve-3d;
 }
 
-.cubes-container {
+.blocks-container {
   position: absolute;
   top: 50%;
   right: 50%;

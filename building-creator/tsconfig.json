@@ -1,4 +1,12 @@
 {
+  "compilerOptions": {
+    "baseUrl": ".", // This makes paths relative to the project root
+    "paths": {
+      "@/types": ["./src/types/index.d.ts"], // Adjust this to your actual file location
+      "@/*": ["./src/*"] // A general wildcard alias
+    }
+    // Other options...
+  },
   "files": [],
   "references": [
     {
