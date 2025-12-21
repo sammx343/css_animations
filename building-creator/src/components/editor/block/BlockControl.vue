@@ -16,36 +16,36 @@
 
     <transition name="expand">
       <div v-if="isExpanded" class="expanded-controls">
-        <BlockControlForm :cube-properties="block" @update:cube-properties="updateBlock" />
+        <BlockControlForm :block-properties="block" @update:block-properties="updateBlock" />
       </div>
     </transition>
   </div>
 </template>
 
 <script setup lang="ts">
-import { useCubeStore } from '@/store/cubeStore'
-import { useGridStore } from '@/store/gridStore'
-import { useBuildingStore } from '@/store/buildingStore'
+import { useBlockStore } from '@/store/useBlockStore'
+import { useGridStore } from '@/store/useGridStore'
+import { useBuildingStore } from '@/store/useBuildingStore'
 import BlockControlForm from './BlockControlForm.vue'
-import type { Cube } from '@/types/cube'
+import type { Block } from '@/types/block'
 
 const props = defineProps<{
-  block: Cube
+  block: Block
   index: number
   isExpanded: boolean
 }>()
 const buildingStore = useBuildingStore()
 
-const updateBlock = (updated: Cube) => {
+const updateBlock = (updated: Block) => {
   buildingStore.updateBuildingBlock(updated)
 }
 
 defineEmits(['toggle-expand', 'duplicate', 'delete'])
-const cubeStore = useCubeStore()
+const blockStore = useBlockStore()
 const gridStore = useGridStore()
 
 const openGridControl = () => {
-  cubeStore.setSelectedCubeId(props.block.id)
+  blockStore.setSelectedBlockId(props.block.id)
   gridStore.setGridControlOpen(true)
 }
 </script>

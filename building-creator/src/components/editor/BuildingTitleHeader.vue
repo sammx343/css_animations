@@ -9,7 +9,7 @@
 </template>
 
 <script setup lang="ts">
-import { useBuildingStore } from '@/store/buildingStore'
+import { useBuildingStore } from '@/store/useBuildingStore'
 const buildingStore = useBuildingStore()
 </script>
 

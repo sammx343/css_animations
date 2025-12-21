@@ -36,7 +36,7 @@ import type { Building } from '@/types/building'
 import Modal from '@/components/UI/Modal.vue'
 import ConfirmationPrompt from '@/components/UI/ConfirmationPrompt.vue'
 import { onMounted, ref } from 'vue'
-import { useBuildingStore } from '@/store/buildingStore'
+import { useBuildingStore } from '@/store/useBuildingStore'
 import BuildingThumbnailScene from './BuildingThumbnailScene.vue'
 
 const buildingStore = useBuildingStore()

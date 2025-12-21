@@ -4,7 +4,7 @@ import type { Grid } from '@/types/grid'
 
 export const useGridStore = defineStore('row', () => {
   const isGridControlOpen = ref(false)
-  const selectedGrid = ref<{ grid: Grid; cubeId: string }>()
+  const selectedGrid = ref<{ grid: Grid; blockId: string }>()
 
   const getSelectedGrid = computed(() => selectedGrid)
 
@@ -16,8 +16,8 @@ export const useGridStore = defineStore('row', () => {
     return isGridControlOpen.value
   }
 
-  function setSelectedGrid(cubeId: string, grid: Grid) {
-    selectedGrid.value = { cubeId, grid }
+  function setSelectedGrid(blockId: string, grid: Grid) {
+    selectedGrid.value = { blockId, grid }
   }
 
   return { setSelectedGrid, getSelectedGrid, selectedGrid, setGridControlOpen, getGridControlOpen }

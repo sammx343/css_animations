@@ -11,7 +11,7 @@
         :key="grid.id"
         :grid="grid"
         :index="index"
-        :cube="cube"
+        :block="block"
         :is-expanded="isGridExpanded[index]"
         :is-selected="selectedGrid?.id === grid.id"
         @update:grid="updateGrid"
@@ -26,31 +26,31 @@
 
 <script setup lang="ts">
 import type { Grid } from '@/types/grid'
-import type { Cube } from '@/types/cube'
+import type { Block } from '@/types/block'
 import { ref, watch, nextTick, useTemplateRef } from 'vue'
 import { generateId } from '@/utils/generateId'
 import GridControlForm from '../grid/GridControlForm.vue'
-import { useCubeStore } from '@/store/cubeStore'
-import { useGridStore } from '@/store/gridStore'
+import { useBlockStore } from '@/store/useBlockStore'
+import { useGridStore } from '@/store/useGridStore'
 
 const props = defineProps<{
-  cube: Cube
+  block: Block
   grids: Grid[]
   selectedGrid?: Grid | undefined
 }>()
 
 const emit = defineEmits<{
-  (e: 'update:grids', grids: Grid[], cubeId: string): void
+  (e: 'update:grids', grids: Grid[], blockId: string): void
 }>()
 
-const cubeStore = useCubeStore()
+const blockStore = useBlockStore()
 const gridStore = useGridStore()
 
 const isGridExpanded = ref(new Array(props.grids.length).fill(false))
 const gridsContainer = ref(null)
 
 const closeGridControl = () => {
-  cubeStore.setSelectedCube(null)
+  blockStore.clearSelectedBlock()
   gridStore.setGridControlOpen(false)
 }
 
@@ -115,7 +115,7 @@ const switchPosition = (index: number, flag: number) => {
 }
 
 const emitGridChanges = (newGrids: Grid[]) => {
-  emit('update:grids', newGrids, props.cube.id)
+  emit('update:grids', newGrids, props.block.id)
 }
 
 watch(

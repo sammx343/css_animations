@@ -1,6 +1,6 @@
 import type { Grid } from './grid'
 import type { Color } from './color'
-export type Cube = {
+export type Block = {
   id: string
   name: string
   width: number

@@ -15,12 +15,12 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
-import { useGridStore } from '@/store/gridStore'
+import { useGridStore } from '@/store/useGridStore'
 import type { Grid } from '@/types/grid'
 
 const props = defineProps<{
   grid: Grid
-  cubeId: string
+  blockId: string
 }>()
 
 const rowStore = useGridStore()
@@ -67,7 +67,7 @@ const isWindowExcluded = (index: number) => {
 }
 
 const selectGrid = () => {
-  rowStore.setSelectedGrid(props.cubeId, props.grid)
+  rowStore.setSelectedGrid(props.blockId, props.grid)
 }
 </script>
 
