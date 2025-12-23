@@ -14,10 +14,18 @@
       <button class="grid-button delete-grid" @click="$emit('delete', grid.id)">
         <v-icon name="md-deleteforever-outlined"></v-icon> Delete
       </button>
-      <button class="grid-button" @click="$emit('switch-position', index, -1)">
+      <button
+        :disabled="cantSwitchUp"
+        class="grid-button"
+        @click="$emit('switch-position', index, -1)"
+      >
         <v-icon name="bi-arrow-up" style="fill: black" />
       </button>
-      <button class="grid-button" @click="$emit('switch-position', index, 1)">
+      <button
+        :disabled="cantSwitchDown"
+        class="grid-button"
+        @click="$emit('switch-position', index, 1)"
+      >
         <v-icon name="bi-arrow-down" style="fill: black" />
       </button>
     </div>
@@ -61,13 +69,7 @@
             gridTemplateRows: `repeat(${localGrid.rows}, 1fr)`,
           }"
         >
-          <div
-            v-for="index in Array.from(
-              { length: localGrid.rows * localGrid.columns },
-              (_, i) => i + 1,
-            )"
-            :key="index"
-          >
+          <div v-for="n in localGrid.rows * localGrid.columns" :key="n">
             <input
               :id="`excluded-windows-${index}`"
               :value="index"
@@ -296,13 +298,15 @@
 <script setup lang="ts">
 import type { Grid } from '@/types/grid'
 import type { Block } from '@/types/block'
-import { ref, watch } from 'vue'
+import { ref } from 'vue'
 import SliderComponent from '../../UI/SliderComponent.vue'
 
 const props = defineProps<{
+  block: Block
+  cantSwitchUp: boolean
+  cantSwitchDown: boolean
   grid: Grid
   index: number
-  block: Block
   isExpanded: boolean
   isSelected: boolean
 }>()

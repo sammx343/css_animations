@@ -1,7 +1,4 @@
 @import './base.css';
-body.modal-open {
-  overflow-y: hidden;
-}
 
 .button {
   margin-right: 5px;
@@ -22,30 +19,48 @@ body.modal-open {
   width: 30%;
   max-width: 400px;
   padding: 10px;
-  background: #ff7360;
+  background: linear-gradient(
+    45deg,
+    rgb(255 165 0 / 40%) 20%,
+    rgb(238 130 238 / 40%) 50%,
+    rgb(0 0 139 / 50%) 80%
+  );
   border: 1px solid black;
   user-select: none;
   resize: horizontal;
   overflow: hidden;
-}
-
-.block-control {
+  ::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    left: 0%;
+    top: 0%;
+    z-index: -1;
+    background:
+      linear-gradient(0deg, white 1%, transparent 1%),
+      linear-gradient(90deg, white 1%, transparent 1%);
+    background-size: 100px 100px;
+  }
 }
 
 p {
   margin: 0 !important;
 }
 
-.block-control .close {
-  position: absolute;
-  top: 0;
-  right: 0;
-  cursor: pointer;
-}
-
-.block-control--group {
-  display: flex;
-  flex-direction: column;
+.block-control {
+  .close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    cursor: pointer;
+  }
+  &--group {
+    display: flex;
+    flex-direction: column;
+  }
 }
 
 .d-flex {
@@ -87,7 +102,7 @@ p {
   cursor: pointer;
 }
 
-.grid-button {
+.button {
   margin-right: 5px;
   border-radius: 10px;
   border: 1px solid black;
@@ -96,28 +111,6 @@ p {
   padding: 5px 10px;
   font-weight: 600;
   cursor: pointer;
-}
-
-.grids.selected {
-  background: red;
-}
-
-.duplicate-grid {
-  background: green;
-}
-
-.delete-grid {
-  background: #df635a;
-}
-
-.reverse-grid {
-  background: #000000;
-}
-
-.grids-container {
-  max-height: 80vh;
-  padding-bottom: 20px;
-  overflow-y: scroll;
 }
 
 label {
@@ -133,8 +126,4 @@ hr {
   border: 0;
   border-top: 1px solid white;
   margin: 1rem 0;
-}
-
-p {
-  margin: 0.5rem 0;
 }

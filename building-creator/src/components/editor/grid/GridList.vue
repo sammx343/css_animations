@@ -14,6 +14,8 @@
         :block="block"
         :is-expanded="isGridExpanded[index]"
         :is-selected="selectedGrid?.id === grid.id"
+        :cant-switch-up="index <= 0"
+        :cant-switch-down="index >= grids.length - 1"
         @update:grid="updateGrid"
         @duplicate="duplicateGrid"
         @delete="deleteGrid"
@@ -27,7 +29,7 @@
 <script setup lang="ts">
 import type { Grid } from '@/types/grid'
 import type { Block } from '@/types/block'
-import { ref, watch, nextTick, useTemplateRef } from 'vue'
+import { ref, watch, nextTick } from 'vue'
 import { generateId } from '@/utils/generateId'
 import GridControlForm from '../grid/GridControlForm.vue'
 import { useBlockStore } from '@/store/useBlockStore'
@@ -100,7 +102,7 @@ const deleteGrid = (id: string) => {
   emitGridChanges(grids)
 }
 
-const switchPosition = (index: number, flag: number) => {
+const switchPosition = async (index: number, flag: number) => {
   const switchIndex = index + flag
   if (switchIndex < 0 || switchIndex >= props.grids.length) return
 
@@ -111,7 +113,18 @@ const switchPosition = (index: number, flag: number) => {
     if (grid.id === gridToSwitch.id) return currentGrid
     return grid
   })
+
+  //Opens and closes the current expanded grid array
+  isGridExpanded.value[index] = false
+  isGridExpanded.value[switchIndex] = true
+
   emitGridChanges(updatedGrids)
+
+  await nextTick()
+  if (gridsContainer.value && gridsContainer.value.children[switchIndex]) {
+    console.dir(gridsContainer.value?.children[switchIndex])
+    scrollToTarget(gridsContainer.value?.children[switchIndex])
+  }
 }
 
 const emitGridChanges = (newGrids: Grid[]) => {
@@ -153,10 +166,13 @@ watch(
   { deep: true, immediate: true },
 )
 
-function scrollToTarget(selectedGridRef: any) {
-  gridsContainer.value.scrollTop = selectedGridRef.offsetTop - 100
-}
+async function scrollToTarget(selectedGridRef: HTMLElement) {
+  if (!selectedGridRef) return
 
+  selectedGridRef.scrollIntoView({
+    block: 'start',
+  })
+}
 function addSelectedStyle(selectedGridRef: any) {
   selectedGridRef.classList.add('selected')
 }
@@ -165,5 +181,10 @@ function removeSelectedStyle(lastGridRef: any) {
   if (lastGridRef) lastGridRef.classList.remove('selected')
 }
 </script>
-
-<style scoped></style>
+<style scoped>
+.grids-container {
+  max-height: 80vh;
+  padding-bottom: 20px;
+  overflow-y: scroll;
+}
+</style>
