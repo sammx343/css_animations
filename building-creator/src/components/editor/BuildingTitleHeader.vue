@@ -1,7 +1,7 @@
 <template>
   <div class="building-header">
-    <h2>Building Editor</h2>
-    <div class="d-flex flex-start">
+    <h1>Building Editor</h1>
+    <div class="">
       <label>Building Name:</label>
       <input type="text" v-model="buildingStore.building.name" placeholder="Untitled Building" />
     </div>
@@ -18,8 +18,8 @@ const buildingStore = useBuildingStore()
   margin-bottom: 1.5rem;
 }
 input {
-  font-size: 1.2rem;
-  padding: 0.5rem;
+  font-size: 1.1rem;
+  padding: 0.2rem;
   width: 100%;
 }
 </style>

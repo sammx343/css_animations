@@ -1,20 +1,20 @@
 <template>
   <main class="main">
-    <div class="controls">
-      <div v-if="!gridStore.getGridControlOpen()">
+    <div class="controls" v-if="!gridStore.getGridControlOpen()">
+      <div>
         <BuildingTitleHeader />
-        <BuildingActions @open-building-list="showBuildingsModal = true" />
+        <BuildingActions @open-building-list="openShowBuildingsModal" />
         <BlockList />
       </div>
-
-      <GridControl
-        v-if="gridStore.getGridControlOpen() && selectedBlock"
-        :block="selectedBlock"
-        :grids="selectedBlock.grids"
-        @update:grids="updateGrids"
-        @close="() => gridStore.setGridControlOpen(false)"
-      />
     </div>
+
+    <GridList
+      v-if="gridStore.getGridControlOpen() && selectedBlock"
+      :block="selectedBlock"
+      :grids="selectedBlock.grids"
+      @update:grids="updateGrids"
+      @close="() => gridStore.setGridControlOpen(false)"
+    />
 
     <BlockScene :blocks="buildingStore.building.blocks" :zoom="zoom" @update:zoom="zoom = $event" />
 
@@ -34,7 +34,7 @@ import BuildingTitleHeader from '@/components/editor/BuildingTitleHeader.vue'
 import BuildingActions from '@/components/editor/BuildingActions.vue'
 import BuildingList from '@/components/editor/LoadBuildingModal/BuildingList.vue'
 
-import GridControl from '@/components/editor/grid/GridControl.vue'
+import GridList from '@/components/editor/grid/GridList.vue'
 import BlockList from '@/components/editor/block/BlockList.vue'
 import BlockScene from '@/components/scene/BlockScene.vue'
 import Modal from '@/components/UI/Modal.vue'
@@ -55,6 +55,10 @@ const updateGrids = (grids: Grid[], blockId: string) => {
 onBeforeMount(() => {
   buildingStore.initializeDefaultBuildings()
 })
+
+function openShowBuildingsModal() {
+  showBuildingsModal.value = true
+}
 </script>
 
 <style scoped>

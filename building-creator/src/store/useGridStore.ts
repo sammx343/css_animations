@@ -2,7 +2,7 @@ import { defineStore } from 'pinia'
 import { computed, ref } from 'vue'
 import type { Grid } from '@/types/grid'
 
-export const useGridStore = defineStore('row', () => {
+export const useGridStore = defineStore('grid', () => {
   const isGridControlOpen = ref(false)
   const selectedGrid = ref<{ grid: Grid; blockId: string }>()
 

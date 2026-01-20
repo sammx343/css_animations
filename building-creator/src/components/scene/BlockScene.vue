@@ -24,9 +24,9 @@
     <input
       id="block-height"
       type="range"
-      min="0.2"
-      max="1.5"
-      step="0.01"
+  :min="ZOOM_CONFIG.MIN"
+  :max="ZOOM_CONFIG.MAX"
+  :step="ZOOM_CONFIG.STEP"
       :value="zoom"
       @input="updateZoom(($event.target as HTMLInputElement).value)"
     />
@@ -37,6 +37,7 @@
 import { ref, computed, onMounted, defineEmits } from 'vue'
 import BlockFace from './BlockFace.vue'
 import type { Block } from '@/types/block'
+import { ZOOM_CONFIG } from '@/constants'
 
 const emit = defineEmits(['update:zoom'])
 
