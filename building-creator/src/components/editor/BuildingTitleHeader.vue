@@ -1,6 +1,6 @@
 <template>
   <div class="building-header">
-    <h1>Building Editor</h1>
+    <h1 class="title-styled">Building Editor</h1>
     <div class="">
       <label>Building Name:</label>
       <input type="text" v-model="buildingStore.building.name" placeholder="Untitled Building" />
