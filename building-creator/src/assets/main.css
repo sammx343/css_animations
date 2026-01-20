@@ -1,14 +1,33 @@
 @import './base.css';
 
 .button {
-  margin-right: 5px;
-  border-radius: 10px;
-  border: 1px solid black;
-  color: white;
-  text-shadow: 1px 1px 1px black;
-  padding: 5px 10px;
-  font-weight: 600;
+  background: blueviolet;
+  color: ghostwhite;
+  font-size: 1rem;
+  font-weight: 500;
+  text-shadow: 1px 1px black;
   cursor: pointer;
+  backdrop-filter: blur(1px);
+  text-shadow: 1px 1px 1px black;
+  padding: 2px 5px;
+  font-weight: 400;
+  cursor: pointer;
+  transition: 0.5s transform;
+}
+
+.button:hover {
+  transform: scale(1.05);
+}
+
+.button.secondary {
+  background: lightseagreen;
+}
+
+.button.danger {
+  background: crimson;
+}
+.button.multicolor {
+  background: linear-gradient(45deg, rgb(255 165 0) 20%, rgb(238 130 238) 50%, rgb(0 0 139) 80%);
 }
 
 .controls {
@@ -29,7 +48,7 @@
   user-select: none;
   resize: horizontal;
   overflow: hidden;
-  ::before {
+  &::before {
     content: '';
     position: absolute;
     width: 100%;
@@ -46,10 +65,6 @@
   }
 }
 
-p {
-  margin: 0 !important;
-}
-
 .block-control {
   .close {
     position: absolute;
@@ -61,6 +76,10 @@ p {
     display: flex;
     flex-direction: column;
   }
+}
+
+.align-items-center {
+  align-items: center;
 }
 
 .d-flex {
@@ -102,15 +121,20 @@ p {
   cursor: pointer;
 }
 
-.button {
-  margin-right: 5px;
-  border-radius: 10px;
-  border: 1px solid black;
-  color: white;
-  text-shadow: 1px 1px 1px black;
-  padding: 5px 10px;
-  font-weight: 600;
-  cursor: pointer;
+p,
+label,
+button {
+  font-family: 'Poppins', sans-serif;
+  margin: 0 !important;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 400;
+  font-style: normal;
 }
 
 label {

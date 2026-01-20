@@ -15,14 +15,23 @@ import {
   BiArrowDown,
   MdFlipcameraandroid,
   MdAddcircleOutlined,
+  MdKeyboardbackspaceRound,
   HiSolidChevronLeft,
   HiSolidChevronRight,
   IoClose,
+  IoSave,
+  MdDrivefolderuploadTwotone,
+  FaRegularBuilding,
+  IoCubeOutline,
+  LaCubeSolid,
+  BiGrid3X3,
 } from 'oh-vue-icons/icons'
+
+import { GOOGLE_ANALYTICS_ID } from '@/constants'
 
 const pinia = createPinia()
 configure({
-  tagId: 'G-QXWKHBXNL0',
+  tagId: GOOGLE_ANALYTICS_ID,
 })
 
 pageview('/')
@@ -39,5 +48,12 @@ addIcons(
   HiSolidChevronLeft,
   HiSolidChevronRight,
   IoClose,
+  IoSave,
+  MdDrivefolderuploadTwotone,
+  FaRegularBuilding,
+  IoCubeOutline,
+  LaCubeSolid,
+  BiGrid3X3,
+  MdKeyboardbackspaceRound,
 )
 createApp(App).use(pinia).component('v-icon', OhVueIcon).mount('#app')

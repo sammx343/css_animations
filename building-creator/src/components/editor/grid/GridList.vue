@@ -1,12 +1,21 @@
 <!-- GridList.vue -->
 <template>
   <div class="controls">
-    <p class="close" style="cursor: pointer" @click="closeGridControl">X</p>
-    <h2>Grid Controls:</h2>
-    <hr />
-    <button @click="createGrid">Create grid</button>
-    <div class="grids-container" ref="gridsContainer">
-      <GridControlForm
+    <div class="d-flex justify-content-center align-items-center">
+      <v-icon
+        name="md-keyboardbackspace-round"
+        height="30"
+        width="30"
+        @click="closeGridControl"
+        style="cursor: pointer"
+      ></v-icon>
+      <h2>Grid Controls:</h2>
+    </div>
+    <button @click="createGrid" class="button secondary" style="margin-left: 5px">
+      <v-icon name="bi-grid-3x3"></v-icon>Add grid
+    </button>
+    <div ref="gridsContainer">
+      <GridControl
         v-for="(grid, index) in grids"
         :key="grid.id"
         :grid="grid"
@@ -31,7 +40,7 @@ import type { Grid } from '@/types/grid'
 import type { Block } from '@/types/block'
 import { ref, watch, nextTick } from 'vue'
 import { generateId } from '@/utils/generateId'
-import GridControlForm from '../grid/GridControlForm.vue'
+import GridControl from '../grid/GridControl.vue'
 import { useBlockStore } from '@/store/useBlockStore'
 import { useGridStore } from '@/store/useGridStore'
 
@@ -181,10 +190,4 @@ function removeSelectedStyle(lastGridRef: any) {
   if (lastGridRef) lastGridRef.classList.remove('selected')
 }
 </script>
-<style scoped>
-.grids-container {
-  max-height: 80vh;
-  padding-bottom: 20px;
-  overflow-y: scroll;
-}
-</style>
+<style scoped></style>

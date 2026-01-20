@@ -3,7 +3,7 @@
     <div class="controls" v-if="!gridStore.getGridControlOpen()">
       <div>
         <BuildingTitleHeader />
-        <BuildingActions @open-building-list="showBuildingsModal = true" />
+        <BuildingActions @open-building-list="openShowBuildingsModal" />
         <BlockList />
       </div>
     </div>
@@ -55,6 +55,10 @@ const updateGrids = (grids: Grid[], blockId: string) => {
 onBeforeMount(() => {
   buildingStore.initializeDefaultBuildings()
 })
+
+function openShowBuildingsModal() {
+  showBuildingsModal.value = true
+}
 </script>
 
 <style scoped>

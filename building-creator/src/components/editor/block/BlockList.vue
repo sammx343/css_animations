@@ -5,7 +5,7 @@
       :key="block.id"
       :block="block"
       :index="index"
-      :is-expanded="expandedBlocks[block.id]"
+      :is-expanded="expandedBlocks[block.id] || false"
       @toggle-expand="toggleExpand(block.id)"
       @duplicate="duplicateBlock"
       @delete="deleteBlock"
@@ -16,6 +16,7 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 import { useBuildingStore } from '@/store/useBuildingStore'
+import type { Block } from '@/types/block'
 import BlockControl from './BlockControl.vue'
 
 const buildingStore = useBuildingStore()
@@ -34,7 +35,7 @@ const duplicateBlock = (block: any) => {
   expandBlock(duplicatedBlock)
 }
 
-const expandBlock = (block: block | undefined) => {
+const expandBlock = (block: Block | undefined) => {
   if (!block) return
   isBlockExpanded.value = new Array(buildingStore.building.blocks.length).fill(false)
   const selectedBlockIndex = buildingStore.building.blocks.findIndex(

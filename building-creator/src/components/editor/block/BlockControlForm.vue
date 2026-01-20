@@ -159,11 +159,7 @@
         :input-function="updateProperty"
         sufix="degree"
       ></SliderComponent>
-      <button
-        class="button grid-button"
-        @click="addColors()"
-        style="background: blue; margin-bottom: 10px"
-      >
+      <button class="button multicolor" @click="addColors()">
         Add color <v-icon name="md-addcircle-outlined"></v-icon>
       </button>
     </div>
