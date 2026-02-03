@@ -17,4 +17,6 @@ export type Block = {
   rotationX: number
   rotationY: number
   rotationZ: number
+  visibleFaces?: boolean[] // Array of 6 booleans for each face visibility (default: all true)
+  backfaceVisibility?: boolean // Controls CSS backface-visibility property (default: false, meaning hidden)
 }

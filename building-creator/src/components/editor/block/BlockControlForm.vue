@@ -163,11 +163,36 @@
         Add color <v-icon name="md-addcircle-outlined"></v-icon>
       </button>
     </div>
+
+    <div class="block-controls--group">
+      <h3>Visible Faces:</h3>
+      <div class="face-visibility-controls">
+        <label v-for="(faceVisible, index) in faceVisibility" :key="index" class="face-checkbox">
+          <input
+            type="checkbox"
+            :checked="faceVisible"
+            @change="updateFaceVisibility(index, ($event.target as HTMLInputElement).checked)"
+          />
+          <span>Face {{ index + 1 }}</span>
+        </label>
+      </div>
+    </div>
+
+    <div class="block-controls--group">
+      <label class="backface-checkbox">
+        <input
+          type="checkbox"
+          :checked="backfaceVisibility"
+          @change="updateBackfaceVisibility(($event.target as HTMLInputElement).checked)"
+        />
+        <span>Backface Visibility</span>
+      </label>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { defineProps, defineEmits } from 'vue'
+import { defineProps, defineEmits, computed } from 'vue'
 import type { Block } from '@/types/block'
 import type { Color } from '@/types/color'
 import SliderComponent from '@/components/UI/SliderComponent.vue'
@@ -178,10 +203,40 @@ const props = defineProps<{
 
 const emit = defineEmits(['update:blockProperties', 'update:isGridControlOpen'])
 
+// Initialize visibleFaces if not present (default: all faces visible)
+const faceVisibility = computed(() => {
+  if (!props.blockProperties.visibleFaces) {
+    return [true, true, true, true, true, true]
+  }
+  return props.blockProperties.visibleFaces
+})
+
+// Initialize backfaceVisibility if not present (default: false, meaning backface is hidden)
+const backfaceVisibility = computed(() => {
+  return props.blockProperties.backfaceVisibility ?? false
+})
+
 const updateProperty = (dimension: string, value: string) => {
   emit('update:blockProperties', {
     ...props.blockProperties,
     [dimension]: value,
+  })
+}
+
+const updateFaceVisibility = (faceIndex: number, isVisible: boolean) => {
+  const newVisibleFaces = [...faceVisibility.value]
+  newVisibleFaces[faceIndex] = isVisible
+  console.log(newVisibleFaces)
+  emit('update:blockProperties', {
+    ...props.blockProperties,
+    visibleFaces: newVisibleFaces,
+  })
+}
+
+const updateBackfaceVisibility = (isVisible: boolean) => {
+  emit('update:blockProperties', {
+    ...props.blockProperties,
+    backfaceVisibility: isVisible,
   })
 }
 
@@ -219,4 +274,63 @@ function deleteColor(index: number) {
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+.face-visibility-controls {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.face-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  padding: 0.25rem;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+}
+
+.face-checkbox:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.face-checkbox input[type='checkbox'] {
+  cursor: pointer;
+  width: 18px;
+  height: 18px;
+}
+
+.face-checkbox span {
+  font-size: 14px;
+  user-select: none;
+}
+
+.backface-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+  margin-top: 0.5rem;
+}
+
+.backface-checkbox:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.backface-checkbox input[type='checkbox'] {
+  cursor: pointer;
+  width: 18px;
+  height: 18px;
+}
+
+.backface-checkbox > span {
+  font-size: 14px;
+  font-weight: 500;
+  user-select: none;
+}
+</style>

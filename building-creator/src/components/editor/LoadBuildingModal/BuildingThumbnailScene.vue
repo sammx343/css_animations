@@ -44,7 +44,8 @@ const getBlockStyle = (block: Block) => ({
 .building-thumbnail {
   transform: scale(0.2) translate(-50%, -50%);
   position: absolute;
-  top: -100%;
+  height: 0px !important;
+  top: 90%;
 }
 
 .scene {

@@ -32,6 +32,8 @@ export class BlockFactory {
       rotationY: 0,
       rotationZ: 0,
       grids: [GridFactory.createDefaultGrid()],
+      visibleFaces: [true, true, true, true, true, true],
+      backfaceVisibility: false,
     }
   }
 
@@ -63,6 +65,8 @@ export class BlockFactory {
       rotationY: 0,
       rotationZ: 0,
       grids: [GridFactory.createSmallGrid()],
+      visibleFaces: [true, true, true, true, true, true],
+      backfaceVisibility: false,
     }
   }
 
@@ -93,6 +97,8 @@ export class BlockFactory {
       rotationY: 0,
       rotationZ: 0,
       grids: [],
+      visibleFaces: [true, true, true, true, true, true],
+      backfaceVisibility: false,
     }
   }
 
@@ -154,6 +160,8 @@ export class BlockFactory {
     block.left = options?.left ?? -300
     block.bottom = options?.bottom ?? 0
     block.colors = [{ hex: '#ffffff', percentage: 100 }]
+    block.visibleFaces = [true, true, true, true, true, true]
+    block.backfaceVisibility = false
     return block
   }
 }

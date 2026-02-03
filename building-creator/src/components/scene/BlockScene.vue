@@ -8,13 +8,15 @@
           :style="getBlockStyle(block)"
           :key="index"
         >
-          <BlockFace
-            v-for="(face, index) in blockFaces"
-            :key="index"
-            :face-index="index"
-            :block="block"
-            :grids="block.grids"
-          />
+          <template v-for="(face, index) in blockFaces">
+            <BlockFace
+              v-if="isFaceVisible(block, index)"
+              :key="index"
+              :face-index="index"
+              :block="block"
+              :grids="block.grids"
+            />
+          </template>
         </div>
       </div>
     </div>
@@ -24,9 +26,9 @@
     <input
       id="block-height"
       type="range"
-  :min="ZOOM_CONFIG.MIN"
-  :max="ZOOM_CONFIG.MAX"
-  :step="ZOOM_CONFIG.STEP"
+      :min="ZOOM_CONFIG.MIN"
+      :max="ZOOM_CONFIG.MAX"
+      :step="ZOOM_CONFIG.STEP"
       :value="zoom"
       @input="updateZoom(($event.target as HTMLInputElement).value)"
     />
@@ -65,6 +67,15 @@ const getBlockStyle = (block: Block) => ({
 
 const updateZoom = (value: string) => {
   emit('update:zoom', value)
+}
+
+const isFaceVisible = (block: Block, faceIndex: number): boolean => {
+  // If visibleFaces is not defined, show all faces (default behavior)
+  if (!block.visibleFaces) {
+    return true
+  }
+  // Return the visibility state for this face, defaulting to true if not set
+  return block.visibleFaces[faceIndex] !== false
 }
 
 onMounted(() => {
