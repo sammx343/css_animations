@@ -16,12 +16,29 @@ export const useBuildingStore = defineStore('building', () => {
   // Error state for UI feedback
   const error = ref<string | null>(null)
 
+  // Notification state for action feedback
+  type NotificationType = {
+    variant: 'success' | 'error'
+    title: string
+    description: string
+  }
+  const notification = ref<NotificationType | null>(null)
+
   function setError(errorMessage: string | null) {
     error.value = errorMessage
   }
 
   function clearError() {
     error.value = null
+  }
+
+  function setNotification(notif: NotificationType | null) {
+    console.log('setNotification', notif)
+    notification.value = notif
+  }
+
+  function clearNotification() {
+    notification.value = null
   }
 
   function newBuilding() {
@@ -66,10 +83,23 @@ export const useBuildingStore = defineStore('building', () => {
   }
 
   function saveBuilding() {
+    console.log('does something')
     clearError()
     const result = BuildingService.saveBuilding(building.value)
+    console.log('saveBuilding', result)
     if (!result.success) {
       setError(result.error || 'Failed to save building')
+      setNotification({
+        variant: 'error',
+        title: 'Save Failed',
+        description: result.error || 'Failed to save building',
+      })
+    } else {
+      setNotification({
+        variant: 'success',
+        title: 'Building Saved',
+        description: `${building.value.name} has been saved successfully.`,
+      })
     }
   }
 
@@ -85,9 +115,26 @@ export const useBuildingStore = defineStore('building', () => {
 
   function deleteBuilding(buildingId: string) {
     clearError()
+    // Get building name before deleting for notification
+    const buildings = loadBuildingList()
+    const buildingToDelete = buildings.find((b) => b.id === buildingId)
+    const buildingName = buildingToDelete?.name || 'Building'
+
     const result = BuildingService.deleteBuilding(buildingId)
+
     if (!result.success) {
       setError(result.error || 'Failed to delete building')
+      setNotification({
+        variant: 'error',
+        title: 'Delete Failed',
+        description: result.error || 'Failed to delete building',
+      })
+    } else {
+      setNotification({
+        variant: 'success',
+        title: 'Building Deleted',
+        description: `Building ${buildingName} was successfully deleted.`,
+      })
     }
   }
 
@@ -107,6 +154,7 @@ export const useBuildingStore = defineStore('building', () => {
   return {
     building,
     error,
+    notification,
     newBuilding,
     updateBuildingBlock,
     updateBlockGrids,
@@ -119,7 +167,7 @@ export const useBuildingStore = defineStore('building', () => {
     initializeDefaultBuildings,
     duplicateBlock,
     deleteBlock,
-    setError,
-    clearError,
+    setNotification,
+    clearNotification,
   }
 })

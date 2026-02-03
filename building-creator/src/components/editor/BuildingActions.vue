@@ -6,14 +6,14 @@
 
       New
     </button>
-    <button class="button" @click="buildingStore.saveBuilding()">
+    <button class="button" @click="handleSave">
       <v-icon name="io-save"></v-icon>
       Save
     </button>
     <button
       class="button"
       v-if="buildingStore.isCurrentBuildingSaved()"
-      @click="buildingStore.saveCurrentBuildingAsNew()"
+      @click="handleSaveAsNew"
     >
       Save as New
     </button>
@@ -37,6 +37,18 @@ import { BlockFactory } from '@/factories/BlockFactory'
 const buildingStore = useBuildingStore()
 
 defineEmits(['open-building-list'])
+
+const handleSave = () => {
+  console.log('handleSave clicked')
+  console.log('buildingStore:', buildingStore)
+  console.log('saveBuilding method:', buildingStore.saveBuilding)
+  buildingStore.saveBuilding()
+}
+
+const handleSaveAsNew = () => {
+  console.log('handleSaveAsNew clicked')
+  buildingStore.saveCurrentBuildingAsNew()
+}
 
 const createBlock = () => {
   const blockNumber = buildingStore.building.blocks.length + 1
