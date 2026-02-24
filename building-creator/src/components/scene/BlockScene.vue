@@ -36,7 +36,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted, defineEmits } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import BlockFace from './BlockFace.vue'
 import type { Block } from '@/types/block'
 import { ZOOM_CONFIG } from '@/constants'

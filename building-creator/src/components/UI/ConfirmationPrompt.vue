@@ -9,7 +9,7 @@
   </Teleport>
 </template>
 <script setup lang="ts">
-import { defineEmits, onBeforeUnmount, onMounted, Teleport } from 'vue'
+import { onBeforeUnmount, onMounted, Teleport } from 'vue'
 const emit = defineEmits(['closePrompt'])
 
 const closePrompt = () => {
