@@ -16,7 +16,7 @@
       @close="() => gridStore.setGridControlOpen(false)"
     />
 
-    <BlockScene :blocks="buildingStore.building.blocks" :zoom="zoom" @update:zoom="zoom = $event" />
+    <Scene :blocks="buildingStore.building.blocks" :zoom="zoom" @update:zoom="zoom = $event" />
 
     <Modal v-if="showBuildingsModal" @close-modal="showBuildingsModal = false">
       <BuildingList @close="showBuildingsModal = false" />
@@ -36,7 +36,7 @@ import BuildingList from '@/components/editor/LoadBuildingModal/BuildingList.vue
 
 import GridList from '@/components/editor/grid/GridList.vue'
 import BlockList from '@/components/editor/block/BlockList.vue'
-import BlockScene from '@/components/scene/BlockScene.vue'
+import Scene from '@/components/scene/Scene.vue'
 import Modal from '@/components/UI/Modal.vue'
 import type { Grid } from '@/types/grid'
 
