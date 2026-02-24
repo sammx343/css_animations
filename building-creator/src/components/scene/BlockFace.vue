@@ -32,14 +32,24 @@ const props = defineProps<{
 const blockStore = useBlockStore()
 
 const faceStyle = computed(() => {
-  const { width, long, height, colors, colorsAngle } = props.block
+  const { width, long, height, colors, colorsAngle, backfaceVisibility } = props.block
   const index = props.faceIndex
-  const style = {
+  const style: {
+    background: string
+    transform: string
+    width: string
+    height: string
+    backfaceVisibility?: string
+  } = {
     background: colorsToLinearBackground(colors, colorsAngle),
     transform: '',
     width: '',
     height: '',
   }
+
+  // Set backface-visibility based on block property
+  // If backfaceVisibility is true, show backface (visible), otherwise hide it (hidden)
+  style.backfaceVisibility = backfaceVisibility === true ? 'visible' : 'hidden'
 
   if (index === 0) {
     style.transform = `translateZ(${width / 2}px)`
@@ -89,7 +99,6 @@ const colorsToLinearBackground = (colors: Color[], colorsAngle = 90) => {
   align-items: center;
   justify-content: center;
   position: absolute;
-  backface-visibility: hidden;
   border: 1px solid black;
 }
 </style>

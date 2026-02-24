@@ -1,22 +1,7 @@
 <template>
   <div class="scene" ref="sceneRef">
     <div class="scene-container" :style="sceneContainerStyle" ref="sceneContainerRef">
-      <div class="blocks-container">
-        <div
-          v-for="(block, index) in blocks"
-          class="block"
-          :style="getBlockStyle(block)"
-          :key="index"
-        >
-          <BlockFace
-            v-for="(face, index) in blockFaces"
-            :key="index"
-            :face-index="index"
-            :block="block"
-            :grids="block.grids"
-          />
-        </div>
-      </div>
+      <Building :blocks="blocks"></Building>
     </div>
   </div>
   <div class="zoom">
@@ -24,9 +9,9 @@
     <input
       id="block-height"
       type="range"
-  :min="ZOOM_CONFIG.MIN"
-  :max="ZOOM_CONFIG.MAX"
-  :step="ZOOM_CONFIG.STEP"
+      :min="ZOOM_CONFIG.MIN"
+      :max="ZOOM_CONFIG.MAX"
+      :step="ZOOM_CONFIG.STEP"
       :value="zoom"
       @input="updateZoom(($event.target as HTMLInputElement).value)"
     />
@@ -34,9 +19,9 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted, defineEmits } from 'vue'
-import BlockFace from './BlockFace.vue'
+import { ref, computed, onMounted } from 'vue'
 import type { Block } from '@/types/block'
+import Building from './Building.vue'
 import { ZOOM_CONFIG } from '@/constants'
 
 const emit = defineEmits(['update:zoom'])
@@ -44,7 +29,6 @@ const emit = defineEmits(['update:zoom'])
 const props = defineProps<{ zoom: string; blocks: Block[] }>()
 
 const sceneRef = ref(null)
-const blockFaces = ref(new Array(6).fill(null))
 const sumX = ref(0)
 const sumY = ref(0)
 let lastMouseX = 0
@@ -53,15 +37,6 @@ let lastMouseY = 0
 const sceneContainerStyle = computed(() => ({
   transform: `scale(${props.zoom}) rotateX(${sumY.value}deg) rotateY(${sumX.value}deg) `,
 }))
-
-const getBlockStyle = (block: Block) => ({
-  width: `${block.long}px`,
-  height: `${block.height}px`,
-  transform: `translateX(${block.positionX}px) translateY(${block.positionY}px) translateZ(${block.positionZ}px) rotateX(${block.rotationX}deg) rotateY(${block.rotationY}deg) rotateZ(${block.rotationZ}deg)`,
-  left: `${block.left || 0}px`,
-  bottom: `${block.bottom || 0}px`,
-  position: 'absolute',
-})
 
 const updateZoom = (value: string) => {
   emit('update:zoom', value)
