@@ -1,8 +1,8 @@
 <template>
   <Teleport to="body">
-    <div class="modal">
+    <div class="modal" @click="handleBackdropClick">
       <v-icon name="io-close" class="close-icon" @click="closeModal"></v-icon>
-      <div class="modal-container">
+      <div class="modal-container" @click.stop>
         <slot></slot>
       </div>
     </div>
@@ -14,6 +14,13 @@ const emit = defineEmits(['closeModal'])
 
 const closeModal = () => {
   emit('closeModal')
+}
+
+const handleBackdropClick = (event: MouseEvent) => {
+  // Close modal when clicking on the gray backdrop (not on the content)
+  if (event.target === event.currentTarget) {
+    closeModal()
+  }
 }
 
 onBeforeUnmount(() => {

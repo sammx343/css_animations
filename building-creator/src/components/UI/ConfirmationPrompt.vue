@@ -1,7 +1,7 @@
 <template>
   <Teleport to="body">
-    <div class="prompt">
-      <div class="prompt-container">
+    <div class="prompt" @click="handleBackdropClick">
+      <div class="prompt-container" @click.stop>
         <v-icon name="io-close" class="close-icon" @click="closePrompt"></v-icon>
         <slot></slot>
       </div>
@@ -14,6 +14,13 @@ const emit = defineEmits(['closePrompt'])
 
 const closePrompt = () => {
   emit('closePrompt')
+}
+
+const handleBackdropClick = (event: MouseEvent) => {
+  // Close prompt when clicking on the gray backdrop (not on the content)
+  if (event.target === event.currentTarget) {
+    closePrompt()
+  }
 }
 
 onBeforeUnmount(() => {
