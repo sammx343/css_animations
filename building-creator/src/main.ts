@@ -3,6 +3,7 @@ import './assets/main.css'
 import { createApp } from 'vue'
 import App from './App.vue'
 import { createPinia } from 'pinia'
+import router from './router'
 import { OhVueIcon, addIcons } from 'oh-vue-icons'
 import { configure, pageview } from 'vue-gtag'
 
@@ -56,4 +57,4 @@ addIcons(
   BiGrid3X3,
   MdKeyboardbackspaceRound,
 )
-createApp(App).use(pinia).component('v-icon', OhVueIcon).mount('#app')
+createApp(App).use(pinia).use(router).component('v-icon', OhVueIcon).mount('#app')

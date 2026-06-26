@@ -66,6 +66,8 @@ onMounted(() => {
 
 <style scoped>
 .scene {
+  position: relative;
+  top: 50px;
   perspective: 1050px;
   width: 100%;
   height: 100vh;
@@ -105,7 +107,7 @@ onMounted(() => {
   flex-direction: column;
   width: 200px;
   position: fixed;
-  top: 0;
+  top: 55px;
   right: 0;
 }
 </style>

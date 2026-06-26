@@ -1,16 +1,16 @@
 <template>
   <div class="building">
     <template v-for="block in blocks" :key="block.id">
-      <BlockPiece :block="block"></BlockPiece>
+      <Block :block="block"></Block>
     </template>
   </div>
 </template>
 
 <script setup lang="ts">
-import BlockPiece from './Block.vue'
-import type { Block } from '@/types/block'
+import Block from './Block.vue'
+import type { Block as BlockType } from '@/types/block'
 
-defineProps<{ blocks: Block[] }>()
+defineProps<{ blocks: BlockType[] }>()
 </script>
 
 <style scoped>

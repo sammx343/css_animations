@@ -1,6 +1,7 @@
 <template>
-  <buildingEditor></buildingEditor>
+  <TopNavigation />
+  <router-view />
 </template>
 <script setup lang="ts">
-import buildingEditor from './views/buildingEditor.vue'
+import TopNavigation from './components/navigation/TopNavigation.vue'
 </script>

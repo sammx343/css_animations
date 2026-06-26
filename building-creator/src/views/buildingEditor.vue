@@ -79,14 +79,15 @@ function openShowBuildingsModal() {
 .main {
   position: relative;
   width: 100%;
-  height: 100vh;
+  height: calc(100vh - 50px);
+  margin-top: 50px;
 }
 .controls {
   position: fixed;
-  top: 0;
+  top: 50px;
   left: 0;
   width: 380px;
-  height: 100%;
+  height: calc(100% - 50px);
   z-index: 10;
   overflow-y: auto;
   padding: 1rem;
