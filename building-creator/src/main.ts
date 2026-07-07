@@ -3,6 +3,7 @@ import './assets/main.css'
 import { createApp } from 'vue'
 import App from './App.vue'
 import { createPinia } from 'pinia'
+import router from './router'
 import { OhVueIcon, addIcons } from 'oh-vue-icons'
 import { configure, pageview } from 'vue-gtag'
 
@@ -25,6 +26,8 @@ import {
   IoCubeOutline,
   LaCubeSolid,
   BiGrid3X3,
+  OiSidebarExpand,
+  OiSidebarCollapse,
 } from 'oh-vue-icons/icons'
 
 import { GOOGLE_ANALYTICS_ID } from '@/constants'
@@ -55,5 +58,7 @@ addIcons(
   LaCubeSolid,
   BiGrid3X3,
   MdKeyboardbackspaceRound,
+  OiSidebarExpand,
+  OiSidebarCollapse,
 )
-createApp(App).use(pinia).component('v-icon', OhVueIcon).mount('#app')
+createApp(App).use(pinia).use(router).component('v-icon', OhVueIcon).mount('#app')

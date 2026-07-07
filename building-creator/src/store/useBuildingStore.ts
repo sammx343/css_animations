@@ -151,6 +151,15 @@ export const useBuildingStore = defineStore('building', () => {
     clearError()
   }
 
+  function getAllBuildings(): Building[] {
+    return loadBuildingList()
+  }
+
+  function getBuildingById(buildingId: string): Building | undefined {
+    const buildings = loadBuildingList()
+    return buildings.find((b) => b.id === buildingId)
+  }
+
   return {
     building,
     error,
@@ -169,5 +178,7 @@ export const useBuildingStore = defineStore('building', () => {
     deleteBlock,
     setNotification,
     clearNotification,
+    getAllBuildings,
+    getBuildingById,
   }
 })

@@ -10,11 +10,7 @@
       <v-icon name="io-save"></v-icon>
       Save
     </button>
-    <button
-      class="button"
-      v-if="buildingStore.isCurrentBuildingSaved()"
-      @click="handleSaveAsNew"
-    >
+    <button class="button" v-if="buildingStore.isCurrentBuildingSaved()" @click="handleSaveAsNew">
       Save as New
     </button>
     <button class="button" @click="$emit('open-building-list')">
@@ -39,14 +35,10 @@ const buildingStore = useBuildingStore()
 defineEmits(['open-building-list'])
 
 const handleSave = () => {
-  console.log('handleSave clicked')
-  console.log('buildingStore:', buildingStore)
-  console.log('saveBuilding method:', buildingStore.saveBuilding)
   buildingStore.saveBuilding()
 }
 
 const handleSaveAsNew = () => {
-  console.log('handleSaveAsNew clicked')
   buildingStore.saveCurrentBuildingAsNew()
 }
 
