@@ -17,6 +17,11 @@ const routes: RouteRecordRaw[] = [
     name: 'CityParallax',
     component: () => import('@/views/cityParallax.vue'),
   },
+  {
+    path: '/city-builder',
+    name: 'CityBuilder',
+    component: () => import('@/views/cityBuilder.vue'),
+  },
 ]
 
 const router = createRouter({

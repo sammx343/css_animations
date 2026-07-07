@@ -22,6 +22,7 @@ const routes = computed(() => [
   { name: 'BuildingEditor', path: '/', label: 'Building Editor' },
   { name: 'CityCreator', path: '/city-creator', label: 'City Creator' },
   { name: 'CityParallax', path: '/city-parallax', label: 'City Parallax' },
+  { name: 'CityBuilder', path: '/city-builder', label: 'City Builder' },
 ])
 </script>
 

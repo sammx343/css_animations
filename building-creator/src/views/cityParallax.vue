@@ -3,6 +3,14 @@
     <div class="world">
       <div class="floor" ref="floor">
         <div
+          class="positioned-building"
+          v-for="(building, index) in positionedBuildings"
+          :key="index"
+          :style="{ top: building.top, right: building.right }"
+        >
+          <Building :building="building.building"></Building>
+        </div>
+        <!-- <div
           class="cube"
           v-for="(cube, index) in cubes"
           :key="index"
@@ -14,7 +22,7 @@
             :key="faceIndex"
             :style="{ width: face.width, height: face.height, transform: face.transform }"
           ></div>
-        </div>
+        </div> -->
       </div>
     </div>
   </main>
@@ -22,15 +30,17 @@
 <script setup lang="ts">
 import { useTemplateRef, onMounted, onUnmounted, ref } from 'vue'
 import { useBuildingStore } from '@/store/useBuildingStore'
-import type { Building } from '@/types'
+import Building from '@/components/scene/Building.vue'
+import type { Building as BuildingType } from '@/types'
 const cubeWidth = 400
 const cubeHeight = 400
 const cubeLong = 600
 
 const buildingStore = useBuildingStore()
-const buildings = ref<Building[]>(buildingStore.loadBuildingList())
+const buildings = ref<BuildingType[]>(buildingStore.loadBuildingList())
 const floor = useTemplateRef('floor')
 const cubes = ref(createBuildings())
+const positionedBuildings: BuildingType[] = ref([])
 
 function scrollListener() {
   console.log(window.scrollY)
@@ -38,11 +48,21 @@ function scrollListener() {
     floor.value.style.transform = `rotateX(90deg) translateY(${window.scrollY}px)`
 }
 
+function createPositionedBuildings() {
+  for (let index = 0; index < buildings.value.length; index++) {
+    positionedBuildings.value.push({
+      top: `${95 - index * 30}%`,
+      right: `${Math.floor(Math.random() * 100)}%`,
+      building: buildings.value[index],
+    })
+  }
+}
+
 function createBuildings() {
   const cubes = []
   for (let index = 0; index < 30; index++) {
     cubes.push({
-      top: `${100 - index * 10}%`,
+      top: `${-0 - index * 10}%`,
       right: `${Math.floor(Math.random() * 100)}%`,
       faces: createFaces(),
     })
@@ -96,6 +116,7 @@ function createFaces(): face[] {
   return faces
 }
 onMounted(() => {
+  createPositionedBuildings()
   window.addEventListener('scroll', scrollListener)
 })
 
@@ -113,6 +134,12 @@ interface face {
 .main {
   height: 10000px;
   background: linear-gradient(#23ace3, #87cfd3, #d3e7c7, #eeb5b2, #a493b7, #63539d, #201732);
+}
+
+.positioned-building {
+  position: absolute;
+  transform: rotateX(-90deg) rotateY(90deg);
+  transform-style: preserve-3d;
 }
 
 .world {

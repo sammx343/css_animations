@@ -1,7 +1,7 @@
 <template>
   <div class="scene" ref="sceneRef">
     <div class="scene-container" :style="sceneContainerStyle" ref="sceneContainerRef">
-      <Building :blocks="blocks"></Building>
+      <Building :building="building"></Building>
     </div>
   </div>
   <div class="zoom">
@@ -20,13 +20,13 @@
 
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue'
-import type { Block } from '@/types/block'
 import Building from './Building.vue'
 import { ZOOM_CONFIG } from '@/constants'
+import type { Building as BuildingType } from '@/types/building.ts'
 
 const emit = defineEmits(['update:zoom'])
 
-const props = defineProps<{ zoom: string; blocks: Block[] }>()
+const props = defineProps<{ zoom: string; building: BuildingType }>()
 
 const sceneRef = ref(null)
 const sumX = ref(0)

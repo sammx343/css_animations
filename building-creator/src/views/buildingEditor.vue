@@ -16,7 +16,7 @@
       @close="() => gridStore.setGridControlOpen(false)"
     />
 
-    <Scene :blocks="buildingStore.building.blocks" :zoom="zoom" @update:zoom="zoom = $event" />
+    <Scene :building="buildingStore.building" :zoom="zoom" @update:zoom="zoom = $event" />
 
     <Modal v-if="showBuildingsModal" @close-modal="showBuildingsModal = false">
       <BuildingList @close="showBuildingsModal = false" />

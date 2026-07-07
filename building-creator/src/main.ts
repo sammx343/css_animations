@@ -26,6 +26,8 @@ import {
   IoCubeOutline,
   LaCubeSolid,
   BiGrid3X3,
+  OiSidebarExpand,
+  OiSidebarCollapse,
 } from 'oh-vue-icons/icons'
 
 import { GOOGLE_ANALYTICS_ID } from '@/constants'
@@ -56,5 +58,7 @@ addIcons(
   LaCubeSolid,
   BiGrid3X3,
   MdKeyboardbackspaceRound,
+  OiSidebarExpand,
+  OiSidebarCollapse,
 )
 createApp(App).use(pinia).use(router).component('v-icon', OhVueIcon).mount('#app')
